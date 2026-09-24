@@ -1,0 +1,7 @@
+import { ArrowRight, Check } from 'lucide-react'
+import { useService } from '../hooks'
+export default function ServiceDetailPage({ Layout, PageIntro, slug }) {
+  const { service } = useService(slug)
+  if (!service) return <Layout><main className="standard-page" /></Layout>
+  return <Layout><main className="standard-page"><PageIntro eyebrow="RTS SERVICE DETAIL" title={service.title} copy={service.description} /><section className="service-detail"><div><span className="eyebrow">WHAT WE DELIVER</span><h2>A sharper path from idea to <em>reader.</em></h2><p>Our specialists work closely with you to make this part of your publishing journey clear, considered and genuinely useful. We keep your voice at the centre of every decision.</p><a className="button" href="/publish">Talk to an expert <ArrowRight size={16} /></a></div><div className="service-benefits">{['Personal guidance', 'Professional production', 'Clear timelines', 'Author-first communication'].map(item => <div key={item}><Check size={16} />{item}</div>)}</div></section></main></Layout>
+}
