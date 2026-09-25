@@ -23,6 +23,6 @@ class DatabaseSeeder extends Seeder
             'is_admin' => true,
         ]);
 
-        $this->call([PublicationSeeder::class, ResearchSeeder::class]);
+        $this->call([PublicationSeeder::class, ResearchSeeder::class, ItSeeder::class]);
     }
 }

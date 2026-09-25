@@ -75,4 +75,73 @@ return [
 
     ],
 
+    'it' => [
+
+        'sections' => [
+            'stats' => ['Company statistics', 'Title = label, Value = number, Suffix = e.g. "+".'],
+            'hero_trust' => ['Home: hero trust line', 'Title = text shown next to the avatars.'],
+            'hero_avatars' => ['Home: hero avatars', 'Title = name (alt text), Image = photo.'],
+            'client_logos' => ['Home: client names strip', 'Title = client name.'],
+            'process_steps' => ['Development process steps', 'Title, Description. Steps are numbered by display order.'],
+            'why_choose_us' => ['Why choose us', 'Title, Description, Icon.'],
+            'mission_vision' => ['About: mission & vision', 'Title (e.g. Our Mission), Description, Icon.'],
+            'values' => ['About: values', 'Title, Description, Icon.'],
+            'about_intro' => ['About: who we are', 'Title = heading, Description = text (blank line between paragraphs; {years} and {team_count} are filled in), Image.'],
+            'about_culture' => ['About: work culture block', 'Title = heading, Image.'],
+            'culture_points' => ['About: work culture points', 'Title = point.'],
+            'team' => ['About: team members', 'Title = name, Subtitle = role, Image = photo.'],
+            'technologies' => ['Technologies', 'Title = name, Subtitle = group (Frontend, Backend, ...), Value = logo key.'],
+            'project_categories' => ['Portfolio filter categories', 'Title = category name, matching the project category.'],
+            'blog_categories' => ['Blog filter categories', 'Title = category name, matching the article tag.'],
+            'case_study_metrics' => ['Case studies: headline metrics', 'Title = label, Value = e.g. "200%+".'],
+            'contact_service_options' => ['Contact form: service options', 'Title = option.'],
+            'contact_budget_options' => ['Contact form: budget options', 'Title = option.'],
+        ],
+
+        'pages' => [
+            'home' => 'Home',
+            'about' => 'About Us',
+            'services' => 'Services',
+            'portfolio' => 'Portfolio',
+            'case-studies' => 'Case Studies',
+            'blog' => 'Blog',
+            'contact' => 'Contact',
+            'website-development' => 'Service: Website Development',
+            'software-development' => 'Service: Software Development',
+            'mobile-app-development' => 'Service: Mobile App Development',
+            'custom-software' => 'Service: Custom Software',
+            'ecommerce-solutions' => 'Service: E-Commerce Solutions',
+            'digital-marketing' => 'Service: Digital Marketing',
+            'seo' => 'Service: SEO',
+            'social-media-marketing' => 'Service: Social Media Marketing',
+            'paid-advertising' => 'Service: Paid Advertising',
+        ],
+
+        // Pages rendered by the service detail template (they have `content` blocks).
+        'service_pages' => [
+            'website-development', 'software-development', 'mobile-app-development', 'custom-software',
+            'ecommerce-solutions', 'digital-marketing', 'seo', 'social-media-marketing', 'paid-advertising',
+        ],
+
+        'service_categories' => [
+            'IT Services' => 'IT Services',
+            'Digital Marketing' => 'Digital Marketing',
+        ],
+
+        // Must match `icons` in roots_it/src/utils/iconMap.jsx.
+        'icons' => [
+            'activity', 'award', 'cart', 'chart', 'check', 'clipboard', 'clock', 'cloud', 'code', 'compass',
+            'cpu', 'database', 'edit', 'eye', 'feather', 'globe', 'grid', 'heart', 'layers', 'layout', 'lock',
+            'mail', 'monitor', 'package', 'pen', 'phone', 'pin', 'refresh', 'search', 'server', 'settings',
+            'share', 'shield', 'smartphone', 'support', 'target', 'thumbsUp', 'trending', 'users', 'zap',
+        ],
+
+        // Must match `techIcons` in roots_it/src/utils/iconMap.jsx.
+        'tech_icons' => [
+            'android', 'aws', 'css', 'express', 'firebase', 'flutter', 'html', 'ios', 'javascript', 'mongodb',
+            'mysql', 'nextjs', 'node', 'php', 'postgresql', 'python', 'react', 'react-native', 'typescript', 'vercel',
+        ],
+
+    ],
+
 ];

@@ -1,5 +1,6 @@
 import { FiArrowRight } from 'react-icons/fi';
 import Badge from '../common/Badge';
+import SmartImage from '../common/SmartImage';
 
 /**
  * Project card. `project` = { name, industry, category, technologies[], description, image }.
@@ -18,7 +19,7 @@ export default function ProjectCard({ project, onOpen }) {
       {...wrapperProps}
     >
       <div className="proj-card__media">
-        <img src={project.image} alt={project.name} loading="lazy" />
+        <SmartImage src={project.image} alt={project.name} loading="lazy" />
         <span className="proj-card__tag">
           <Badge>{project.category}</Badge>
         </span>
@@ -28,7 +29,7 @@ export default function ProjectCard({ project, onOpen }) {
         <h3>{project.name}</h3>
         <p>{project.description}</p>
         <div className="chip-row">
-          {project.technologies.map((t) => (
+          {(project.technologies ?? []).map((t) => (
             <span key={t} className="badge badge--soft">
               {t}
             </span>

@@ -1,0 +1,2067 @@
+{
+  "site": {
+    "name": "Roots Technology",
+    "shortName": "Roots",
+    "tagline": "Building Digital Solutions for Tomorrow",
+    "altTagline": "Transforming Ideas Into Powerful Digital Experiences",
+    "description": "Roots Technology is a software development and digital marketing agency helping businesses grow through web development, mobile apps, custom software, e-commerce and full-funnel marketing.",
+    "foundedYear": 2021,
+    "email": "hr@rootstechnology.com",
+    "phone": "+91 877 060 9424",
+    "phoneHref": "+91 877 060 9424",
+    "address": {
+      "line1": "88/1, Station, near Birla Nagar, Sanjay Nagar,",
+      "line2": " Gadhaipura, Gwalior, Madhya Pradesh 474004",
+      "country": "India"
+    },
+    "workingHours": "Mon – Sat, 10:00 AM – 6:00 PM (PST)",
+    "mapQuery": "Gwalior, Madhya Pradesh",
+    "socials": [
+      {
+        "label": "LinkedIn",
+        "icon": "linkedin",
+        "href": "https://www.linkedin.com/"
+      },
+      {
+        "label": "Instagram",
+        "icon": "instagram",
+        "href": "https://www.instagram.com/"
+      },
+      {
+        "label": "Facebook",
+        "icon": "facebook",
+        "href": "https://www.facebook.com/"
+      },
+      {
+        "label": "Twitter / X",
+        "icon": "x",
+        "href": "https://twitter.com/"
+      }
+    ],
+    "copyright": "© 2026 Roots Technology. All Rights Reserved."
+  },
+  "services": [
+    {
+      "title": "Website Development",
+      "slug": "website-development",
+      "category": "IT Services",
+      "description": "Fast, responsive, SEO-ready marketing sites and web apps built with React and Next.js.",
+      "icon": "monitor",
+      "link": "/services/website-development"
+    },
+    {
+      "title": "Software Development",
+      "slug": "software-development",
+      "category": "IT Services",
+      "description": "Custom web platforms, SaaS products and internal tools engineered for scale and reliability.",
+      "icon": "code",
+      "link": "/services/software-development"
+    },
+    {
+      "title": "App Development",
+      "slug": "app-development",
+      "category": "IT Services",
+      "description": "Cross-platform and native mobile apps with polished UX and rock-solid performance.",
+      "icon": "smartphone",
+      "link": "/services/mobile-app-development"
+    },
+    {
+      "title": "Custom Software Solutions",
+      "slug": "custom-software",
+      "category": "IT Services",
+      "description": "CRM, ERP, dashboards and workflow automation tailored precisely to how your business runs.",
+      "icon": "settings",
+      "link": "/services/custom-software"
+    },
+    {
+      "title": "E-Commerce Solutions",
+      "slug": "ecommerce-solutions",
+      "category": "IT Services",
+      "description": "Conversion-focused storefronts on Shopify, WooCommerce or fully custom stacks.",
+      "icon": "cart",
+      "link": "/services/ecommerce-solutions"
+    },
+    {
+      "title": "Mobile App Development",
+      "slug": "mobile-app-development",
+      "category": "IT Services",
+      "description": "Android, iOS and React Native builds — from UI/UX design through store launch and maintenance.",
+      "icon": "layers",
+      "link": "/services/mobile-app-development"
+    },
+    {
+      "title": "Search Engine Optimization",
+      "slug": "seo",
+      "category": "Digital Marketing",
+      "description": "Technical, on-page and off-page SEO that compounds into durable organic traffic.",
+      "icon": "search",
+      "link": "/digital-marketing/seo"
+    },
+    {
+      "title": "Local SEO",
+      "slug": "local-seo",
+      "category": "Digital Marketing",
+      "description": "Google Business Profile, citations and local content to own the map pack in your area.",
+      "icon": "pin",
+      "link": "/digital-marketing/seo"
+    },
+    {
+      "title": "Social Media Marketing",
+      "slug": "social-media-marketing",
+      "category": "Digital Marketing",
+      "description": "Strategy, content and community management across Instagram, Facebook, LinkedIn and more.",
+      "icon": "share",
+      "link": "/digital-marketing/social-media-marketing"
+    },
+    {
+      "title": "Google Ads",
+      "slug": "google-ads",
+      "category": "Digital Marketing",
+      "description": "Search, Display, Shopping and YouTube campaigns tuned for cost-efficient pipeline.",
+      "icon": "target",
+      "link": "/digital-marketing/paid-advertising"
+    },
+    {
+      "title": "Meta Ads",
+      "slug": "meta-ads",
+      "category": "Digital Marketing",
+      "description": "Full-funnel Facebook and Instagram advertising with creative testing and retargeting.",
+      "icon": "trending",
+      "link": "/digital-marketing/paid-advertising"
+    },
+    {
+      "title": "Content Marketing",
+      "slug": "content-marketing",
+      "category": "Digital Marketing",
+      "description": "Editorial strategy, articles and lead magnets that attract and convert your audience.",
+      "icon": "edit",
+      "link": "/digital-marketing"
+    },
+    {
+      "title": "Email Marketing",
+      "slug": "email-marketing",
+      "category": "Digital Marketing",
+      "description": "Lifecycle flows, newsletters and automation that turn subscribers into revenue.",
+      "icon": "mail",
+      "link": "/digital-marketing"
+    },
+    {
+      "title": "Branding",
+      "slug": "branding",
+      "category": "Digital Marketing",
+      "description": "Visual identity, messaging and guidelines that make your company instantly recognisable.",
+      "icon": "pen",
+      "link": "/digital-marketing"
+    },
+    {
+      "title": "Online Reputation Management",
+      "slug": "online-reputation-management",
+      "category": "Digital Marketing",
+      "description": "Review generation, monitoring and response strategy to protect and grow trust.",
+      "icon": "shield",
+      "link": "/digital-marketing"
+    },
+    {
+      "title": "Conversion Rate Optimization",
+      "slug": "conversion-rate-optimization",
+      "category": "Digital Marketing",
+      "description": "Analytics, experimentation and UX fixes that lift revenue from the traffic you already have.",
+      "icon": "chart",
+      "link": "/digital-marketing"
+    }
+  ],
+  "servicePages": [
+    {
+      "slug": "website-development",
+      "eyebrow": "Website Development",
+      "title": "Websites engineered to convert, rank and scale",
+      "subtitle": "We design and build fast, accessible, SEO-ready websites — from a single high-converting landing page to a multi-language corporate platform.",
+      "seoTitle": "Website Development Services",
+      "seoDescription": "Custom website development with React and Next.js — business sites, corporate sites, portfolios, landing pages, CMS and fully custom builds.",
+      "ctaTitle": "Ready to start your website project?",
+      "content": {
+        "category": "IT Services",
+        "parent_label": "Services",
+        "parent_link": "/services",
+        "intro": [
+          "Your website is the hub of every marketing channel you run. We treat it like a product: measurable, maintainable and built on a modern stack that your team (or ours) can extend for years.",
+          "Every build ships with clean semantic markup, Core Web Vitals in the green, a component library, and a content model that is ready to connect to a CMS whenever you want to edit pages yourself."
+        ],
+        "offerings": [
+          {
+            "title": "Business Websites",
+            "description": "Compact, persuasive sites that turn visitors into qualified enquiries.",
+            "icon": "globe"
+          },
+          {
+            "title": "Corporate Websites",
+            "description": "Multi-section, multi-language platforms with investor, careers and press areas.",
+            "icon": "layout"
+          },
+          {
+            "title": "Portfolio Websites",
+            "description": "Visual, case-study-driven sites for studios, agencies and individuals.",
+            "icon": "grid"
+          },
+          {
+            "title": "Landing Pages",
+            "description": "Single-goal pages wired to your ad campaigns and analytics for fast iteration.",
+            "icon": "target"
+          },
+          {
+            "title": "CMS Websites",
+            "description": "Headless CMS integration so non-technical teams publish without deploys.",
+            "icon": "edit"
+          },
+          {
+            "title": "Custom Websites",
+            "description": "Bespoke interactions, animations and integrations when templates fall short.",
+            "icon": "code"
+          }
+        ],
+        "technologies": [
+          "react",
+          "nextjs",
+          "javascript",
+          "typescript",
+          "html",
+          "css"
+        ],
+        "process": [
+          {
+            "title": "Discovery",
+            "description": "Goals, audiences, competitors and success metrics."
+          },
+          {
+            "title": "Wireframes",
+            "description": "Low-fidelity structure and content hierarchy for every page."
+          },
+          {
+            "title": "UI Design",
+            "description": "A polished design system in Figma, reviewed with you."
+          },
+          {
+            "title": "Development",
+            "description": "Responsive, componentised front-end with CMS wiring."
+          },
+          {
+            "title": "QA & SEO",
+            "description": "Cross-device testing, accessibility and technical SEO pass."
+          },
+          {
+            "title": "Launch & Support",
+            "description": "Deployment, analytics handover and a care plan."
+          }
+        ],
+        "benefits": [
+          "Sub-2-second load times and green Core Web Vitals",
+          "Accessible to WCAG 2.1 AA standards",
+          "Editable in a CMS — no developer needed for copy changes",
+          "Component library for consistent future pages",
+          "Analytics, event tracking and lead capture from day one",
+          "Hosting, monitoring and security handled by us"
+        ],
+        "industries": [],
+        "faqs": [
+          {
+            "q": "How long does a website take?",
+            "a": "A focused marketing site is typically 3–5 weeks. Larger corporate platforms with a CMS and multiple languages run 8–12 weeks."
+          },
+          {
+            "q": "Can we edit the site ourselves afterwards?",
+            "a": "Yes. We integrate a headless CMS (Sanity, Contentful or Strapi) so your team can edit pages, blog posts and components without touching code."
+          },
+          {
+            "q": "Do you provide the design too?",
+            "a": "Yes — UI/UX design is part of every engagement unless you already have finished designs you want us to build."
+          },
+          {
+            "q": "What about hosting?",
+            "a": "We deploy to Vercel or AWS and can manage hosting, SSL, backups and monitoring on a monthly care plan."
+          }
+        ],
+        "aside_title": "Included in every build",
+        "aside_points": [
+          "Responsive 320px → 4K",
+          "Technical SEO setup",
+          "Analytics & event tracking",
+          "CMS-ready content model",
+          "30 days post-launch support"
+        ]
+      }
+    },
+    {
+      "slug": "software-development",
+      "eyebrow": "Software Development",
+      "title": "Software that removes friction from how you work",
+      "subtitle": "We build custom platforms, SaaS products and internal tools — architected for security, uptime and the load you expect three years from now.",
+      "seoTitle": "Software Development Services",
+      "seoDescription": "Custom software, SaaS, CRM and ERP development. Enterprise-grade web platforms and business automation built to scale.",
+      "ctaTitle": "Let’s scope your software project",
+      "content": {
+        "category": "IT Services",
+        "parent_label": "Services",
+        "parent_link": "/services",
+        "intro": [
+          "Off-the-shelf tools force your processes to bend around their assumptions. Custom software does the opposite: it encodes your workflow, your data model and your rules exactly.",
+          "Our teams work in short iterations with continuous delivery, automated testing and observability baked in, so you see working software early and often."
+        ],
+        "offerings": [
+          {
+            "title": "Custom Software Development",
+            "description": "Purpose-built applications mapped to your exact operations.",
+            "icon": "code"
+          },
+          {
+            "title": "Enterprise Software",
+            "description": "Role-based access, audit trails and integrations for large organisations.",
+            "icon": "server"
+          },
+          {
+            "title": "SaaS Development",
+            "description": "Multi-tenant products with billing, onboarding and usage analytics.",
+            "icon": "cloud"
+          },
+          {
+            "title": "CRM Development",
+            "description": "Sales pipelines, contact intelligence and reporting tailored to your team.",
+            "icon": "users"
+          },
+          {
+            "title": "ERP Solutions",
+            "description": "Inventory, finance, HR and operations unified in one system.",
+            "icon": "grid"
+          },
+          {
+            "title": "Business Automation",
+            "description": "Replace manual, error-prone steps with reliable automated workflows.",
+            "icon": "refresh"
+          }
+        ],
+        "technologies": [
+          "react",
+          "nextjs",
+          "typescript",
+          "node",
+          "express",
+          "python",
+          "postgresql",
+          "mongodb",
+          "aws"
+        ],
+        "process": [
+          {
+            "title": "Discovery & Scoping",
+            "description": "Workshops to map processes, data and integration points."
+          },
+          {
+            "title": "Architecture",
+            "description": "System design, data model, security model and delivery plan."
+          },
+          {
+            "title": "Prototype",
+            "description": "A clickable prototype of the core workflow for validation."
+          },
+          {
+            "title": "Iterative Build",
+            "description": "Two-week sprints with demos, automated tests and CI/CD."
+          },
+          {
+            "title": "Hardening",
+            "description": "Load testing, penetration testing and observability."
+          },
+          {
+            "title": "Rollout & Support",
+            "description": "Phased launch, training and an SLA-backed support plan."
+          }
+        ],
+        "benefits": [
+          "Architecture designed for 10x your current usage",
+          "Automated test suites and CI/CD from sprint one",
+          "Security reviews and role-based access control",
+          "Documentation and knowledge transfer to your team",
+          "Cloud infrastructure as code — reproducible environments",
+          "Ongoing SLA support and enhancement roadmap"
+        ],
+        "industries": [
+          "Fintech",
+          "Healthcare",
+          "Logistics",
+          "Manufacturing",
+          "Education",
+          "Real Estate",
+          "Retail",
+          "Professional Services"
+        ],
+        "faqs": [
+          {
+            "q": "Do you work with our existing systems?",
+            "a": "Yes. Most projects involve integrating with ERPs, payment providers, data warehouses or legacy databases via APIs or scheduled syncs."
+          },
+          {
+            "q": "Who owns the code?",
+            "a": "You do. All source code, infrastructure definitions and documentation are handed over and hosted in your accounts."
+          },
+          {
+            "q": "Can you take over an existing codebase?",
+            "a": "Yes — we start with a technical audit, then stabilise and extend. We are transparent if a rewrite is genuinely the better option."
+          },
+          {
+            "q": "How do you price projects?",
+            "a": "Fixed-price for well-defined scopes, or a dedicated team model (monthly) for evolving products."
+          }
+        ],
+        "aside_title": "Engagement models",
+        "aside_points": [
+          "Fixed-scope project",
+          "Dedicated development team",
+          "Staff augmentation",
+          "Technical audit & rescue",
+          "Maintenance & SLA"
+        ]
+      }
+    },
+    {
+      "slug": "mobile-app-development",
+      "eyebrow": "Mobile App Development",
+      "title": "Mobile apps people keep on their home screen",
+      "subtitle": "From concept and UI/UX to store launch and iteration — native and cross-platform apps built for performance and retention.",
+      "seoTitle": "Mobile App Development Services",
+      "seoDescription": "Android, iOS and React Native app development — UI/UX design, cross-platform builds, store launch and maintenance.",
+      "ctaTitle": "Have an app idea? Let’s talk",
+      "content": {
+        "category": "IT Services",
+        "parent_label": "Services",
+        "parent_link": "/services",
+        "intro": [
+          "A great app feels instant, works offline, respects the platform’s conventions and earns its place through genuine utility. That is the bar we build to.",
+          "We ship with crash reporting, analytics and feature flags so you can learn from real usage and release improvements safely."
+        ],
+        "offerings": [
+          {
+            "title": "Android App Development",
+            "description": "Native Kotlin apps that follow Material guidelines and run smoothly on low-end devices.",
+            "icon": "smartphone"
+          },
+          {
+            "title": "iOS App Development",
+            "description": "Native Swift apps built to Apple’s Human Interface Guidelines.",
+            "icon": "smartphone"
+          },
+          {
+            "title": "Cross-Platform Development",
+            "description": "One React Native codebase, near-native feel, faster time to market.",
+            "icon": "layers"
+          },
+          {
+            "title": "React Native Development",
+            "description": "Our specialty — shared logic, native modules where they matter.",
+            "icon": "code"
+          },
+          {
+            "title": "App UI/UX Design",
+            "description": "Flows, prototypes and design systems tuned for thumb-reach and clarity.",
+            "icon": "pen"
+          },
+          {
+            "title": "App Maintenance",
+            "description": "OS updates, library upgrades, monitoring and feature iteration.",
+            "icon": "refresh"
+          }
+        ],
+        "technologies": [
+          "react-native",
+          "android",
+          "ios",
+          "firebase",
+          "typescript",
+          "node"
+        ],
+        "process": [
+          {
+            "title": "Product Definition",
+            "description": "Personas, core loop, feature list and success metrics."
+          },
+          {
+            "title": "UX & Prototype",
+            "description": "Interactive prototype tested with real users."
+          },
+          {
+            "title": "Architecture",
+            "description": "Offline strategy, state management, API contracts."
+          },
+          {
+            "title": "Build & Test",
+            "description": "Sprints with device-lab testing and beta builds."
+          },
+          {
+            "title": "Store Launch",
+            "description": "App Store and Play Store submission, assets and review support."
+          },
+          {
+            "title": "Iterate",
+            "description": "Analytics-driven improvements and staged rollouts."
+          }
+        ],
+        "benefits": [
+          "Single codebase for iOS and Android with React Native",
+          "60 fps interactions and fast cold-start times",
+          "Offline-first data layer where it matters",
+          "Crash reporting, analytics and feature flags built in",
+          "App Store / Play Store submission handled end to end",
+          "Post-launch iteration and OS-update maintenance"
+        ],
+        "industries": [
+          "On-demand services",
+          "Fintech",
+          "Health & fitness",
+          "Retail & loyalty",
+          "Logistics",
+          "Media"
+        ],
+        "faqs": [
+          {
+            "q": "Native or cross-platform?",
+            "a": "For most products React Native delivers the best value. We recommend fully native when you need heavy device-level performance (AR, complex graphics) or deep OS integration."
+          },
+          {
+            "q": "Do you handle the store submissions?",
+            "a": "Yes, including store listings, screenshots, privacy declarations and responding to review feedback."
+          },
+          {
+            "q": "Can you build the backend too?",
+            "a": "Yes — we build the API, auth, push notifications and admin dashboard as part of the same engagement."
+          },
+          {
+            "q": "What about ongoing maintenance?",
+            "a": "We offer monthly plans covering OS updates, dependency upgrades, monitoring and a block of iteration hours."
+          }
+        ],
+        "aside_title": "What you get",
+        "aside_points": [
+          "iOS + Android builds",
+          "Backend API & admin panel",
+          "Push notifications",
+          "Analytics & crash reporting",
+          "Store launch support"
+        ]
+      }
+    },
+    {
+      "slug": "custom-software",
+      "eyebrow": "Custom Software Solutions",
+      "title": "Solve the problem no product on the market solves",
+      "subtitle": "When spreadsheets, disconnected tools and manual handoffs are holding you back, we build the system that fits your business exactly.",
+      "seoTitle": "Custom Software Solutions",
+      "seoDescription": "Business automation, CRM and ERP systems, custom dashboards, workflow automation and API / third-party integrations.",
+      "ctaTitle": "Tell us what’s slowing your team down",
+      "content": {
+        "category": "IT Services",
+        "parent_label": "Services",
+        "parent_link": "/services",
+        "intro": [
+          "Every growing company reaches a point where its operations outgrow generic tools. Data lives in five places, reports are assembled by hand, and onboarding a new hire takes weeks.",
+          "We map those processes, find the highest-leverage automation, and deliver a system your team actually wants to use."
+        ],
+        "offerings": [
+          {
+            "title": "Business Automation",
+            "description": "Automate approvals, notifications, data entry and recurring tasks.",
+            "icon": "refresh"
+          },
+          {
+            "title": "CRM Systems",
+            "description": "A customer database and pipeline shaped around how you actually sell.",
+            "icon": "users"
+          },
+          {
+            "title": "ERP Systems",
+            "description": "Connect inventory, orders, finance and operations in one source of truth.",
+            "icon": "grid"
+          },
+          {
+            "title": "Custom Dashboards",
+            "description": "Live KPIs pulled from every system into one clear view.",
+            "icon": "chart"
+          },
+          {
+            "title": "Workflow Automation",
+            "description": "Model multi-step processes with rules, roles and audit trails.",
+            "icon": "activity"
+          },
+          {
+            "title": "API & Third-Party Integration",
+            "description": "Make your tools talk to each other — payments, ERPs, shipping, data.",
+            "icon": "layers"
+          }
+        ],
+        "technologies": [
+          "react",
+          "typescript",
+          "node",
+          "python",
+          "postgresql",
+          "mongodb",
+          "aws",
+          "firebase"
+        ],
+        "process": [
+          {
+            "title": "Process Mapping",
+            "description": "Shadow your team, document the as-is workflow and pain points."
+          },
+          {
+            "title": "Opportunity Sizing",
+            "description": "Rank automations by time saved and error reduction."
+          },
+          {
+            "title": "Solution Design",
+            "description": "Data model, integrations, roles and a phased delivery plan."
+          },
+          {
+            "title": "Build",
+            "description": "Ship the highest-value module first, then iterate."
+          },
+          {
+            "title": "Adoption",
+            "description": "Training, documentation and change management support."
+          },
+          {
+            "title": "Optimise",
+            "description": "Measure impact and expand to the next process."
+          }
+        ],
+        "benefits": [
+          "Hours of manual work removed every week",
+          "One source of truth instead of scattered spreadsheets",
+          "Fewer errors thanks to validation and automation",
+          "Faster onboarding with guided workflows",
+          "Real-time visibility for management",
+          "A platform that grows with new modules over time"
+        ],
+        "industries": [
+          "Distribution & wholesale",
+          "Field services",
+          "Healthcare admin",
+          "Construction",
+          "Agencies",
+          "Non-profits"
+        ],
+        "faqs": [
+          {
+            "q": "We already use tools like HubSpot and QuickBooks — do we replace them?",
+            "a": "Not necessarily. Often the right answer is to integrate them and build only the missing glue and workflows on top."
+          },
+          {
+            "q": "How do you keep the project from ballooning?",
+            "a": "We deliver in modules. The first release targets one painful process and proves value before we expand."
+          },
+          {
+            "q": "Will our team actually use it?",
+            "a": "Adoption is part of scope — we involve end users in design, keep the UI simple, and run training sessions at rollout."
+          },
+          {
+            "q": "Can it run on our servers?",
+            "a": "Yes. We deploy to your cloud account or on-premise infrastructure depending on your compliance needs."
+          }
+        ],
+        "aside_title": "Common starting points",
+        "aside_points": [
+          "Replace a fragile spreadsheet",
+          "Automate a manual approval chain",
+          "Unify two disconnected systems",
+          "Build a management dashboard",
+          "Add a customer / partner portal"
+        ]
+      }
+    },
+    {
+      "slug": "ecommerce-solutions",
+      "eyebrow": "E-Commerce Solutions",
+      "title": "Storefronts built to sell, not just to display",
+      "subtitle": "Fast, secure and merchandising-friendly online stores on Shopify, WooCommerce or a fully custom stack — with the operations tooling to match.",
+      "seoTitle": "E-Commerce Development Solutions",
+      "seoDescription": "Custom e-commerce websites, Shopify and WooCommerce development, payment gateway integration, inventory management and e-commerce mobile apps.",
+      "ctaTitle": "Let’s build a store that converts",
+      "content": {
+        "category": "IT Services",
+        "parent_label": "Services",
+        "parent_link": "/services",
+        "intro": [
+          "A store that loads slowly or checks out clumsily leaks revenue on every visit. We obsess over speed, trust signals and a checkout that gets out of the way.",
+          "Behind the storefront, we wire up inventory, orders, fulfilment and analytics so running the shop does not become a full-time data-entry job."
+        ],
+        "offerings": [
+          {
+            "title": "Custom E-Commerce Websites",
+            "description": "Headless storefronts with bespoke merchandising and content.",
+            "icon": "code"
+          },
+          {
+            "title": "Shopify Development",
+            "description": "Custom themes, apps and Shopify Plus builds.",
+            "icon": "cart"
+          },
+          {
+            "title": "WooCommerce Development",
+            "description": "WordPress + WooCommerce stores with tailored extensions.",
+            "icon": "settings"
+          },
+          {
+            "title": "Payment Gateway Integration",
+            "description": "Stripe, PayPal, Apple Pay, local gateways and fraud protection.",
+            "icon": "lock"
+          },
+          {
+            "title": "Inventory Management",
+            "description": "Real-time stock, variants, suppliers and low-stock alerts.",
+            "icon": "package"
+          },
+          {
+            "title": "E-Commerce Mobile Apps",
+            "description": "Companion shopping apps with push, wishlists and fast reorder.",
+            "icon": "smartphone"
+          }
+        ],
+        "technologies": [
+          "react",
+          "nextjs",
+          "typescript",
+          "node",
+          "php",
+          "mysql",
+          "postgresql",
+          "aws"
+        ],
+        "process": [
+          {
+            "title": "Catalogue & UX Audit",
+            "description": "Product data, categories, journeys and drop-off points."
+          },
+          {
+            "title": "Design",
+            "description": "Storefront, PDP and a checkout optimised for conversion."
+          },
+          {
+            "title": "Build",
+            "description": "Storefront, CMS, payments and integrations."
+          },
+          {
+            "title": "Operations Setup",
+            "description": "Inventory, shipping, tax and order workflows."
+          },
+          {
+            "title": "QA & Load Test",
+            "description": "Payment edge cases, performance and security checks."
+          },
+          {
+            "title": "Launch & Grow",
+            "description": "Migration, analytics and a CRO backlog."
+          }
+        ],
+        "benefits": [
+          "PCI-compliant, secure payments with multiple methods",
+          "Structured product management with variants and bundles",
+          "Order and fulfilment workflows that scale with volume",
+          "Customer accounts, wishlists and reorder flows",
+          "Analytics: funnel, cohort and product performance",
+          "Architecture that handles seasonal traffic spikes"
+        ],
+        "industries": [
+          "Fashion & apparel",
+          "Beauty & wellness",
+          "Food & beverage",
+          "Home & lifestyle",
+          "Electronics",
+          "B2B wholesale"
+        ],
+        "faqs": [
+          {
+            "q": "Shopify or custom?",
+            "a": "Shopify covers most needs brilliantly and we recommend it by default. We go custom / headless when you need unusual merchandising, complex B2B pricing or a content-heavy experience."
+          },
+          {
+            "q": "Can you migrate our existing store?",
+            "a": "Yes — products, customers, orders and URL redirects are all part of a migration plan so SEO and history are preserved."
+          },
+          {
+            "q": "Do you handle integrations with our ERP / 3PL?",
+            "a": "Yes. Inventory, order and fulfilment sync with systems like NetSuite, ShipStation or custom warehouses is a common part of scope."
+          },
+          {
+            "q": "Will the store be fast?",
+            "a": "Performance is a KPI on every build — image optimisation, edge caching and lean JavaScript keep pages quick even with large catalogues."
+          }
+        ],
+        "aside_title": "Store operations we set up",
+        "aside_points": [
+          "Payments & fraud protection",
+          "Inventory & variants",
+          "Shipping & tax rules",
+          "Order & returns workflow",
+          "Analytics & CRO backlog"
+        ]
+      }
+    },
+    {
+      "slug": "digital-marketing",
+      "eyebrow": "Digital Marketing",
+      "title": "Growth marketing with engineering discipline",
+      "subtitle": "One team across SEO, paid, social, content and CRO — aligned to pipeline and revenue, not vanity metrics.",
+      "seoTitle": "Digital Marketing Services",
+      "seoDescription": "Full-funnel digital marketing — SEO, paid ads, social media, content, email, branding and conversion rate optimisation with transparent reporting.",
+      "ctaTitle": "Get a free marketing audit",
+      "content": {
+        "category": "Digital Marketing",
+        "parent_label": "Digital Marketing",
+        "parent_link": "/digital-marketing",
+        "intro": [
+          "Most agencies optimise the channel they were hired for. We start from your funnel: where demand comes from, where it stalls, and which lever moves revenue fastest right now.",
+          "You get a clear strategy, a shared dashboard, and monthly reviews where we talk about outcomes — leads, CAC, LTV — not just impressions."
+        ],
+        "offerings": [
+          {
+            "title": "SEO",
+            "description": "Technical, content and authority work for compounding organic growth.",
+            "icon": "search"
+          },
+          {
+            "title": "Local SEO",
+            "description": "Map-pack visibility, reviews and location pages.",
+            "icon": "pin"
+          },
+          {
+            "title": "Google Ads",
+            "description": "Search, Shopping, Display and YouTube tuned to CPA targets.",
+            "icon": "target"
+          },
+          {
+            "title": "Meta Ads",
+            "description": "Full-funnel Facebook and Instagram with creative testing.",
+            "icon": "trending"
+          },
+          {
+            "title": "Social Media Marketing",
+            "description": "Organic strategy, content and community management.",
+            "icon": "share"
+          },
+          {
+            "title": "Content Marketing",
+            "description": "Editorial planning, production and distribution.",
+            "icon": "edit"
+          },
+          {
+            "title": "Email Marketing",
+            "description": "Lifecycle automation, newsletters and segmentation.",
+            "icon": "mail"
+          },
+          {
+            "title": "Branding",
+            "description": "Positioning, identity and messaging systems.",
+            "icon": "pen"
+          },
+          {
+            "title": "Conversion Rate Optimization",
+            "description": "Research, testing and UX fixes to lift conversion.",
+            "icon": "chart"
+          }
+        ],
+        "technologies": [],
+        "process": [
+          {
+            "title": "Audit",
+            "description": "Analytics, channels, competitors and funnel diagnostics."
+          },
+          {
+            "title": "Strategy",
+            "description": "Channel mix, targets, budget and a 90-day roadmap."
+          },
+          {
+            "title": "Setup",
+            "description": "Tracking, dashboards, creative and campaign infrastructure."
+          },
+          {
+            "title": "Execute",
+            "description": "Ship campaigns and content on a predictable cadence."
+          },
+          {
+            "title": "Analyse",
+            "description": "Weekly optimisation, monthly business reviews."
+          },
+          {
+            "title": "Scale",
+            "description": "Double down on what works, cut what does not."
+          }
+        ],
+        "benefits": [
+          "A single strategy across every channel",
+          "Shared live dashboard — no black boxes",
+          "Reporting tied to leads, CAC and revenue",
+          "Senior strategists on your account, not juniors",
+          "Creative, content and media under one roof",
+          "Month-to-month after the first 90 days"
+        ],
+        "industries": [],
+        "faqs": [
+          {
+            "q": "What is the minimum engagement?",
+            "a": "We ask for an initial 90-day period so strategy and tracking have time to produce signal. After that it is month-to-month."
+          },
+          {
+            "q": "Do you require a media budget minimum?",
+            "a": "For paid channels we typically recommend at least $3,000/month in media per platform to gather meaningful data."
+          },
+          {
+            "q": "Who owns the accounts and data?",
+            "a": "You do. All ad accounts, analytics and dashboards are in your ownership from day one."
+          },
+          {
+            "q": "How do you report?",
+            "a": "A live dashboard you can check any time, plus a monthly review call focused on business outcomes and next steps."
+          }
+        ],
+        "aside_title": "How we report",
+        "aside_points": [
+          "Live Looker Studio dashboard",
+          "Weekly optimisation notes",
+          "Monthly business review call",
+          "Quarterly strategy reset",
+          "Full account ownership"
+        ]
+      }
+    },
+    {
+      "slug": "seo",
+      "eyebrow": "Search Engine Optimization",
+      "title": "Organic traffic that compounds every month",
+      "subtitle": "Technical foundations, content that answers real queries, and authority building — measured against rankings, traffic and pipeline.",
+      "seoTitle": "SEO Services",
+      "seoDescription": "On-page, off-page and technical SEO, local SEO, keyword research, competitor analysis, SEO audits and link building with monthly reporting.",
+      "ctaTitle": "Request a free SEO audit",
+      "content": {
+        "category": "Digital Marketing",
+        "parent_label": "Digital Marketing",
+        "parent_link": "/digital-marketing",
+        "intro": [
+          "SEO is not a one-time project. It is a system: fix what search engines struggle to crawl, publish content that matches intent, and earn links that build trust.",
+          "We prioritise ruthlessly by opportunity and effort, so early wins fund the longer plays."
+        ],
+        "offerings": [
+          {
+            "title": "On-Page SEO",
+            "description": "Titles, structure, internal links and content optimisation.",
+            "icon": "edit"
+          },
+          {
+            "title": "Off-Page SEO",
+            "description": "Digital PR and link acquisition that moves authority metrics.",
+            "icon": "share"
+          },
+          {
+            "title": "Technical SEO",
+            "description": "Crawlability, indexation, speed, schema and Core Web Vitals.",
+            "icon": "settings"
+          },
+          {
+            "title": "Local SEO",
+            "description": "Google Business Profile, citations and location landing pages.",
+            "icon": "pin"
+          },
+          {
+            "title": "Keyword Research",
+            "description": "Intent-mapped keyword universe and content plan.",
+            "icon": "search"
+          },
+          {
+            "title": "Competitor Analysis",
+            "description": "Gap analysis on content, keywords and backlinks.",
+            "icon": "eye"
+          },
+          {
+            "title": "SEO Audit",
+            "description": "A prioritised, plain-English action list.",
+            "icon": "clipboard"
+          },
+          {
+            "title": "Link Building",
+            "description": "Editorially earned links from relevant, credible sites.",
+            "icon": "layers"
+          }
+        ],
+        "technologies": [],
+        "process": [
+          {
+            "title": "Website Audit",
+            "description": "Technical, content and authority baseline."
+          },
+          {
+            "title": "Keyword Research",
+            "description": "Map queries to intent and to funnel stage."
+          },
+          {
+            "title": "Competitor Analysis",
+            "description": "Find winnable gaps and quick wins."
+          },
+          {
+            "title": "On-Page Optimisation",
+            "description": "Templates, metadata, structure and internal links."
+          },
+          {
+            "title": "Content Optimisation",
+            "description": "Improve existing pages, plan new ones."
+          },
+          {
+            "title": "Technical SEO",
+            "description": "Fix crawl, speed and schema issues."
+          },
+          {
+            "title": "Link Building",
+            "description": "Outreach and digital PR campaigns."
+          },
+          {
+            "title": "Reporting",
+            "description": "Monthly rankings, traffic and conversion review."
+          }
+        ],
+        "benefits": [
+          "A prioritised roadmap, not a 200-page audit you ignore",
+          "Content briefs your writers (or ours) can execute",
+          "Technical fixes implemented, not just recommended",
+          "White-hat link building — no risky shortcuts",
+          "Rank tracking plus traffic and conversion reporting",
+          "Clear attribution to leads and revenue where possible"
+        ],
+        "industries": [],
+        "faqs": [
+          {
+            "q": "How long until we see results?",
+            "a": "Technical and on-page wins can show within 4–8 weeks. Competitive content and authority gains typically take 4–6 months to mature."
+          },
+          {
+            "q": "Do you guarantee #1 rankings?",
+            "a": "No credible SEO does. We commit to a defined scope of work and report transparently on rankings, traffic and conversions."
+          },
+          {
+            "q": "Can you implement the fixes or just advise?",
+            "a": "We can do both. Many clients have us implement directly; others want us to brief their dev team. Your call."
+          },
+          {
+            "q": "Is link building safe?",
+            "a": "Yes — we only pursue editorially earned links from relevant sites. We never buy links from networks or use private blog networks."
+          }
+        ],
+        "aside_title": "Deliverables each month",
+        "aside_points": [
+          "Prioritised task backlog",
+          "Content briefs & optimisation",
+          "Technical fix implementation",
+          "Link acquisition report",
+          "Rankings & traffic dashboard"
+        ]
+      }
+    },
+    {
+      "slug": "social-media-marketing",
+      "eyebrow": "Social Media Marketing",
+      "title": "A social presence that builds an audience, not just a feed",
+      "subtitle": "Platform-native strategy, a reliable content engine and real community management across the channels where your customers actually are.",
+      "seoTitle": "Social Media Marketing Services",
+      "seoDescription": "Social media strategy, content creation, post and reel design, community management and paid social across Instagram, Facebook, LinkedIn, X and YouTube.",
+      "ctaTitle": "Grow your social channels with us",
+      "content": {
+        "category": "Digital Marketing",
+        "parent_label": "Digital Marketing",
+        "parent_link": "/digital-marketing",
+        "intro": [
+          "Posting consistently is table stakes. Growth comes from a clear point of view, formats that suit each platform, and paying attention to what the audience responds to.",
+          "We run a monthly content system — plan, produce, publish, engage, review — so the channel keeps compounding instead of going quiet after week three."
+        ],
+        "offerings": [
+          {
+            "title": "Social Media Strategy",
+            "description": "Positioning, pillars, cadence and channel priorities.",
+            "icon": "compass"
+          },
+          {
+            "title": "Content Creation",
+            "description": "Copy, graphics and short-form video on a monthly calendar.",
+            "icon": "edit"
+          },
+          {
+            "title": "Post Design",
+            "description": "On-brand templates and carousels that stop the scroll.",
+            "icon": "pen"
+          },
+          {
+            "title": "Reels Strategy",
+            "description": "Hooks, formats and a shot list for repeatable short video.",
+            "icon": "activity"
+          },
+          {
+            "title": "Community Management",
+            "description": "Replies, DMs and proactive engagement in your voice.",
+            "icon": "users"
+          },
+          {
+            "title": "Paid Advertising",
+            "description": "Boosting and full campaigns to amplify the best content.",
+            "icon": "target"
+          }
+        ],
+        "technologies": [],
+        "process": [
+          {
+            "title": "Audit & Strategy",
+            "description": "Benchmark channels, define pillars and goals."
+          },
+          {
+            "title": "Content System",
+            "description": "Templates, tone guide and a monthly calendar."
+          },
+          {
+            "title": "Production",
+            "description": "Batch-produce posts, carousels and reels."
+          },
+          {
+            "title": "Publishing",
+            "description": "Schedule, optimise posting times and hashtags."
+          },
+          {
+            "title": "Engagement",
+            "description": "Daily community management and social listening."
+          },
+          {
+            "title": "Review",
+            "description": "Monthly report and next-month plan."
+          }
+        ],
+        "benefits": [
+          "A documented strategy, not ad-hoc posting",
+          "Consistent, on-brand content every week",
+          "Short-form video system your team can sustain",
+          "Active community management in your voice",
+          "Paid amplification of proven organic winners",
+          "Monthly reporting on growth, engagement and traffic"
+        ],
+        "industries": [],
+        "faqs": [
+          {
+            "q": "Which platforms should we be on?",
+            "a": "We recommend focusing on two or three where your audience is active rather than spreading thin. For B2B that is often LinkedIn + one visual channel; for B2C, Instagram + TikTok/Reels."
+          },
+          {
+            "q": "Do you create the video content?",
+            "a": "Yes — we handle scripting, editing and motion graphics. For on-camera footage we either direct your team remotely or arrange a shoot."
+          },
+          {
+            "q": "Can you manage paid and organic together?",
+            "a": "Yes, and we recommend it — organic tells us which content deserves budget behind it."
+          },
+          {
+            "q": "How much input do we need to provide?",
+            "a": "About one hour a month for a planning call plus quick approvals. We handle the rest."
+          }
+        ],
+        "aside_title": "Monthly package includes",
+        "aside_points": [
+          "Content calendar",
+          "16–20 feed posts",
+          "8–12 reels / shorts",
+          "Daily community management",
+          "Performance report"
+        ]
+      }
+    },
+    {
+      "slug": "paid-advertising",
+      "eyebrow": "Paid Advertising",
+      "title": "Paid media managed to a number that matters",
+      "subtitle": "Every campaign is built around a target CPA or ROAS, with creative testing and tight feedback loops to get there faster.",
+      "seoTitle": "Paid Advertising & PPC Services",
+      "seoDescription": "Google Ads, Meta Ads, Instagram, LinkedIn and YouTube advertising plus remarketing — strategy, targeting, creative, optimisation and reporting.",
+      "ctaTitle": "Get a free paid-media audit",
+      "content": {
+        "category": "Digital Marketing",
+        "parent_label": "Digital Marketing",
+        "parent_link": "/digital-marketing",
+        "intro": [
+          "Paid channels reward discipline: clean tracking, a structured account, strong creative and the patience to let tests reach significance.",
+          "We treat your budget like our own — pausing what is not working quickly and scaling what is, with full visibility for you the whole way."
+        ],
+        "offerings": [
+          {
+            "title": "Google Ads",
+            "description": "Search, Performance Max, Shopping and Display.",
+            "icon": "search"
+          },
+          {
+            "title": "Meta Ads",
+            "description": "Facebook and Instagram full-funnel campaigns.",
+            "icon": "share"
+          },
+          {
+            "title": "Instagram Ads",
+            "description": "Feed, Stories and Reels placements with native creative.",
+            "icon": "trending"
+          },
+          {
+            "title": "LinkedIn Ads",
+            "description": "ABM and lead-gen for considered B2B purchases.",
+            "icon": "users"
+          },
+          {
+            "title": "YouTube Ads",
+            "description": "In-stream and Shorts campaigns for reach and retargeting.",
+            "icon": "activity"
+          },
+          {
+            "title": "Remarketing",
+            "description": "Win back visitors and nurture leads across the web.",
+            "icon": "refresh"
+          }
+        ],
+        "technologies": [],
+        "process": [
+          {
+            "title": "Campaign Strategy",
+            "description": "Goals, funnel map, budget split and KPI targets."
+          },
+          {
+            "title": "Audience Targeting",
+            "description": "Segments, lookalikes, intent and exclusion lists."
+          },
+          {
+            "title": "Ad Creatives",
+            "description": "Concepts, variations and a testing matrix."
+          },
+          {
+            "title": "Launch",
+            "description": "Structured account build with conversion tracking."
+          },
+          {
+            "title": "Optimisation",
+            "description": "Bid, budget, creative and landing-page iteration."
+          },
+          {
+            "title": "Reporting",
+            "description": "Weekly notes and a monthly review against targets."
+          }
+        ],
+        "benefits": [
+          "Campaigns managed to CPA / ROAS targets",
+          "Server-side conversion tracking set up properly",
+          "Systematic creative testing, not guesswork",
+          "Landing-page and offer feedback, not just ad tweaks",
+          "Transparent reporting — you own every account",
+          "No long lock-in after the initial 90 days"
+        ],
+        "industries": [],
+        "faqs": [
+          {
+            "q": "What budget do we need?",
+            "a": "As a guide, at least $3,000/month in media per platform gives campaigns enough data to optimise within a reasonable timeframe."
+          },
+          {
+            "q": "Do you build the landing pages?",
+            "a": "We can. Where we do not, we give specific, prioritised recommendations — the landing page usually matters more than the ad."
+          },
+          {
+            "q": "How is your fee structured?",
+            "a": "A flat monthly management fee based on scope and number of platforms — not a percentage of spend, so our incentives stay aligned."
+          },
+          {
+            "q": "How soon will we see results?",
+            "a": "Early signal in 2–4 weeks; stable, optimised performance usually by month two once tracking and tests have matured."
+          }
+        ],
+        "aside_title": "Every engagement includes",
+        "aside_points": [
+          "Conversion tracking audit",
+          "Account restructure",
+          "Creative testing plan",
+          "Weekly optimisation",
+          "Monthly review vs targets"
+        ]
+      }
+    }
+  ],
+  "stats": [
+    {
+      "id": 1,
+      "value": 100,
+      "suffix": "+",
+      "label": "Projects Delivered"
+    },
+    {
+      "id": 2,
+      "value": 50,
+      "suffix": "+",
+      "label": "Happy Clients"
+    },
+    {
+      "id": 3,
+      "value": 5,
+      "suffix": "+",
+      "label": "Years Experience"
+    },
+    {
+      "id": 4,
+      "value": 10,
+      "suffix": "+",
+      "label": "Technology Experts"
+    }
+  ],
+  "process": [
+    {
+      "step": 1,
+      "title": "Discovery",
+      "description": "We learn your goals, users, constraints and definition of success before writing a line of code.",
+      "icon": "compass"
+    },
+    {
+      "step": 2,
+      "title": "Planning",
+      "description": "Scope, architecture, milestones and a delivery plan you sign off on.",
+      "icon": "clipboard"
+    },
+    {
+      "step": 3,
+      "title": "Design",
+      "description": "Wireframes then a polished UI system, reviewed together in short cycles.",
+      "icon": "pen"
+    },
+    {
+      "step": 4,
+      "title": "Development",
+      "description": "Two-week sprints with working demos, automated tests and CI/CD.",
+      "icon": "code"
+    },
+    {
+      "step": 5,
+      "title": "Testing",
+      "description": "Cross-device QA, accessibility, performance and security checks.",
+      "icon": "shield"
+    },
+    {
+      "step": 6,
+      "title": "Deployment",
+      "description": "Zero-downtime release, monitoring, analytics and a smooth handover.",
+      "icon": "zap"
+    },
+    {
+      "step": 7,
+      "title": "Support",
+      "description": "Ongoing maintenance, iteration and an enhancement roadmap.",
+      "icon": "support"
+    }
+  ],
+  "whyChooseUs": [
+    {
+      "id": 1,
+      "title": "Experienced Team",
+      "description": "Senior engineers, designers and marketers who have shipped across dozens of industries.",
+      "icon": "award"
+    },
+    {
+      "id": 2,
+      "title": "Custom Solutions",
+      "description": "No forced templates — every build is shaped around your goals and constraints.",
+      "icon": "settings"
+    },
+    {
+      "id": 3,
+      "title": "Latest Technologies",
+      "description": "Modern, well-supported stacks chosen for longevity, not novelty.",
+      "icon": "cpu"
+    },
+    {
+      "id": 4,
+      "title": "Transparent Communication",
+      "description": "Live dashboards, clear updates and a single point of contact who knows your account.",
+      "icon": "eye"
+    },
+    {
+      "id": 5,
+      "title": "On-Time Delivery",
+      "description": "Realistic plans, weekly demos and a track record of hitting the dates we commit to.",
+      "icon": "clock"
+    },
+    {
+      "id": 6,
+      "title": "Quality Assurance",
+      "description": "Automated tests, code review and cross-device QA on everything we ship.",
+      "icon": "check"
+    },
+    {
+      "id": 7,
+      "title": "Dedicated Support",
+      "description": "Post-launch care plans with real SLAs — we do not disappear at handover.",
+      "icon": "support"
+    },
+    {
+      "id": 8,
+      "title": "Scalable Solutions",
+      "description": "Architecture designed for where your business will be in three years.",
+      "icon": "trending"
+    }
+  ],
+  "mission": "To help ambitious businesses turn ideas into reliable digital products and measurable growth — with a team that acts like an extension of their own.",
+  "vision": "A world where great software and honest marketing are accessible to companies of every size, not just the ones with the biggest budgets.",
+  "values": [
+    {
+      "id": 1,
+      "title": "Outcomes over output",
+      "description": "We measure ourselves by the results you get, not the hours we bill or features we ship.",
+      "icon": "target"
+    },
+    {
+      "id": 2,
+      "title": "Radical transparency",
+      "description": "Live dashboards, honest status updates, and early warnings when something is off track.",
+      "icon": "eye"
+    },
+    {
+      "id": 3,
+      "title": "Craft",
+      "description": "Clean code, considered design and details that hold up under real-world use.",
+      "icon": "feather"
+    },
+    {
+      "id": 4,
+      "title": "Ownership",
+      "description": "We take responsibility end to end — from architecture decisions to the launch-day pager.",
+      "icon": "shield"
+    },
+    {
+      "id": 5,
+      "title": "Partnership",
+      "description": "We say no when it is right for you, and we teach as we go so your team levels up too.",
+      "icon": "users"
+    },
+    {
+      "id": 6,
+      "title": "Momentum",
+      "description": "Ship early, learn fast, iterate. Progress you can see every single sprint.",
+      "icon": "zap"
+    }
+  ],
+  "culture": [
+    "Remote-first with quarterly team gatherings",
+    "Dedicated learning budget and conference days",
+    "No-meeting Wednesdays for deep work",
+    "Open salary bands and clear progression",
+    "Rotating on-call with proper time off after",
+    "20% time for internal tools and R&D"
+  ],
+  "team": [
+    {
+      "id": 1,
+      "name": "Aarav Mehta",
+      "role": "Founder & CEO",
+      "avatar": "https://i.pravatar.cc/160?u=aarav-mehta"
+    },
+    {
+      "id": 2,
+      "name": "Priya Nair",
+      "role": "Head of Engineering",
+      "avatar": "https://i.pravatar.cc/160?u=priya-nair"
+    },
+    {
+      "id": 3,
+      "name": "Daniel Osei",
+      "role": "Lead Mobile Engineer",
+      "avatar": "https://i.pravatar.cc/160?u=daniel-osei"
+    },
+    {
+      "id": 4,
+      "name": "Elena Rossi",
+      "role": "Principal Product Designer",
+      "avatar": "https://i.pravatar.cc/160?u=elena-rossi"
+    },
+    {
+      "id": 5,
+      "name": "Marcus Feld",
+      "role": "Head of Growth Marketing",
+      "avatar": "https://i.pravatar.cc/160?u=marcus-feld"
+    },
+    {
+      "id": 6,
+      "name": "Sofia Alvarez",
+      "role": "Delivery Director",
+      "avatar": "https://i.pravatar.cc/160?u=sofia-alvarez"
+    },
+    {
+      "id": 7,
+      "name": "Kenji Watanabe",
+      "role": "Cloud & DevOps Lead",
+      "avatar": "https://i.pravatar.cc/160?u=kenji-watanabe"
+    },
+    {
+      "id": 8,
+      "name": "Hannah Cole",
+      "role": "Client Partner",
+      "avatar": "https://i.pravatar.cc/160?u=hannah-cole"
+    }
+  ],
+  "technologies": [
+    {
+      "name": "React",
+      "icon": "react",
+      "group": "Frontend"
+    },
+    {
+      "name": "Next.js",
+      "icon": "nextjs",
+      "group": "Frontend"
+    },
+    {
+      "name": "JavaScript",
+      "icon": "javascript",
+      "group": "Frontend"
+    },
+    {
+      "name": "TypeScript",
+      "icon": "typescript",
+      "group": "Frontend"
+    },
+    {
+      "name": "HTML5",
+      "icon": "html",
+      "group": "Frontend"
+    },
+    {
+      "name": "CSS3",
+      "icon": "css",
+      "group": "Frontend"
+    },
+    {
+      "name": "Node.js",
+      "icon": "node",
+      "group": "Backend"
+    },
+    {
+      "name": "Express.js",
+      "icon": "express",
+      "group": "Backend"
+    },
+    {
+      "name": "PHP",
+      "icon": "php",
+      "group": "Backend"
+    },
+    {
+      "name": "Python",
+      "icon": "python",
+      "group": "Backend"
+    },
+    {
+      "name": "React Native",
+      "icon": "react-native",
+      "group": "Mobile"
+    },
+    {
+      "name": "Android",
+      "icon": "android",
+      "group": "Mobile"
+    },
+    {
+      "name": "iOS",
+      "icon": "ios",
+      "group": "Mobile"
+    },
+    {
+      "name": "MongoDB",
+      "icon": "mongodb",
+      "group": "Database"
+    },
+    {
+      "name": "MySQL",
+      "icon": "mysql",
+      "group": "Database"
+    },
+    {
+      "name": "PostgreSQL",
+      "icon": "postgresql",
+      "group": "Database"
+    },
+    {
+      "name": "Firebase",
+      "icon": "firebase",
+      "group": "Database"
+    },
+    {
+      "name": "AWS",
+      "icon": "aws",
+      "group": "Cloud & DevOps"
+    },
+    {
+      "name": "Firebase",
+      "icon": "firebase",
+      "group": "Cloud & DevOps"
+    },
+    {
+      "name": "Vercel",
+      "icon": "vercel",
+      "group": "Cloud & DevOps"
+    }
+  ],
+  "testimonials": [
+    {
+      "id": 1,
+      "name": "Sarah Whitfield",
+      "role": "VP Product",
+      "company": "NorthPeak Analytics",
+      "rating": 5,
+      "avatar": "https://i.pravatar.cc/160?u=sarah-whitfield",
+      "quote": "Roots Technology shipped our analytics platform on time and under budget. Two years on, it still scales without us thinking about it. Genuinely a rare experience with an agency."
+    },
+    {
+      "id": 2,
+      "name": "James Okoro",
+      "role": "Founder & CEO",
+      "company": "Lumen Store",
+      "rating": 5,
+      "avatar": "https://i.pravatar.cc/160?u=james-okoro",
+      "quote": "Our headless replatform cut load times in half and mobile conversion jumped 27%. They cared about the numbers as much as we did."
+    },
+    {
+      "id": 3,
+      "name": "Dr. Anita Rao",
+      "role": "Chief Medical Officer",
+      "company": "CareLoop",
+      "rating": 5,
+      "avatar": "https://i.pravatar.cc/160?u=anita-rao",
+      "quote": "The team understood that reliability in a healthcare app is non-negotiable. Offline-first was handled beautifully and our patients notice the difference."
+    },
+    {
+      "id": 4,
+      "name": "Tom Bergström",
+      "role": "Operations Director",
+      "company": "Meridian Freight",
+      "rating": 5,
+      "avatar": "https://i.pravatar.cc/160?u=tom-bergstrom",
+      "quote": "They replaced seven spreadsheets with one system, rolled out in modules so we were never disrupted. Invoicing went from five days to same-day."
+    },
+    {
+      "id": 5,
+      "name": "Leah Kim",
+      "role": "Head of Growth",
+      "company": "GreenRoute",
+      "rating": 5,
+      "avatar": "https://i.pravatar.cc/160?u=leah-kim",
+      "quote": "Organic went from an afterthought to our top lead channel in nine months. The reporting is honest — we always know exactly what is working."
+    },
+    {
+      "id": 6,
+      "name": "Michael Grant",
+      "role": "Managing Partner",
+      "company": "Atlas Legal",
+      "rating": 5,
+      "avatar": "https://i.pravatar.cc/160?u=michael-grant",
+      "quote": "A corporate site for a firm our size is a political project as much as a technical one. Roots handled both with patience and a very polished result."
+    }
+  ],
+  "faqs": [
+    {
+      "q": "What does a typical engagement look like?",
+      "a": "We start with a short discovery phase to align on goals and scope, then work in two-week sprints with demos and a shared board. You always know what we are working on and why."
+    },
+    {
+      "q": "How much does a project cost?",
+      "a": "It depends on scope, but as a guide: marketing sites start around $6k, custom software and apps typically run $25k–$120k, and marketing retainers start at $3k/month. We give a fixed quote after a scoping call."
+    },
+    {
+      "q": "Do you work with clients outside the US?",
+      "a": "Yes. We are remote-first and work with clients across North America, Europe and Asia, with overlapping hours arranged per engagement."
+    },
+    {
+      "q": "Who owns the code and accounts?",
+      "a": "You do — always. Source code, infrastructure and every ad or analytics account live in your ownership from day one."
+    },
+    {
+      "q": "Can you take over an existing project?",
+      "a": "Often, yes. We begin with a technical or marketing audit, stabilise the essentials, then build a plan to move forward."
+    },
+    {
+      "q": "What happens after launch?",
+      "a": "We offer care plans covering monitoring, maintenance, security updates and a block of iteration hours, plus a quarterly roadmap review."
+    }
+  ],
+  "serviceOptions": [
+    "Website Development",
+    "Software Development",
+    "Mobile App Development",
+    "Custom Software Solutions",
+    "E-Commerce Solutions",
+    "SEO",
+    "Social Media Marketing",
+    "Paid Advertising",
+    "Digital Marketing (full-funnel)",
+    "Not sure yet"
+  ],
+  "budgetOptions": [
+    "Under $5,000",
+    "$5,000 – $15,000",
+    "$15,000 – $50,000",
+    "$50,000 – $100,000",
+    "$100,000+",
+    "Monthly retainer"
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "name": "NorthPeak Analytics",
+      "slug": "northpeak-analytics",
+      "category": "Software",
+      "industry": "SaaS / Data",
+      "technologies": [
+        "React",
+        "TypeScript",
+        "Node.js",
+        "PostgreSQL"
+      ],
+      "description": "A multi-tenant analytics platform with self-serve dashboards, scheduled reports and role-based access for 4,000+ users.",
+      "image": "https://picsum.photos/seed/northpeak/900/600",
+      "year": 2025,
+      "featured": true
+    },
+    {
+      "id": 2,
+      "name": "Lumen Store",
+      "slug": "lumen-store",
+      "category": "E-Commerce",
+      "industry": "Retail / Lifestyle",
+      "technologies": [
+        "Next.js",
+        "Shopify",
+        "Stripe"
+      ],
+      "description": "Headless Shopify storefront with custom bundling, a 1.2s median load time and a rebuilt mobile checkout.",
+      "image": "https://picsum.photos/seed/lumen/900/600",
+      "year": 2025,
+      "featured": true
+    },
+    {
+      "id": 3,
+      "name": "CareLoop",
+      "slug": "careloop",
+      "category": "Mobile Apps",
+      "industry": "Healthcare",
+      "technologies": [
+        "React Native",
+        "Firebase",
+        "Node.js"
+      ],
+      "description": "A patient companion app with medication reminders, secure messaging and offline-first records.",
+      "image": "https://picsum.photos/seed/careloop/900/600",
+      "year": 2024,
+      "featured": true
+    },
+    {
+      "id": 4,
+      "name": "Meridian Freight",
+      "slug": "meridian-freight",
+      "category": "Software",
+      "industry": "Logistics",
+      "technologies": [
+        "React",
+        "Python",
+        "PostgreSQL",
+        "AWS"
+      ],
+      "description": "A logistics operations system unifying dispatch, tracking and billing — replacing seven spreadsheets.",
+      "image": "https://picsum.photos/seed/meridian/900/600",
+      "year": 2024,
+      "featured": true
+    },
+    {
+      "id": 5,
+      "name": "Atlas Legal",
+      "slug": "atlas-legal",
+      "category": "Website",
+      "industry": "Professional Services",
+      "technologies": [
+        "Next.js",
+        "Sanity CMS"
+      ],
+      "description": "A corporate website for a 120-lawyer firm with a headless CMS, careers portal and multi-language support.",
+      "image": "https://picsum.photos/seed/atlas/900/600",
+      "year": 2025,
+      "featured": true
+    },
+    {
+      "id": 6,
+      "name": "GreenRoute",
+      "slug": "greenroute",
+      "category": "Digital Marketing",
+      "industry": "CleanTech",
+      "technologies": [
+        "SEO",
+        "Google Ads",
+        "Content"
+      ],
+      "description": "A 9-month growth programme that grew organic traffic 210% and cut cost per lead by 38%.",
+      "image": "https://picsum.photos/seed/greenroute/900/600",
+      "year": 2025,
+      "featured": true
+    },
+    {
+      "id": 7,
+      "name": "Fable Studio",
+      "slug": "fable-studio",
+      "category": "Website",
+      "industry": "Creative Agency",
+      "technologies": [
+        "React",
+        "Framer Motion"
+      ],
+      "description": "An animation-rich portfolio site with case studies, a CMS and a sub-1.5s Largest Contentful Paint.",
+      "image": "https://picsum.photos/seed/fable/900/600",
+      "year": 2024,
+      "featured": false
+    },
+    {
+      "id": 8,
+      "name": "Orbit Rewards",
+      "slug": "orbit-rewards",
+      "category": "Mobile Apps",
+      "industry": "Retail / Loyalty",
+      "technologies": [
+        "React Native",
+        "Node.js",
+        "MongoDB"
+      ],
+      "description": "A loyalty app with digital cards, push offers and a merchant dashboard, launched on iOS and Android.",
+      "image": "https://picsum.photos/seed/orbit/900/600",
+      "year": 2025,
+      "featured": false
+    }
+  ],
+  "projectCategories": [
+    "All",
+    "Website",
+    "Mobile Apps",
+    "Software",
+    "E-Commerce",
+    "Digital Marketing"
+  ],
+  "caseStudies": [
+    {
+      "id": 1,
+      "slug": "greenroute-organic-growth",
+      "client": "GreenRoute",
+      "title": "Turning a stalled blog into the primary lead channel",
+      "industry": "CleanTech",
+      "image": "https://picsum.photos/seed/cs-greenroute/1000/640",
+      "challenge": "GreenRoute relied entirely on paid ads. Rising CPCs were squeezing margins and organic traffic had been flat for two years.",
+      "solution": "A technical SEO overhaul, a 24-article content programme mapped to buyer intent, and a digital-PR link campaign — paired with landing-page CRO.",
+      "technologies": [
+        "Technical SEO",
+        "Content",
+        "Digital PR",
+        "CRO"
+      ],
+      "results": [
+        {
+          "value": "210%",
+          "label": "Organic traffic growth (9 months)"
+        },
+        {
+          "value": "150%",
+          "label": "Increase in inbound leads"
+        },
+        {
+          "value": "-38%",
+          "label": "Blended cost per lead"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "slug": "meridian-operations-platform",
+      "client": "Meridian Freight",
+      "title": "Replacing seven spreadsheets with one operations platform",
+      "industry": "Logistics",
+      "image": "https://picsum.photos/seed/cs-meridian/1000/640",
+      "challenge": "Dispatch, tracking and billing lived in disconnected spreadsheets. Invoicing lagged five days and errors were common.",
+      "solution": "A custom operations system with real-time dispatch, driver mobile app, automated billing and a management dashboard, rolled out in three modules.",
+      "technologies": [
+        "React",
+        "Python",
+        "PostgreSQL",
+        "AWS"
+      ],
+      "results": [
+        {
+          "value": "40%",
+          "label": "Faster order-to-invoice cycle"
+        },
+        {
+          "value": "12 hrs",
+          "label": "Admin time saved per week"
+        },
+        {
+          "value": "99.9%",
+          "label": "Billing accuracy"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "slug": "lumen-store-replatform",
+      "client": "Lumen Store",
+      "title": "A headless replatform that halved page load time",
+      "industry": "Retail",
+      "image": "https://picsum.photos/seed/cs-lumen/1000/640",
+      "challenge": "A heavy theme and app stack pushed mobile load times past six seconds, and checkout abandonment was climbing.",
+      "solution": "A headless Next.js storefront on Shopify with a rebuilt mobile checkout, custom bundling and edge caching.",
+      "technologies": [
+        "Next.js",
+        "Shopify",
+        "Stripe"
+      ],
+      "results": [
+        {
+          "value": "-55%",
+          "label": "Median page load time"
+        },
+        {
+          "value": "+27%",
+          "label": "Mobile conversion rate"
+        },
+        {
+          "value": "+18%",
+          "label": "Average order value"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "slug": "careloop-patient-app",
+      "client": "CareLoop",
+      "title": "An offline-first patient app with 4.8-star ratings",
+      "industry": "Healthcare",
+      "image": "https://picsum.photos/seed/cs-careloop/1000/640",
+      "challenge": "Patients missed doses and struggled to reach care teams. Connectivity in rural areas made web tools unreliable.",
+      "solution": "A React Native app with offline records, medication reminders, and secure asynchronous messaging with care teams.",
+      "technologies": [
+        "React Native",
+        "Firebase",
+        "Node.js"
+      ],
+      "results": [
+        {
+          "value": "+32%",
+          "label": "Medication adherence"
+        },
+        {
+          "value": "4.8★",
+          "label": "Average app store rating"
+        },
+        {
+          "value": "25k+",
+          "label": "Active patients in year one"
+        }
+      ]
+    }
+  ],
+  "blogs": [
+    {
+      "id": 1,
+      "slug": "core-web-vitals-2026",
+      "title": "Core Web Vitals in 2026: a practical checklist",
+      "category": "Web Development",
+      "date": "2026-08-18",
+      "author": "Priya Nair",
+      "excerpt": "What actually moves LCP, INP and CLS on real projects — and the measurement mistakes that hide regressions.",
+      "image": "https://picsum.photos/seed/blog-cwv/1000/560",
+      "body": "Core Web Vitals reward the same things good engineering always has: send less, send it sooner, and do not shift the layout under the user. This post is the checklist we run on every build.\n\n## Largest Contentful Paint\n\nPreload the hero image and font, serve modern formats, and make sure the LCP element is not lazy-loaded. On most sites, an unoptimised hero image is the single biggest offender.\n\n## Interaction to Next Paint\n\nBreak up long tasks, defer non-critical JavaScript, and keep third-party tags on a leash. Measure with a real device, not a fast laptop.\n\n## Cumulative Layout Shift\n\n- Always set width and height on media\n- Reserve space for embeds and ads\n- Avoid inserting content above existing content"
+    },
+    {
+      "id": 2,
+      "slug": "react-native-vs-native",
+      "title": "React Native vs native: how we actually decide",
+      "category": "Mobile Apps",
+      "date": "2026-07-30",
+      "author": "Daniel Osei",
+      "excerpt": "A decision framework for choosing between React Native and fully native — beyond the usual talking points.",
+      "image": "https://picsum.photos/seed/blog-rn/1000/560",
+      "body": "The honest answer is “it depends”, but the dependencies are predictable. Here is the framework we use with clients.\n\n## Choose React Native when\n\n- You need iOS and Android from one team\n- The UI is mostly standard components and lists\n- Time to market matters more than squeezing the last 5% of performance\n\n## Choose native when\n\n- You need heavy graphics, AR or camera pipelines\n- Deep OS integration is core to the product\n- You already have strong native teams"
+    },
+    {
+      "id": 3,
+      "slug": "headless-cms-tradeoffs",
+      "title": "The real trade-offs of going headless",
+      "category": "Web Development",
+      "date": "2026-07-12",
+      "author": "Priya Nair",
+      "excerpt": "Headless CMS gives you flexibility and speed — at the cost of more moving parts. When it is worth it.",
+      "image": "https://picsum.photos/seed/blog-headless/1000/560",
+      "body": "Headless is not automatically better. It is a trade: you gain a clean content API and front-end freedom, and you take on preview infrastructure, build pipelines and more services to run.\n\n## Good fit\n\nContent-heavy sites, multi-channel content, teams that want a modern front-end stack, and projects where performance is a KPI.\n\n## Poor fit\n\nSmall brochure sites with one editor and no performance pressure — a well-configured traditional CMS ships faster."
+    },
+    {
+      "id": 4,
+      "slug": "seo-content-briefs",
+      "title": "How to write an SEO content brief writers do not hate",
+      "category": "SEO",
+      "date": "2026-06-25",
+      "author": "Marcus Feld",
+      "excerpt": "A brief template that gives writers intent, structure and sources without turning them into keyword-stuffing machines.",
+      "image": "https://picsum.photos/seed/blog-briefs/1000/560",
+      "body": "A good brief answers three questions: who is searching this, what do they need to walk away with, and what proof should the article include?\n\n## What belongs in the brief\n\n- Primary query and the intent behind it\n- Target reader and their level of knowledge\n- Outline with H2/H3 suggestions\n- Sources, data points and internal links to include\n- What “done” looks like"
+    },
+    {
+      "id": 5,
+      "slug": "automating-back-office",
+      "title": "Automating the back office without a big-bang project",
+      "category": "Software Development",
+      "date": "2026-06-08",
+      "author": "Elena Rossi",
+      "excerpt": "How to sequence automation so each release pays for the next, instead of betting everything on one launch.",
+      "image": "https://picsum.photos/seed/blog-automation/1000/560",
+      "body": "The failure mode for internal software is the 12-month project that launches all at once. Sequencing by value avoids it.\n\n## The sequence\n\n- Instrument the current process to get a baseline\n- Automate the single most painful step first\n- Ship it, measure hours saved, use that to fund the next step\n- Only then integrate adjacent systems"
+    },
+    {
+      "id": 6,
+      "slug": "ppc-tracking-2026",
+      "title": "Paid media tracking that survives privacy changes",
+      "category": "Digital Marketing",
+      "date": "2026-05-20",
+      "author": "Marcus Feld",
+      "excerpt": "Server-side tagging, consent mode and first-party data — a pragmatic setup for reliable conversion tracking.",
+      "image": "https://picsum.photos/seed/blog-ppc/1000/560",
+      "body": "Browser-side pixels are a shrinking signal. A durable setup leans on server-side events and your own first-party data.\n\n## The stack we use\n\n- Server-side GTM for event collection\n- Consent mode configured properly\n- Offline conversion imports for long sales cycles\n- A clean data layer as the single source"
+    },
+    {
+      "id": 7,
+      "slug": "design-systems-small-teams",
+      "title": "Design systems for small teams: how light is too light?",
+      "category": "Technology",
+      "date": "2026-05-02",
+      "author": "Priya Nair",
+      "excerpt": "You do not need a 300-component library. You need tokens, a dozen primitives and the discipline to use them.",
+      "image": "https://picsum.photos/seed/blog-ds/1000/560",
+      "body": "For a team of five, a full design system is overhead. A “design kit” — tokens plus a small set of primitives — gets 80% of the benefit.\n\n## The minimum viable kit\n\n- Colour, spacing, radius and type tokens\n- Button, Input, Card, Modal, Tabs\n- One documented layout grid\n- A usage doc, not a Storybook cathedral"
+    },
+    {
+      "id": 8,
+      "slug": "shipping-accessible-by-default",
+      "title": "Shipping accessible interfaces by default",
+      "category": "Web Development",
+      "date": "2026-04-15",
+      "author": "Daniel Osei",
+      "excerpt": "Accessibility is cheap when it is a habit and expensive when it is an audit. Build the habits into your components.",
+      "image": "https://picsum.photos/seed/blog-a11y/1000/560",
+      "body": "Most accessibility issues trace back to a handful of components. Fix them once, at the primitive level, and every page inherits the fix.\n\n## High-leverage fixes\n\n- Focus-visible styles on every interactive element\n- Labels tied to inputs, errors announced\n- Modal focus trap and escape handling\n- Colour contrast checked in the token palette"
+    }
+  ],
+  "blogCategories": [
+    "All",
+    "Web Development",
+    "Software Development",
+    "Mobile Apps",
+    "Digital Marketing",
+    "SEO",
+    "Technology"
+  ]
+}

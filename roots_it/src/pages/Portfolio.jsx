@@ -8,7 +8,9 @@ import Badge from '../components/common/Badge';
 import ProjectCard from '../components/cards/ProjectCard';
 import CTASection from '../components/sections/CTASection';
 import { useLockBodyScroll } from '../hooks/useLockBodyScroll';
-import { projects, projectCategories } from '../data/projects';
+import AsyncState from '../components/common/AsyncState';
+import SmartImage from '../components/common/SmartImage';
+import { usePage, useProjects, useSection } from '../hooks/useApi';
 
 function ProjectModal({ project, onClose }) {
   useLockBodyScroll(true);
@@ -36,7 +38,7 @@ function ProjectModal({ project, onClose }) {
           <FiX />
         </button>
         <div className="modal__media">
-          <img src={project.image} alt={project.name} />
+          <SmartImage src={project.image} alt={project.name} />
         </div>
         <div className="modal__body">
           <div className="chip-row">
@@ -49,7 +51,7 @@ function ProjectModal({ project, onClose }) {
           <div>
             <strong style={{ fontFamily: 'var(--font-heading)' }}>Technologies</strong>
             <div className="chip-row" style={{ marginTop: 8 }}>
-              {project.technologies.map((t) => (
+              {(project.technologies ?? []).map((t) => (
                 <span key={t} className="badge badge--soft">
                   {t}
                 </span>
@@ -65,26 +67,25 @@ function ProjectModal({ project, onClose }) {
 export default function Portfolio() {
   const [filter, setFilter] = useState('All');
   const [active, setActive] = useState(null);
+  const { page } = usePage('portfolio');
+  const { data: projects, loading, error, reload } = useProjects();
+  const { items: categoryItems } = useSection('project_categories');
+  const projectCategories = ['All', ...categoryItems.map((c) => c.title)];
 
   const visible = useMemo(
     () =>
       filter === 'All'
         ? projects
         : projects.filter((p) => p.category === filter),
-    [filter]
+    [filter, projects]
   );
 
   return (
     <>
-      <SEO
-        title="Portfolio"
-        description="Selected work from Roots Technology — web platforms, mobile apps, custom software, e-commerce stores and digital marketing programmes."
-      />
+      <SEO page={page} />
 
       <PageHero
-        eyebrow="Portfolio"
-        title="Work we’ve shipped and stand behind"
-        subtitle="Filter by discipline to see how we approach different kinds of problems."
+        page={page}
         trail={[{ label: 'Portfolio' }]}
         actions={[{ label: 'Start Your Project', to: '/contact' }]}
       />
@@ -105,6 +106,13 @@ export default function Portfolio() {
             ))}
           </div>
 
+          <AsyncState
+            loading={loading}
+            error={error}
+            empty={projects.length === 0}
+            onRetry={reload}
+            emptyText="Our portfolio will be published here soon."
+          >
           <motion.div layout className="grid grid-3">
             <AnimatePresence mode="popLayout">
               {visible.map((project) => (
@@ -127,6 +135,7 @@ export default function Portfolio() {
               <p className="lead mx-auto">No projects in this category yet — check back soon.</p>
             </Reveal>
           )}
+          </AsyncState>
         </div>
       </section>
 
@@ -135,7 +144,7 @@ export default function Portfolio() {
       </AnimatePresence>
 
       <CTASection
-        title="Have a project like these in mind?"
+        cta={page?.cta}
         primary={{ label: 'Start Your Project', to: '/contact' }}
         secondary={{ label: 'Read Case Studies', to: '/case-studies' }}
       />

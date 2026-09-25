@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use App\Models\Concerns\BelongsToSite;
+use App\Models\Concerns\DeletesReplacedMedia;
 use App\Models\Concerns\Publishable;
+use App\Models\Concerns\ResolvesMediaUrl;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,11 +16,11 @@ use Illuminate\Database\Eloquent\Model;
  */
 class SectionItem extends Model
 {
-    use BelongsToSite, HasFactory, Publishable;
+    use BelongsToSite, DeletesReplacedMedia, HasFactory, Publishable, ResolvesMediaUrl;
 
     protected $fillable = [
         'section', 'title', 'subtitle', 'description', 'icon', 'tone', 'link',
-        'value', 'suffix', 'meta', 'sort_order', 'is_published',
+        'value', 'suffix', 'meta', 'image', 'sort_order', 'is_published',
     ];
 
     protected function casts(): array
@@ -26,5 +28,15 @@ class SectionItem extends Model
         return [
             'is_published' => 'boolean',
         ];
+    }
+
+    protected function mediaAttributes(): array
+    {
+        return ['image' => 'public'];
+    }
+
+    public function imageUrl(): ?string
+    {
+        return $this->resolveMediaUrl($this->image);
     }
 }

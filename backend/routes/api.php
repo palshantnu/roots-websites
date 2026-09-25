@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthorController;
 use App\Http\Controllers\Api\BookController;
+use App\Http\Controllers\Api\CaseStudyController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\FaqController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\PackageController;
 use App\Http\Controllers\Api\PackagePageController;
 use App\Http\Controllers\Api\PostController;
+use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\PublishEnquiryController;
 use App\Http\Controllers\Api\SampleController;
 use App\Http\Controllers\Api\SearchController;
@@ -77,4 +79,29 @@ Route::prefix('research')->middleware('site:research')->name('research.')->group
     Route::get('samples/{slug}', [SampleController::class, 'show']);
     Route::get('samples/{slug}/file', [SampleController::class, 'file'])->middleware('throttle:60,1')->name('samples.file');
     Route::get('samples/{slug}/download', [SampleController::class, 'download'])->middleware('throttle:60,1')->name('samples.download');
+});
+
+Route::prefix('it')->middleware('site:it')->name('it.')->group(function () {
+    Route::get('settings', [SettingController::class, 'index']);
+
+    Route::get('pages', [SitePageController::class, 'index']);
+    Route::get('pages/{slug}', [SitePageController::class, 'show']);
+
+    Route::get('sections', [SectionItemController::class, 'index']);
+
+    Route::get('services', [ServiceController::class, 'index']);
+    Route::get('services/{slug}', [ServiceController::class, 'show']);
+
+    Route::get('projects', [ProjectController::class, 'index']);
+    Route::get('projects/{slug}', [ProjectController::class, 'show']);
+
+    Route::get('case-studies', [CaseStudyController::class, 'index']);
+    Route::get('case-studies/{slug}', [CaseStudyController::class, 'show']);
+
+    Route::get('testimonials', [TestimonialController::class, 'index']);
+
+    Route::get('faqs', [FaqController::class, 'index']);
+
+    Route::get('posts', [PostController::class, 'index']);
+    Route::get('posts/{slug}', [PostController::class, 'show']);
 });

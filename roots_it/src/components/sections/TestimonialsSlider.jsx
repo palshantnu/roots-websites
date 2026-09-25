@@ -2,10 +2,12 @@ import { useCallback, useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import TestimonialCard from '../cards/TestimonialCard';
-import { testimonials as defaultItems } from '../../data/testimonials';
+import AsyncState from '../common/AsyncState';
+import { useTestimonials } from '../../hooks/useApi';
 
 /** Auto-advancing testimonial slider with manual controls + dots. */
-export default function TestimonialsSlider({ items = defaultItems, interval = 6500 }) {
+export default function TestimonialsSlider({ interval = 6500 }) {
+  const { data: items, loading, error, reload } = useTestimonials();
   const [index, setIndex] = useState(0);
   const [dir, setDir] = useState(1);
   const count = items.length;
@@ -32,6 +34,10 @@ export default function TestimonialsSlider({ items = defaultItems, interval = 65
     center: { opacity: 1, x: 0 },
     exit: (d) => ({ opacity: 0, x: d > 0 ? -40 : 40 }),
   };
+
+  if (count === 0 || !items[index]) {
+    return <AsyncState loading={loading} error={error} empty onRetry={reload} emptyText="No testimonials yet." />;
+  }
 
   return (
     <div className="tst">

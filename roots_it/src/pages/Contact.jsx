@@ -4,45 +4,34 @@ import PageHero from '../components/templates/PageHero';
 import Reveal from '../components/common/Reveal';
 import SectionTitle from '../components/common/SectionTitle';
 import FAQ from '../components/common/FAQ';
+import AsyncState from '../components/common/AsyncState';
 import ContactForm from '../components/forms/ContactForm';
-import { site } from '../data/site';
-import { generalFaqs } from '../data/faqs';
+import { useFaqs, usePage, useSettings } from '../hooks/useApi';
 
 export default function Contact() {
-  // Swap this for a real API call when the backend exists.
+  const { page } = usePage('contact');
+  const { settings } = useSettings();
+  const faqs = useFaqs();
+  const contact = settings?.contact ?? {};
+
+  // Swap this for a real API call when lead capture is added to the backend.
   const handleSubmit = async (values) => {
-    // await fetch(`${import.meta.env.VITE_API_BASE_URL}/leads`, {
-    //   method: 'POST', headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(values),
-    // });
     console.info('Lead captured (mock):', values);
     await new Promise((r) => setTimeout(r, 800));
   };
 
   const info = [
-    { icon: <FiMail />, title: 'Email us', body: site.email, href: `mailto:${site.email}` },
-    { icon: <FiPhone />, title: 'Call us', body: site.phone, href: `tel:${site.phoneHref}` },
-    {
-      icon: <FiMapPin />,
-      title: 'Visit us',
-      body: `${site.address.line1}, ${site.address.line2}`,
-    },
-    { icon: <FiClock />, title: 'Working hours', body: site.workingHours },
-  ];
+    contact.email && { icon: <FiMail />, title: 'Email us', body: contact.email, href: `mailto:${contact.email}` },
+    contact.phone && { icon: <FiPhone />, title: 'Call us', body: contact.phone, href: `tel:${contact.phone.replace(/[^\d+]/g, '')}` },
+    contact.address && { icon: <FiMapPin />, title: 'Visit us', body: contact.address.split('\n').join(', ') },
+    contact.hours && { icon: <FiClock />, title: 'Working hours', body: contact.hours },
+  ].filter(Boolean);
 
   return (
     <>
-      <SEO
-        title="Contact"
-        description="Talk to Roots Technology about your project. Get a free consultation, request a quote or ask us anything — we reply within one business day."
-      />
+      <SEO page={page} />
 
-      <PageHero
-        eyebrow="Contact"
-        title="Let’s Discuss Your Project"
-        subtitle="Tell us what you’re trying to build or grow. We’ll reply within one business day with next steps — or a straight answer if we’re not the right fit."
-        trail={[{ label: 'Contact' }]}
-      />
+      <PageHero page={page} trail={[{ label: 'Contact' }]} />
 
       <section className="section">
         <div className="container">
@@ -76,17 +65,21 @@ export default function Contact() {
             </Reveal>
           </div>
 
-          <Reveal className="map-embed" delay={0.1}>
-            {/* Replace with a real <iframe> Google Maps embed */}
-            Google Maps — {site.mapQuery}
-          </Reveal>
+          {settings?.mapQuery && (
+            <Reveal className="map-embed" delay={0.1}>
+              {/* Replace with a real <iframe> Google Maps embed */}
+              Google Maps — {settings.mapQuery}
+            </Reveal>
+          )}
         </div>
       </section>
 
       <section className="section section--muted">
         <div className="container container--narrow">
           <SectionTitle eyebrow="Before you ask" title="Frequently asked questions" align="center" />
-          <FAQ items={generalFaqs} defaultOpen={0} />
+          <AsyncState loading={faqs.loading} error={faqs.error} empty={faqs.data.length === 0} onRetry={faqs.reload}>
+            <FAQ items={faqs.data.map((f) => ({ q: f.question, a: f.answer }))} defaultOpen={0} />
+          </AsyncState>
         </div>
       </section>
     </>

@@ -14,6 +14,9 @@ class SiteSettingResource extends JsonResource
             'tagline' => $this->tagline,
             'announcementText' => $this->announcement_text,
             'footerNote' => $this->footer_note,
+            'footerText' => $this->footer_text,
+            'foundedYear' => $this->founded_year,
+            'mapQuery' => $this->map_query,
             'hero' => [
                 'eyebrow' => $this->hero_eyebrow,
                 'title' => $this->hero_title,

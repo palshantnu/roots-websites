@@ -795,3 +795,49 @@
   cursor: pointer;
   font-size: 1.2rem;
 }
+
+/* ---------------------------------------------------------------
+   API states (loading / empty / error) and missing-image fallback
+   --------------------------------------------------------------- */
+.async-state {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  padding: clamp(32px, 6vw, 56px) 20px;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-lg);
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.async-state > svg {
+  width: 28px;
+  height: 28px;
+  color: var(--color-primary);
+}
+
+.async-state p {
+  max-width: 42ch;
+  margin: 0;
+}
+
+.section--dark .async-state {
+  border-color: rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.img-fallback {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  min-height: 120px;
+  background: linear-gradient(135deg, var(--color-primary-100), var(--border));
+  color: var(--color-primary);
+}
+
+.img-fallback svg {
+  width: 32px;
+  height: 32px;
+  opacity: 0.6;
+}

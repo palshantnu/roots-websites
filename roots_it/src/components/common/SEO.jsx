@@ -1,41 +1,48 @@
 import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'react-router-dom';
-import { site } from '../../data/site';
+import { useSettings } from '../../hooks/useApi';
 
 /**
- * Per-page SEO. Drop <SEO title="..." description="..." /> at the top of any
- * page. Falls back to sensible site-wide defaults.
+ * Per-page SEO. Pass the page from usePage() to use its admin-managed meta
+ * title, description and share image, or pass title/description directly
+ * (e.g. blog posts). Falls back to the site-wide settings.
  */
-export default function SEO({
-  title,
-  description = site.description,
-  image,
-  type = 'website',
-  noindex = false,
-}) {
+export default function SEO({ page, title, description, image, type = 'website', noindex = false }) {
   const { pathname } = useLocation();
+  const { settings } = useSettings();
+
+  const siteName = settings?.siteName ?? '';
+  const pageTitle = title ?? page?.seo?.title ?? null;
+  const metaDescription = description ?? page?.seo?.description ?? page?.description ?? settings?.tagline ?? '';
+  const shareImage = image ?? page?.seo?.image ?? null;
+
   const baseUrl = (import.meta.env.VITE_SITE_URL || 'https://www.rootstechnology.com').replace(/\/$/, '');
   const url = `${baseUrl}${pathname}`;
-  const fullTitle = title ? `${title} | ${site.name}` : `${site.name} — ${site.tagline}`;
+  const fullTitle = pageTitle
+    ? `${pageTitle}${siteName ? ` | ${siteName}` : ''}`
+    : [siteName, settings?.tagline].filter(Boolean).join(' — ');
+
+  // Keep the index.html defaults until the settings have loaded.
+  if (!settings) return null;
 
   return (
     <Helmet>
       <title>{fullTitle}</title>
-      <meta name="description" content={description} />
+      {metaDescription && <meta name="description" content={metaDescription} />}
       <link rel="canonical" href={url} />
       {noindex && <meta name="robots" content="noindex,nofollow" />}
 
       <meta property="og:type" content={type} />
-      <meta property="og:site_name" content={site.name} />
+      <meta property="og:site_name" content={siteName} />
       <meta property="og:title" content={fullTitle} />
-      <meta property="og:description" content={description} />
+      {metaDescription && <meta property="og:description" content={metaDescription} />}
       <meta property="og:url" content={url} />
-      {image && <meta property="og:image" content={image} />}
+      {shareImage && <meta property="og:image" content={shareImage} />}
 
-      <meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
+      <meta name="twitter:card" content={shareImage ? 'summary_large_image' : 'summary'} />
       <meta name="twitter:title" content={fullTitle} />
-      <meta name="twitter:description" content={description} />
-      {image && <meta name="twitter:image" content={image} />}
+      {metaDescription && <meta name="twitter:description" content={metaDescription} />}
+      {shareImage && <meta name="twitter:image" content={shareImage} />}
     </Helmet>
   );
 }

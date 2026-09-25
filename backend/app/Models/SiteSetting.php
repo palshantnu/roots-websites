@@ -16,7 +16,15 @@ class SiteSetting extends Model
         'testimonial_quote', 'testimonial_author',
         'contact_email', 'contact_phone', 'contact_address', 'contact_hours',
         'instagram_url', 'facebook_url', 'linkedin_url', 'twitter_url', 'footer_note',
+        'footer_text', 'founded_year', 'map_query',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'founded_year' => 'integer',
+        ];
+    }
 
     /**
      * The settings row of a site (one row per site). Defaults to Publications,

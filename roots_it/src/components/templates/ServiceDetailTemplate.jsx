@@ -4,45 +4,47 @@ import SEO from '../common/SEO';
 import Reveal from '../common/Reveal';
 import SectionTitle from '../common/SectionTitle';
 import FAQ from '../common/FAQ';
+import Loader from '../common/Loader';
+import AsyncState from '../common/AsyncState';
 import { Icon, TechIcon } from '../../utils/iconMap';
-import { getServiceDetail } from '../../data/serviceDetails';
-import { technologyGroups } from '../../data/technologies';
+import { usePage, useSection } from '../../hooks/useApi';
 import PageHero from './PageHero';
 import ProcessTimeline from '../sections/ProcessTimeline';
 import StatsSection from '../sections/StatsSection';
 import CTASection from '../sections/CTASection';
 import NotFound from '../../pages/NotFound';
 
-/** Flatten the grouped technology list into a lookup by name (lowercase). */
-function useTechLookup() {
-  return useMemo(() => {
-    const map = {};
-    technologyGroups.forEach((g) =>
-      g.items.forEach((t) => {
-        map[t.name.toLowerCase()] = t.icon;
-      })
-    );
-    return map;
-  }, []);
+/** Technology display names by logo key, from the admin technology list. */
+function useTechNames() {
+  const { items } = useSection('technologies');
+  return useMemo(() => Object.fromEntries(items.map((t) => [t.value, t.title])), [items]);
 }
 
 /**
- * Renders a full service page from a `serviceDetails` entry.
- * Every /services/* and /digital-marketing/* page is just:
+ * Renders a full service page from its admin page record (hero, SEO, CTA and
+ * the `content` blocks). Every /services/* and /digital-marketing/* page is:
  *   <ServiceDetailTemplate slug="website-development" />
  */
 export default function ServiceDetailTemplate({ slug }) {
-  const data = getServiceDetail(slug);
-  const techLookup = useTechLookup();
+  const { page, loading, error, reload } = usePage(slug);
+  const techNames = useTechNames();
 
-  if (!data) return <NotFound />;
+  if (!page) {
+    if (loading) return <Loader />;
+    if (error) {
+      return (
+        <section className="section">
+          <div className="container container--narrow">
+            <AsyncState error={error} empty onRetry={reload} errorText="We couldn’t load this page right now." />
+          </div>
+        </section>
+      );
+    }
+    return <NotFound />;
+  }
 
+  const content = page.content ?? {};
   const {
-    seoTitle,
-    seoDescription,
-    eyebrow,
-    title,
-    subtitle,
     intro = [],
     offerings = [],
     technologies = [],
@@ -51,24 +53,22 @@ export default function ServiceDetailTemplate({ slug }) {
     industries = [],
     faqs = [],
     stats,
-    asideTitle,
-    asidePoints = [],
-    parent,
-    cta,
-  } = data;
+    aside_title: asideTitle,
+    aside_points: asidePoints = [],
+  } = content;
 
-  const trail = parent
-    ? [parent, { label: eyebrow }]
-    : [{ label: 'Services', to: '/services' }, { label: eyebrow }];
+  const eyebrow = page.eyebrow;
+  const trail = [
+    { label: content.parent_label || 'Services', to: content.parent_link || '/services' },
+    { label: eyebrow },
+  ];
 
   return (
     <>
-      <SEO title={seoTitle} description={seoDescription} type="article" />
+      <SEO page={page} type="article" />
 
       <PageHero
-        eyebrow={eyebrow}
-        title={title}
-        subtitle={subtitle}
+        page={page}
         trail={trail}
         actions={[
           { label: 'Get a Free Consultation', to: '/contact' },
@@ -77,35 +77,37 @@ export default function ServiceDetailTemplate({ slug }) {
       />
 
       {/* Intro + aside */}
-      <section className="section section--muted">
-        <div className="container">
-          <div className="svc-intro">
-            <Reveal>
-              <span className="eyebrow">Overview</span>
-              <h2 style={{ margin: '14px 0 18px' }}>What we do</h2>
-              {intro.map((p) => (
-                <p key={p.slice(0, 24)} style={{ marginBottom: 14 }}>
-                  {p}
-                </p>
-              ))}
-            </Reveal>
-
-            {asidePoints.length > 0 && (
-              <Reveal className="svc-intro__aside" delay={0.1}>
-                <h4>{asideTitle || 'What’s included'}</h4>
-                <ul className="feature-list">
-                  {asidePoints.map((point) => (
-                    <li key={point}>
-                      <FiCheck />
-                      {point}
-                    </li>
-                  ))}
-                </ul>
+      {(intro.length > 0 || asidePoints.length > 0) && (
+        <section className="section section--muted">
+          <div className="container">
+            <div className="svc-intro">
+              <Reveal>
+                <span className="eyebrow">Overview</span>
+                <h2 style={{ margin: '14px 0 18px' }}>What we do</h2>
+                {intro.map((p) => (
+                  <p key={p.slice(0, 24)} style={{ marginBottom: 14 }}>
+                    {p}
+                  </p>
+                ))}
               </Reveal>
-            )}
+
+              {asidePoints.length > 0 && (
+                <Reveal className="svc-intro__aside" delay={0.1}>
+                  <h4>{asideTitle || 'What’s included'}</h4>
+                  <ul className="feature-list">
+                    {asidePoints.map((point) => (
+                      <li key={point}>
+                        <FiCheck />
+                        {point}
+                      </li>
+                    ))}
+                  </ul>
+                </Reveal>
+              )}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Offerings */}
       {offerings.length > 0 && (
@@ -137,10 +139,10 @@ export default function ServiceDetailTemplate({ slug }) {
           <div className="container">
             <SectionTitle eyebrow="Stack" title="Technologies we use" align="center" />
             <Reveal className="tech-list" style={{ justifyContent: 'center' }}>
-              {technologies.map((name) => (
-                <span className="tech-pill" key={name}>
-                  <TechIcon name={techLookup[name.toLowerCase()] || name.toLowerCase()} />
-                  {name}
+              {technologies.map((key) => (
+                <span className="tech-pill" key={key}>
+                  <TechIcon name={key} />
+                  {techNames[key] || key}
                 </span>
               ))}
             </Reveal>
@@ -218,7 +220,8 @@ export default function ServiceDetailTemplate({ slug }) {
       )}
 
       <CTASection
-        title={cta?.title || 'Let’s talk about your project'}
+        cta={page.cta}
+        title="Let’s talk about your project"
         primary={{ label: 'Start Your Project', to: '/contact' }}
         secondary={{ label: 'Request a Quote', to: '/contact' }}
       />

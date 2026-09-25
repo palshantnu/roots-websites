@@ -1,5 +1,6 @@
 import SEO from '../components/common/SEO';
 import SectionTitle from '../components/common/SectionTitle';
+import AsyncState from '../components/common/AsyncState';
 import Hero from '../components/home/Hero';
 import HomeServices from '../components/home/HomeServices';
 import WhyChooseUs from '../components/home/WhyChooseUs';
@@ -9,15 +10,15 @@ import ProcessTimeline from '../components/sections/ProcessTimeline';
 import TechnologiesGrid from '../components/sections/TechnologiesGrid';
 import TestimonialsSlider from '../components/sections/TestimonialsSlider';
 import CTASection from '../components/sections/CTASection';
-import { process } from '../data/process';
+import { usePage, useSection } from '../hooks/useApi';
 
 export default function Home() {
+  const { page } = usePage('home');
+  const { items: process, loading, error, reload } = useSection('process_steps');
+
   return (
     <>
-      <SEO
-        title={null}
-        description="Roots Technology helps businesses grow with software development, web & mobile apps, custom software, e-commerce and digital marketing services."
-      />
+      <SEO page={page} />
 
       <Hero />
 
@@ -41,7 +42,9 @@ export default function Home() {
             Seven stages, each with a clear deliverable and a demo you can see.
           </SectionTitle>
           <div className="container--narrow" style={{ padding: 0, margin: '0 auto' }}>
-            <ProcessTimeline steps={process} />
+            <AsyncState loading={loading} error={error} empty={process.length === 0} onRetry={reload}>
+              <ProcessTimeline steps={process} />
+            </AsyncState>
           </div>
         </div>
       </section>
@@ -67,6 +70,7 @@ export default function Home() {
       </section>
 
       <CTASection
+        cta={page?.cta}
         title="Let’s Build Something Amazing Together"
         primary={{ label: 'Start Your Project', to: '/contact' }}
         secondary={{ label: 'Get Free Consultation', to: '/contact' }}

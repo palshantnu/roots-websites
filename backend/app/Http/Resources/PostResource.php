@@ -16,6 +16,7 @@ class PostResource extends JsonResource
             'category' => $this->category,
             'author' => $this->author,
             'color' => $this->color,
+            'image' => $this->imageUrl(),
             'date' => $this->published_at?->format('d M Y'),
             'publishedAt' => $this->published_at?->toDateString(),
             'time' => $this->read_time,

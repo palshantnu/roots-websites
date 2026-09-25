@@ -19,7 +19,9 @@ class SitePageResource extends JsonResource
                 'title' => $this->cta_title,
                 'description' => $this->cta_description,
                 'label' => $this->cta_label,
+                'secondaryLabel' => $this->cta_secondary_label,
             ],
+            'content' => $this->content,
             'seo' => [
                 'title' => $this->meta_title,
                 'description' => $this->meta_description,

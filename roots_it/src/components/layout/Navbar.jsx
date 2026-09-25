@@ -3,23 +3,14 @@ import { NavLink, Link } from 'react-router-dom';
 import { FiChevronDown, FiMenu, FiX } from 'react-icons/fi';
 import { AnimatePresence, motion } from 'framer-motion';
 import { primaryNav } from '../../data/navigation';
-import { site } from '../../data/site';
+import BrandLogo from './BrandLogo';
 import { useScrolled } from '../../hooks/useScrollPosition';
 import { useLockBodyScroll } from '../../hooks/useLockBodyScroll';
 import { Icon } from '../../utils/iconMap';
 import { classNames } from '../../utils/helpers';
 import Button from '../common/Button';
 
-function Brand({ onClick }) {
-  return (
-    <Link to="/" className="brand" onClick={onClick} aria-label={`${site.name} home`}>
-      <span className="brand__mark">R</span>
-      <span>
-        Roots<span className="brand__sub">Technology</span>
-      </span>
-    </Link>
-  );
-}
+const Brand = BrandLogo;
 
 /* ---------------- Desktop ---------------- */
 function DesktopMenu() {

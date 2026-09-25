@@ -1,23 +1,22 @@
 import { Link } from 'react-router-dom';
 import { FiArrowRight } from 'react-icons/fi';
 import Badge from '../common/Badge';
+import SmartImage from '../common/SmartImage';
 import { formatDate, readingTime } from '../../utils/helpers';
 
-/** Blog listing card. `post` = full blog object from data/blogs.js */
+/** Blog listing card. `post` = an article from the API. */
 export default function BlogCard({ post }) {
-  const minutes = readingTime(
-    post.body?.map((b) => b.text || (b.items || []).join(' ')).join(' ')
-  );
+  const minutes = readingTime(post.body);
 
   return (
     <article className="card card--hover blog-card">
       <Link to={`/blog/${post.slug}`} className="blog-card__media">
-        <img src={post.image} alt={post.title} loading="lazy" />
+        <SmartImage src={post.image} alt={post.title} loading="lazy" />
       </Link>
       <div className="blog-card__body">
         <div className="blog-card__info">
           <Badge variant="soft">{post.category}</Badge>
-          <span>{formatDate(post.date)}</span>
+          <span>{formatDate(post.publishedAt)}</span>
           <span aria-hidden="true">•</span>
           <span>{minutes}</span>
         </div>

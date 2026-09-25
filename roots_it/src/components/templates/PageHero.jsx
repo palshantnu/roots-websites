@@ -4,9 +4,15 @@ import Button from '../common/Button';
 
 /**
  * Dark hero band for inner pages.
+ * Pass `page` (from usePage) for the admin-managed eyebrow, title and
+ * subtitle, or the props directly.
  * `trail` -> breadcrumbs, `actions` -> [{ label, to, variant }]
  */
-export default function PageHero({ eyebrow, title, subtitle, trail = [], actions = [] }) {
+export default function PageHero({ page, trail = [], actions = [], ...props }) {
+  const eyebrow = props.eyebrow ?? page?.eyebrow;
+  const title = props.title ?? page?.title;
+  const subtitle = props.subtitle ?? page?.description;
+
   return (
     <section className="page-hero">
       <div className="container">

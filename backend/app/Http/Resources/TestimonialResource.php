@@ -13,6 +13,8 @@ class TestimonialResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'role' => $this->role,
+            'company' => $this->company,
+            'avatar' => $this->avatarUrl(),
             'quote' => $this->quote,
             'rating' => $this->rating,
         ];

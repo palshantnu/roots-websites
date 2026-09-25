@@ -11,17 +11,19 @@ export default function TestimonialCard({ item }) {
       </div>
       <blockquote className="tst-card__quote">“{item.quote}”</blockquote>
       <figcaption className="tst-card__person">
-        <img
-          className="tst-card__avatar"
-          src={item.avatar}
-          alt={item.name}
-          loading="lazy"
-        />
+        {item.avatar && (
+          <img
+            className="tst-card__avatar"
+            src={item.avatar}
+            alt={item.name}
+            loading="lazy"
+          />
+        )}
         <span>
           <span className="tst-card__name">{item.name}</span>
           <br />
           <span className="tst-card__role">
-            {item.role}, {item.company}
+            {[item.role, item.company].filter(Boolean).join(', ')}
           </span>
         </span>
       </figcaption>

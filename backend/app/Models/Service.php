@@ -11,7 +11,7 @@ class Service extends Model
 {
     use BelongsToSite, HasFactory, Publishable;
 
-    protected $fillable = ['title', 'slug', 'description', 'icon', 'tone', 'link', 'sort_order', 'is_published'];
+    protected $fillable = ['title', 'category', 'slug', 'description', 'icon', 'tone', 'link', 'sort_order', 'is_published'];
 
     protected function casts(): array
     {

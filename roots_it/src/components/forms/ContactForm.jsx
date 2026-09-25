@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { FiSend } from 'react-icons/fi';
 import Button from '../common/Button';
-import { serviceOptions, budgetOptions } from '../../data/faqs';
+import { useSection } from '../../hooks/useApi';
 import { classNames } from '../../utils/helpers';
 
 const initial = {
@@ -35,6 +35,8 @@ export default function ContactForm({ onSubmit }) {
   const [values, setValues] = useState(initial);
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState('idle'); // idle | submitting | success
+  const serviceOptions = useSection('contact_service_options').items.map((o) => o.title);
+  const budgetOptions = useSection('contact_budget_options').items.map((o) => o.title);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

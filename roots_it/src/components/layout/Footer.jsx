@@ -8,45 +8,42 @@ import {
   FiFacebook,
 } from 'react-icons/fi';
 import { FaXTwitter } from 'react-icons/fa6';
-import { site } from '../../data/site';
 import { footerNav } from '../../data/navigation';
+import { useSettings } from '../../hooks/useApi';
+import BrandLogo from './BrandLogo';
 
-const socialIcons = {
-  linkedin: FiLinkedin,
-  instagram: FiInstagram,
-  facebook: FiFacebook,
-  x: FaXTwitter,
-};
+const socialNetworks = [
+  { key: 'linkedin', label: 'LinkedIn', icon: FiLinkedin },
+  { key: 'instagram', label: 'Instagram', icon: FiInstagram },
+  { key: 'facebook', label: 'Facebook', icon: FiFacebook },
+  { key: 'twitter', label: 'Twitter / X', icon: FaXTwitter },
+];
 
 export default function Footer() {
+  const { settings } = useSettings();
+  const contact = settings?.contact ?? {};
+  const addressLines = (contact.address ?? '').split('\n').filter(Boolean);
+  const socials = socialNetworks.filter((s) => settings?.socials?.[s.key]);
+
   return (
     <footer className="footer">
       <div className="container">
         <div className="footer__top">
           <div className="footer__brand">
-            <Link to="/" className="brand" aria-label={`${site.name} home`}>
-              <span className="brand__mark">R</span>
-              <span>
-                Roots<span className="brand__sub">Technology</span>
-              </span>
-            </Link>
-            <p>{site.tagline}. We build web &amp; mobile products, custom software and full-funnel marketing for ambitious teams.</p>
-
+            <BrandLogo />
+            <p>{[settings?.tagline && `${settings.tagline}.`, settings?.footerText].filter(Boolean).join(' ')}</p>
             <div className="footer__socials">
-              {site.socials.map((s) => {
-                const SIcon = socialIcons[s.icon] || FiMail;
-                return (
-                  <a
-                    key={s.label}
-                    href={s.href}
-                    aria-label={s.label}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <SIcon />
-                  </a>
-                );
-              })}
+              {socials.map(({ key, label, icon: SIcon }) => (
+                <a
+                  key={key}
+                  href={settings.socials[key]}
+                  aria-label={label}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <SIcon />
+                </a>
+              ))}
             </div>
           </div>
 
@@ -75,28 +72,37 @@ export default function Footer() {
           <div className="footer__col">
             <h4>Contact</h4>
             <ul className="footer__contact">
-              <li>
-                <FiMail />
-                <a href={`mailto:${site.email}`}>{site.email}</a>
-              </li>
-              <li>
-                <FiPhone />
-                <a href={`tel:${site.phoneHref}`}>{site.phone}</a>
-              </li>
-              <li>
-                <FiMapPin />
-                <span>
-                  {site.address.line1}
-                  <br />
-                  {site.address.line2}
-                </span>
-              </li>
+              {contact.email && (
+                <li>
+                  <FiMail />
+                  <a href={`mailto:${contact.email}`}>{contact.email}</a>
+                </li>
+              )}
+              {contact.phone && (
+                <li>
+                  <FiPhone />
+                  <a href={`tel:${contact.phone.replace(/[^\d+]/g, '')}`}>{contact.phone}</a>
+                </li>
+              )}
+              {addressLines.length > 0 && (
+                <li>
+                  <FiMapPin />
+                  <span>
+                    {addressLines.map((line, i) => (
+                      <span key={line}>
+                        {i > 0 && <br />}
+                        {line}
+                      </span>
+                    ))}
+                  </span>
+                </li>
+              )}
             </ul>
           </div>
         </div>
 
         <div className="footer__bottom">
-          <p>{site.copyright}</p>
+          <p>{settings?.footerNote}</p>
           <nav aria-label="Legal">
             <Link to="/contact">Privacy Policy</Link>
             <Link to="/contact">Terms of Service</Link>

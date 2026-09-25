@@ -20,6 +20,7 @@ class SectionItemResource extends JsonResource
             'value' => $this->value,
             'suffix' => $this->suffix,
             'meta' => $this->meta,
+            'image' => $this->imageUrl(),
         ];
     }
 }

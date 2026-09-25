@@ -2,32 +2,29 @@ import { useMemo, useState } from 'react';
 import SEO from '../components/common/SEO';
 import PageHero from '../components/templates/PageHero';
 import Reveal from '../components/common/Reveal';
+import AsyncState from '../components/common/AsyncState';
 import BlogCard from '../components/cards/BlogCard';
 import CTASection from '../components/sections/CTASection';
-import { blogs, blogCategories } from '../data/blogs';
+import { usePage, usePosts, useSection } from '../hooks/useApi';
 
 export default function Blog() {
   const [category, setCategory] = useState('All');
+  const { page } = usePage('blog');
+  const { data: blogs, loading, error, reload } = usePosts();
+  const { items: categoryItems } = useSection('blog_categories');
+  const blogCategories = ['All', ...categoryItems.map((c) => c.title)];
 
   const visible = useMemo(() => {
     const list =
       category === 'All' ? blogs : blogs.filter((b) => b.category === category);
-    return [...list].sort((a, b) => new Date(b.date) - new Date(a.date));
-  }, [category]);
+    return [...list].sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
+  }, [category, blogs]);
 
   return (
     <>
-      <SEO
-        title="Blog"
-        description="Practical articles on web and software development, mobile apps, SEO and digital marketing from the Roots Technology team."
-      />
+      <SEO page={page} />
 
-      <PageHero
-        eyebrow="Blog"
-        title="Notes from the team"
-        subtitle="Practical, opinionated writing on building and growing digital products. No fluff, no listicles."
-        trail={[{ label: 'Blog' }]}
-      />
+      <PageHero page={page} trail={[{ label: 'Blog' }]} />
 
       <section className="section">
         <div className="container">
@@ -45,23 +42,24 @@ export default function Blog() {
             ))}
           </div>
 
-          <div className="grid grid-3">
-            {visible.map((post, i) => (
-              <Reveal key={post.id} delay={(i % 3) * 0.06}>
-                <BlogCard post={post} />
-              </Reveal>
-            ))}
-          </div>
+          <AsyncState loading={loading} error={error} empty={blogs.length === 0} onRetry={reload} emptyText="No articles published yet.">
+            <div className="grid grid-3">
+              {visible.map((post, i) => (
+                <Reveal key={post.id} delay={(i % 3) * 0.06}>
+                  <BlogCard post={post} />
+                </Reveal>
+              ))}
+            </div>
 
-          {visible.length === 0 && (
-            <p className="lead mx-auto text-center">No articles in this category yet.</p>
-          )}
+            {visible.length === 0 && (
+              <p className="lead mx-auto text-center">No articles in this category yet.</p>
+            )}
+          </AsyncState>
         </div>
       </section>
 
       <CTASection
-        title="Prefer to talk it through?"
-        text="If an article raised a question about your own project, we’re happy to get on a call."
+        cta={page?.cta}
         primary={{ label: 'Talk to an Expert', to: '/contact' }}
         secondary={{ label: 'View Services', to: '/services' }}
       />

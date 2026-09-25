@@ -1,10 +1,21 @@
 import { motion } from 'framer-motion';
 import { FiArrowRight, FiActivity, FiCheckCircle } from 'react-icons/fi';
 import Button from '../common/Button';
-import { avatarImage } from '../../utils/helpers';
+import { usePage, useSection } from '../../hooks/useApi';
 
-const clientLogos = ['NorthPeak', 'Lumen', 'CareLoop', 'Meridian', 'Atlas Legal', 'GreenRoute'];
-const avatars = ['h1', 'h2', 'h3', 'h4'].map(avatarImage);
+/** Title with the admin-chosen `highlight` phrase in the gradient style. */
+function HighlightedTitle({ title, highlight }) {
+  if (!title) return null;
+  const index = highlight ? title.indexOf(highlight) : -1;
+  if (index < 0) return title;
+  return (
+    <>
+      {title.slice(0, index)}
+      <span className="gradient-text">{highlight}</span>
+      {title.slice(index + highlight.length)}
+    </>
+  );
+}
 
 const CODE_SNIPPET = [
   '// ship roots-technology',
@@ -25,6 +36,11 @@ const fade = {
 };
 
 export default function Hero() {
+  const { page } = usePage('home');
+  const { items: trust } = useSection('hero_trust');
+  const { items: avatars } = useSection('hero_avatars');
+  const { items: clientLogos } = useSection('client_logos');
+
   return (
     <section className="hero">
       <div className="hero__bg" aria-hidden="true">
@@ -43,12 +59,11 @@ export default function Hero() {
               animate="show"
               style={{ color: 'var(--color-secondary)' }}
             >
-              Software Development &amp; Digital Marketing
+              {page?.eyebrow}
             </motion.span>
 
             <motion.h1 variants={fade} custom={1} initial="hidden" animate="show">
-              Transform Your Ideas Into{' '}
-              <span className="gradient-text">Powerful Digital Solutions</span>
+              <HighlightedTitle title={page?.title} highlight={page?.highlight} />
             </motion.h1>
 
             <motion.p
@@ -58,9 +73,7 @@ export default function Hero() {
               initial="hidden"
               animate="show"
             >
-              Roots Technology helps businesses grow with innovative software
-              development, web and mobile applications, custom software,
-              e-commerce solutions and full-funnel digital marketing.
+              {page?.description}
             </motion.p>
 
             <motion.div
@@ -85,12 +98,16 @@ export default function Hero() {
               initial="hidden"
               animate="show"
             >
-              <span className="hero__avatars">
-                {avatars.map((src) => (
-                  <img key={src} src={src} alt="" loading="lazy" />
-                ))}
-              </span>
-              <span>Trusted by 50+ founders &amp; product teams worldwide</span>
+              {avatars.length > 0 && (
+                <span className="hero__avatars">
+                  {avatars
+                    .filter((avatar) => avatar.image)
+                    .map((avatar) => (
+                      <img key={avatar.id} src={avatar.image} alt="" loading="lazy" />
+                    ))}
+                </span>
+              )}
+              {trust[0] && <span>{trust[0].title}</span>}
             </motion.div>
           </div>
 
@@ -129,8 +146,8 @@ export default function Hero() {
 
       <div className="logo-strip">
         <div className="container logo-strip__inner">
-          {clientLogos.map((name) => (
-            <span key={name}>{name}</span>
+          {clientLogos.map((client) => (
+            <span key={client.id}>{client.title}</span>
           ))}
         </div>
       </div>
