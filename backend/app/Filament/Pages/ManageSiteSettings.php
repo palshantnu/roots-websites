@@ -18,7 +18,7 @@ class ManageSiteSettings extends Page implements HasForms
 
     protected static ?string $navigationLabel = 'Site settings';
 
-    protected static ?string $navigationGroup = 'Site content';
+    protected static ?string $navigationGroup = 'Publications · Site content';
 
     protected static string $view = 'filament.pages.manage-site-settings';
 

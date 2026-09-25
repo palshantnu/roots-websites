@@ -4,7 +4,7 @@ import { HelpCircle, Plus } from "lucide-react";
 import Section from "../ui/Section";
 import SectionHeading from "../ui/SectionHeading";
 import Reveal from "../ui/Reveal";
-import { faqs } from "../../data/faqs";
+import { useFaqs } from "../../hooks/useApi";
 
 function FAQItem({ faq, isOpen, onToggle, index }) {
   const panelId = useId();
@@ -63,6 +63,7 @@ function FAQItem({ faq, isOpen, onToggle, index }) {
 
 export default function FAQAccordion() {
   const [openIndex, setOpenIndex] = useState(0);
+  const { data: faqs } = useFaqs();
 
   return (
     <Section className="bg-ivory-100/60 dark:bg-ink-900/20">
@@ -77,7 +78,7 @@ export default function FAQAccordion() {
       <div className="mx-auto mt-14 flex max-w-3xl flex-col gap-3">
         {faqs.map((faq, i) => (
           <FAQItem
-            key={faq.question}
+            key={faq.id}
             faq={faq}
             index={i}
             isOpen={openIndex === i}

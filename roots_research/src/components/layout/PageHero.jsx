@@ -3,8 +3,17 @@ import GradientBlobs from "../ui/GradientBlobs";
 import FloatingIcons from "../ui/FloatingIcons";
 import Badge from "../ui/Badge";
 import Divider from "../ui/Divider";
+import HighlightedTitle from "../ui/HighlightedTitle";
 
-export default function PageHero({ eyebrow, eyebrowIcon, title, description, tone = "blue" }) {
+/**
+ * Page header. Pass `page` (from usePage) to render the admin-managed copy,
+ * or the individual props directly.
+ */
+export default function PageHero({ page, eyebrowIcon, tone = "blue", ...props }) {
+  const eyebrow = props.eyebrow ?? page?.eyebrow;
+  const title = props.title ?? page?.title;
+  const description = props.description ?? page?.description;
+
   return (
     <section className="relative isolate overflow-hidden pt-36 pb-12 sm:pt-40 sm:pb-16">
       <div className="absolute inset-0 -z-20 bg-gradient-to-b from-ivory-100 via-white to-white dark:from-ink-950 dark:via-ink-950 dark:to-ink-950" />
@@ -24,7 +33,7 @@ export default function PageHero({ eyebrow, eyebrowIcon, title, description, ton
           transition={{ duration: 0.6, delay: 0.1 }}
           className="font-display text-4xl font-semibold leading-tight tracking-tight text-ink-950 sm:text-5xl dark:text-ivory-50 text-balance"
         >
-          {title}
+          <HighlightedTitle title={title} highlight={page?.highlight} />
         </motion.h1>
         {description && (
           <motion.p

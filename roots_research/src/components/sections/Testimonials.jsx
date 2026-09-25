@@ -5,30 +5,34 @@ import Section from "../ui/Section";
 import SectionHeading from "../ui/SectionHeading";
 import Reveal from "../ui/Reveal";
 import AnimatedCounter from "../ui/AnimatedCounter";
-import { testimonials, testimonialStats } from "../../data/testimonials";
+import { useSection, useTestimonials } from "../../hooks/useApi";
+import { toNumber } from "../../lib/format";
 
 export default function Testimonials() {
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState(1);
+  const { data: testimonials } = useTestimonials();
+  const { items: testimonialStats } = useSection("testimonial_stats");
 
   const goTo = useCallback(
     (next) => {
       setDirection(next > index || (index === testimonials.length - 1 && next === 0) ? 1 : -1);
       setIndex(next);
     },
-    [index]
+    [index, testimonials.length]
   );
 
-  const next = useCallback(() => goTo((index + 1) % testimonials.length), [goTo, index]);
+  const next = useCallback(() => goTo((index + 1) % testimonials.length), [goTo, index, testimonials.length]);
   const prev = useCallback(
     () => goTo((index - 1 + testimonials.length) % testimonials.length),
-    [goTo, index]
+    [goTo, index, testimonials.length]
   );
 
   useEffect(() => {
+    if (testimonials.length < 2) return undefined;
     const timer = setInterval(next, 6000);
     return () => clearInterval(timer);
-  }, [next]);
+  }, [next, testimonials.length]);
 
   const current = testimonials[index];
 
@@ -44,15 +48,16 @@ export default function Testimonials() {
 
       <Reveal delay={0.1} className="mx-auto mt-12 grid max-w-3xl grid-cols-2 gap-4 sm:grid-cols-4 sm:gap-6">
         {testimonialStats.map((stat) => (
-          <div key={stat.label} className="text-center">
+          <div key={stat.id} className="text-center">
             <p className="font-display text-2xl font-semibold text-gradient-blue sm:text-3xl">
-              <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+              <AnimatedCounter value={toNumber(stat.value)} suffix={stat.suffix ?? ""} />
             </p>
-            <p className="mt-1 text-xs font-medium text-ink-500 sm:text-sm dark:text-ink-300">{stat.label}</p>
+            <p className="mt-1 text-xs font-medium text-ink-500 sm:text-sm dark:text-ink-300">{stat.title}</p>
           </div>
         ))}
       </Reveal>
 
+      {current && (
       <Reveal delay={0.2} className="relative mx-auto mt-16 max-w-3xl">
         <div className="relative overflow-hidden rounded-[2rem] border border-blue-200/60 bg-white p-8 shadow-xl shadow-ink-900/5 sm:p-12 dark:border-white/10 dark:bg-white/[0.04]">
           <Quote className="h-10 w-10 text-blue-200 dark:text-blue-400/20" aria-hidden="true" />
@@ -103,7 +108,7 @@ export default function Testimonials() {
           <div className="flex gap-2">
             {testimonials.map((t, i) => (
               <button
-                key={t.name}
+                key={t.id}
                 type="button"
                 onClick={() => goTo(i)}
                 aria-label={`Go to testimonial ${i + 1}`}
@@ -124,6 +129,7 @@ export default function Testimonials() {
           </button>
         </div>
       </Reveal>
+      )}
     </Section>
   );
 }

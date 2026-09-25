@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Send, Zap, Lock, HeadphonesIcon, Mail, Phone, User, MapPin, MessageSquare } from "lucide-react";
+import { Send, Mail, Phone, User, MapPin, MessageSquare } from "lucide-react";
 import Section from "../ui/Section";
 import SectionHeading from "../ui/SectionHeading";
 import Reveal from "../ui/Reveal";
 import Button from "../ui/Button";
 import { countryCodes } from "../../data/countryCodes";
 import { useToast } from "../../context/ToastContext";
+import { useSection, useSettings } from "../../hooks/useApi";
+import { getIcon } from "../../lib/icons";
 
 const initialForm = {
   fullName: "",
@@ -16,12 +18,6 @@ const initialForm = {
   subject: "",
   city: "",
 };
-
-const sidePanel = [
-  { icon: Zap, title: "Quick Response", description: "We reply within 24 hours, every time." },
-  { icon: Lock, title: "Secure & Private", description: "Your details never leave our NDA-protected systems." },
-  { icon: HeadphonesIcon, title: "Expert Support", description: "Talk directly to a subject-matter mentor, not a call centre." },
-];
 
 function validate(form) {
   const errors = {};
@@ -48,6 +44,9 @@ export default function ContactForm() {
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
   const { addToast } = useToast();
+  const { items: sidePanel } = useSection("contact_highlights");
+  const { settings } = useSettings();
+  const contactEmail = settings?.contact?.email;
 
   const handleChange = (field) => (e) => {
     setForm((f) => ({ ...f, [field]: e.target.value }));
@@ -229,9 +228,11 @@ export default function ContactForm() {
         <Reveal delay={0.2} className="lg:col-span-2">
           <div className="flex h-full flex-col gap-5 rounded-3xl border-2 border-blue-200 bg-gradient-paper p-6 text-ink-950 shadow-xl shadow-blue-500/10 dark:border-white/10 dark:bg-gradient-ink dark:text-ivory-50 dark:shadow-ink-950/20 sm:p-8">
             <h3 className="font-display text-xl font-semibold sm:text-2xl">Why reach out to us?</h3>
-            {sidePanel.map((item, i) => (
+            {sidePanel.map((item, i) => {
+              const ItemIcon = getIcon(item.icon);
+              return (
               <motion.div
-                key={item.title}
+                key={item.id}
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -239,20 +240,23 @@ export default function ContactForm() {
                 className="flex items-start gap-3 rounded-2xl bg-blue-50 p-4 dark:bg-white/5"
               >
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-blue-600 shadow-sm dark:bg-white/10 dark:text-blue-300">
-                  <item.icon className="h-5 w-5" aria-hidden="true" />
+                  <ItemIcon className="h-5 w-5" aria-hidden="true" />
                 </span>
                 <div>
                   <p className="font-semibold">{item.title}</p>
                   <p className="mt-0.5 text-sm text-ink-600 dark:text-ink-200">{item.description}</p>
                 </div>
               </motion.div>
-            ))}
-            <div className="mt-auto rounded-2xl border border-blue-200 bg-blue-50 p-4 text-sm text-ink-600 dark:border-white/10 dark:bg-white/5 dark:text-ink-200">
-              Prefer email? Write to us directly at{" "}
-              <a href="mailto:hello@thesiscraftacademy.com" className="font-semibold text-blue-600 underline underline-offset-2 dark:text-blue-300">
-                hello@thesiscraftacademy.com
-              </a>
-            </div>
+              );
+            })}
+            {contactEmail && (
+              <div className="mt-auto rounded-2xl border border-blue-200 bg-blue-50 p-4 text-sm text-ink-600 dark:border-white/10 dark:bg-white/5 dark:text-ink-200">
+                Prefer email? Write to us directly at{" "}
+                <a href={`mailto:${contactEmail}`} className="font-semibold text-blue-600 underline underline-offset-2 dark:text-blue-300">
+                  {contactEmail}
+                </a>
+              </div>
+            )}
           </div>
         </Reveal>
       </div>

@@ -5,12 +5,15 @@ import { AnimatePresence, motion } from "framer-motion";
 import { GraduationCap, Menu, X, Moon, Sun, ArrowRight } from "lucide-react";
 import { navLinks } from "../../data/nav";
 import { useTheme } from "../../context/ThemeContext";
+import { useSettings } from "../../hooks/useApi";
 import Button from "../ui/Button";
+import BrandName from "./BrandName";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  const { settings } = useSettings();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -27,7 +30,7 @@ export default function Navbar() {
   }, [mobileOpen]);
 
   const linkClass = ({ isActive }) =>
-    `relative px-1 py-2 text-sm font-semibold tracking-tight transition-colors duration-200 focus-ring ${
+    `relative whitespace-nowrap px-1 py-2 text-sm font-semibold tracking-tight transition-colors duration-200 focus-ring ${
       isActive
         ? "text-blue-600 dark:text-blue-300"
         : "text-ink-700 hover:text-blue-600 dark:text-ivory-200 dark:hover:text-blue-300"
@@ -43,19 +46,17 @@ export default function Navbar() {
         }`}
       >
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8" aria-label="Primary">
-          <Link to="/" className="flex items-center gap-2.5 focus-ring rounded-lg" aria-label="ThesisCraft Academy home">
+          <Link to="/" className="flex items-center gap-2.5 focus-ring rounded-lg" aria-label={`${settings?.siteName ?? ""} home`}>
             <motion.span
               whileHover={{ rotate: -6, scale: 1.06 }}
               className="flex h-10 w-10 items-center justify-center rounded-xl border border-blue-200 bg-white text-blue-600 shadow-lg shadow-blue-500/10"
             >
               <GraduationCap className="h-5 w-5" aria-hidden="true" />
             </motion.span>
-            <span className="font-display text-lg font-semibold tracking-tight text-ink-950 dark:text-ivory-50">
-              ThesisCraft <span className="text-gradient-blue">Academy</span>
-            </span>
+            <BrandName className="font-display text-lg font-semibold tracking-tight text-ink-950 dark:text-ivory-50" />
           </Link>
 
-          <div className="hidden items-center gap-8 lg:flex">
+          <div className="hidden items-center gap-5 lg:flex xl:gap-8">
             {navLinks.map((link) => (
               <NavLink key={link.to} to={link.to} className={linkClass}>
                 {({ isActive }) => (
@@ -83,9 +84,12 @@ export default function Navbar() {
               {theme === "dark" ? <Sun className="h-4.5 w-4.5" /> : <Moon className="h-4.5 w-4.5" />}
             </button>
 
-            <Button to="/#contact" size="sm" icon={ArrowRight}>
-              Get Free Consultation
-            </Button>
+            {/* Shown from xl so the five nav links fit on one line at lg widths. */}
+            <div className="hidden xl:block">
+              <Button to="/#contact" size="sm" icon={ArrowRight}>
+                Get Free Consultation
+              </Button>
+            </div>
           </div>
 
           <button

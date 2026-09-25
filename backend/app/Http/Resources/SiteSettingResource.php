@@ -13,6 +13,7 @@ class SiteSettingResource extends JsonResource
             'siteName' => $this->site_name,
             'tagline' => $this->tagline,
             'announcementText' => $this->announcement_text,
+            'footerNote' => $this->footer_note,
             'hero' => [
                 'eyebrow' => $this->hero_eyebrow,
                 'title' => $this->hero_title,
@@ -38,6 +39,7 @@ class SiteSettingResource extends JsonResource
                 'instagram' => $this->instagram_url,
                 'facebook' => $this->facebook_url,
                 'linkedin' => $this->linkedin_url,
+                'twitter' => $this->twitter_url,
             ],
         ];
     }

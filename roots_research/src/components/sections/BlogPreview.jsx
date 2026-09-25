@@ -4,9 +4,11 @@ import SectionHeading from "../ui/SectionHeading";
 import Reveal from "../ui/Reveal";
 import Button from "../ui/Button";
 import ArticleCard from "../ui/ArticleCard";
-import { articles } from "../../data/blog";
+import { usePosts } from "../../hooks/useApi";
 
 export default function BlogPreview() {
+  const { data: articles } = usePosts();
+
   return (
     <Section>
       <div className="flex flex-col items-center justify-between gap-8 sm:flex-row sm:items-end">
@@ -27,8 +29,8 @@ export default function BlogPreview() {
 
       <div className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-3">
         {articles.slice(0, 3).map((article, i) => (
-          <Reveal key={article.title} delay={i * 0.1}>
-            <ArticleCard article={article} />
+          <Reveal key={article.id} delay={i * 0.1}>
+            <ArticleCard article={article} tone={i % 2 ? "blue" : "ink"} />
           </Reveal>
         ))}
       </div>

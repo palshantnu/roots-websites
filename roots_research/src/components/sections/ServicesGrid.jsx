@@ -5,7 +5,8 @@ import Section from "../ui/Section";
 import SectionHeading from "../ui/SectionHeading";
 import Reveal from "../ui/Reveal";
 import Card from "../ui/Card";
-import { services } from "../../data/services";
+import { useServices } from "../../hooks/useApi";
+import { getIcon } from "../../lib/icons";
 
 const iconTone = {
   ink: "bg-white border border-blue-200 text-blue-600",
@@ -13,6 +14,8 @@ const iconTone = {
 };
 
 export default function ServicesGrid() {
+  const { data: services } = useServices();
+
   return (
     <Section id="services">
       <SectionHeading
@@ -23,14 +26,17 @@ export default function ServicesGrid() {
       />
 
       <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2">
-        {services.map((service, i) => (
-          <Reveal key={service.title} delay={i * 0.1}>
-            <Card glow={service.tone} className="h-full">
+        {services.map((service, i) => {
+          const tone = iconTone[service.tone] ? service.tone : "ink";
+          const ServiceIcon = getIcon(service.icon);
+          return (
+          <Reveal key={service.id} delay={i * 0.1}>
+            <Card glow={tone} className="h-full">
               <motion.div
                 whileHover={{ rotate: -6, scale: 1.08 }}
-                className={`flex h-14 w-14 items-center justify-center rounded-2xl shadow-lg ${iconTone[service.tone]}`}
+                className={`flex h-14 w-14 items-center justify-center rounded-2xl shadow-lg ${iconTone[tone]}`}
               >
-                <service.icon className="h-6 w-6" aria-hidden="true" />
+                <ServiceIcon className="h-6 w-6" aria-hidden="true" />
               </motion.div>
               <h3 className="mt-6 font-display text-xl font-semibold text-ink-950 sm:text-2xl dark:text-ivory-50">
                 {service.title}
@@ -39,7 +45,7 @@ export default function ServicesGrid() {
                 {service.description}
               </p>
               <Link
-                to={service.href}
+                to={service.link || "/services"}
                 className="focus-ring mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-ink-800 transition-colors hover:text-blue-600 dark:text-ivory-100 dark:hover:text-blue-300"
               >
                 Learn More
@@ -47,7 +53,8 @@ export default function ServicesGrid() {
               </Link>
             </Card>
           </Reveal>
-        ))}
+          );
+        })}
       </div>
     </Section>
   );

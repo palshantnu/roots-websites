@@ -19,7 +19,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 uses(RefreshDatabase::class);
 
 it('loads every admin panel page for an authenticated user', function () {
-    $user = User::factory()->create();
+    $user = User::factory()->admin()->create();
 
     $category = Category::factory()->create();
     $author = Author::factory()->create();

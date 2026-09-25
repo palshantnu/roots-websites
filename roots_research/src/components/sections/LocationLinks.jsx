@@ -4,12 +4,14 @@ import { ChevronDown, MapPinned } from "lucide-react";
 import Section from "../ui/Section";
 import SectionHeading from "../ui/SectionHeading";
 import Reveal from "../ui/Reveal";
-import { indianCities } from "../../data/locations";
+import { useSection } from "../../hooks/useApi";
 
 const INITIAL_COUNT = 16;
 
 export default function LocationLinks() {
   const [expanded, setExpanded] = useState(false);
+  const { items } = useSection("indian_cities");
+  const indianCities = items.map((item) => item.title);
   const visibleCities = expanded ? indianCities : indianCities.slice(0, INITIAL_COUNT);
 
   return (
@@ -39,6 +41,7 @@ export default function LocationLinks() {
         ))}
       </Reveal>
 
+      {indianCities.length > INITIAL_COUNT && (
       <div className="mt-8 flex justify-center">
         <button
           type="button"
@@ -52,6 +55,7 @@ export default function LocationLinks() {
           </motion.span>
         </button>
       </div>
+      )}
     </Section>
   );
 }

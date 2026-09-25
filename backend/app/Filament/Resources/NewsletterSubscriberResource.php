@@ -14,7 +14,7 @@ class NewsletterSubscriberResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-at-symbol';
 
-    protected static ?string $navigationGroup = 'Enquiries';
+    protected static ?string $navigationGroup = 'Publications · Enquiries';
 
     public static function table(Table $table): Table
     {

@@ -3,17 +3,15 @@ import PageHero from "../components/layout/PageHero";
 import OfferingsGrid from "../components/sections/OfferingsGrid";
 import Testimonials from "../components/sections/Testimonials";
 import CTABanner from "../components/sections/CTABanner";
-import { publicationOfferings } from "../data/publicationSupport";
+import { usePage, useSection } from "../hooks/useApi";
 
 export default function PublicationSupport() {
+  const { page } = usePage("publication-support");
+  const { items: publicationOfferings } = useSection("publication_offerings");
+
   return (
     <>
-      <PageHero
-        eyebrow="Publication Support"
-        eyebrowIcon={BookMarked}
-        title="Turn Your Thesis Into Published Research"
-        description="From journal shortlisting to reviewer responses, we help your findings reach the audience they deserve."
-      />
+      <PageHero page={page} eyebrowIcon={BookMarked} />
       <OfferingsGrid
         eyebrow="What We Handle"
         eyebrowIcon={BookMarked}
@@ -22,11 +20,7 @@ export default function PublicationSupport() {
         offerings={publicationOfferings}
       />
       <Testimonials />
-      <CTABanner
-        title="Ready to Publish Your Research?"
-        description="Share your thesis chapter and target journal — we'll map out a submission-ready plan."
-        ctaLabel="Start Publication Support"
-      />
+      <CTABanner cta={page?.cta} />
     </>
   );
 }

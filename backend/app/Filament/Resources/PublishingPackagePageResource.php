@@ -18,7 +18,7 @@ class PublishingPackagePageResource extends Resource
 
     protected static ?string $navigationLabel = 'Package pages';
 
-    protected static ?string $navigationGroup = 'Site content';
+    protected static ?string $navigationGroup = 'Publications · Site content';
 
     public static function form(Form $form): Form
     {

@@ -17,7 +17,7 @@ class PackageResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-currency-rupee';
 
-    protected static ?string $navigationGroup = 'Site content';
+    protected static ?string $navigationGroup = 'Publications · Site content';
 
     public static function form(Form $form): Form
     {

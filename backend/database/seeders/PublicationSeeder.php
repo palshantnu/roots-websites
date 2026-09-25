@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\SiteCode;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\Category;
@@ -10,6 +11,7 @@ use App\Models\Package;
 use App\Models\Post;
 use App\Models\PublishingPackagePage;
 use App\Models\Service;
+use App\Models\Site;
 use App\Models\SiteSetting;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -18,6 +20,8 @@ class PublicationSeeder extends Seeder
 {
     public function run(): void
     {
+        $site = Site::findByCode(SiteCode::Publications);
+
         $categoryNames = ['Fiction', 'Poetry', 'Academic', 'History', 'Religion', 'Motivational', 'Children', 'Drama', 'Research', 'Autobiography', 'Novel', 'Stories', 'Travelogue', 'Short Stories'];
 
         foreach ($categoryNames as $index => $name) {
@@ -89,7 +93,7 @@ class PublicationSeeder extends Seeder
                 'featured' => $index < 6,
                 'bestseller' => $index % 3 === 0,
                 'new_release' => $index > 7,
-                'description' => "A carefully crafted ".strtolower($categoryName)." title about memory, possibility and the small choices that shape a life. Prepared with editorial care by RTS Publication.",
+                'description' => 'A carefully crafted '.strtolower($categoryName).' title about memory, possibility and the small choices that shape a life. Prepared with editorial care by RTS Publication.',
             ]);
         }
 
@@ -106,7 +110,7 @@ class PublicationSeeder extends Seeder
         ];
 
         foreach ($services as $index => [$title, $description]) {
-            Service::firstOrCreate(['slug' => Str::slug(str_replace('&', '', $title))], [
+            Service::firstOrCreate(['site_id' => $site->id, 'slug' => Str::slug(str_replace('&', '', $title))], [
                 'title' => $title,
                 'description' => $description,
                 'sort_order' => $index,
@@ -157,7 +161,7 @@ class PublicationSeeder extends Seeder
         ];
 
         foreach ($posts as [$title, $category, $date, $readTime, $color]) {
-            Post::firstOrCreate(['slug' => Str::slug($title)], [
+            Post::firstOrCreate(['site_id' => $site->id, 'slug' => Str::slug($title)], [
                 'title' => $title,
                 'category' => $category,
                 'color' => $color,
@@ -182,13 +186,13 @@ class PublicationSeeder extends Seeder
         ];
 
         foreach ($faqs as $index => $question) {
-            Faq::firstOrCreate(['question' => $question], [
+            Faq::firstOrCreate(['site_id' => $site->id, 'question' => $question], [
                 'answer' => 'Our publishing advisors guide you through this step with a clear timeline, transparent options and complete support from the RTS team.',
                 'sort_order' => $index,
             ]);
         }
 
-        SiteSetting::firstOrCreate([], [
+        SiteSetting::firstOrCreate(['site_id' => $site->id], [
             'site_name' => 'RTS Publication',
             'tagline' => 'Your story. Our craft.',
             'announcement_text' => 'Free shipping on orders over ₹999 • Publishing consultations available Mon–Sat',

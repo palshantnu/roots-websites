@@ -1,37 +1,17 @@
 import { motion } from "framer-motion";
-import {
-  Sparkles,
-  SearchCheck,
-  Network,
-  Quote,
-  FileStack,
-  ShieldAlert,
-  Zap,
-  Database,
-  Timer,
-  Target,
-} from "lucide-react";
+import { Sparkles } from "lucide-react";
 import Reveal from "../ui/Reveal";
 import Badge from "../ui/Badge";
 import Button from "../ui/Button";
 import AnimatedCounter from "../ui/AnimatedCounter";
-
-const tags = [
-  { label: "Research Gap Detection", icon: SearchCheck },
-  { label: "Literature Mapping", icon: Network },
-  { label: "Citation Analysis", icon: Quote },
-  { label: "Smart Summarisation", icon: FileStack },
-  { label: "Plagiarism Insights", icon: ShieldAlert },
-];
-
-const stats = [
-  { icon: Database, value: 10, suffix: "M+", label: "Papers Indexed" },
-  { icon: Zap, value: 100, suffix: "%", label: "AI-Powered Engine", isEngine: true },
-  { icon: Timer, value: 60, suffix: "s", label: "Avg Query Speed" },
-  { icon: Target, value: 100, suffix: "%", label: "Academic Focus" },
-];
+import { useSection } from "../../hooks/useApi";
+import { getIcon } from "../../lib/icons";
+import { toNumber } from "../../lib/format";
 
 export default function AIResearchBanner() {
+  const { items: tags } = useSection("ai_tags");
+  const { items: stats } = useSection("ai_stats");
+
   return (
     <section className="relative overflow-hidden py-20 md:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -64,9 +44,11 @@ export default function AIResearchBanner() {
             </p>
 
             <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
-              {tags.map((tag, i) => (
+              {tags.map((tag, i) => {
+                const TagIcon = getIcon(tag.icon);
+                return (
                 <motion.span
-                  key={tag.label}
+                  key={tag.id}
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -74,10 +56,11 @@ export default function AIResearchBanner() {
                   whileHover={{ y: -3, scale: 1.04 }}
                   className="flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-xs font-semibold text-ink-800 backdrop-blur-md dark:border-white/10 dark:bg-white/5 dark:text-ivory-50 sm:text-sm"
                 >
-                  <tag.icon className="h-4 w-4 text-blue-600 dark:text-blue-300" aria-hidden="true" />
-                  {tag.label}
+                  <TagIcon className="h-4 w-4 text-blue-600 dark:text-blue-300" aria-hidden="true" />
+                  {tag.title}
                 </motion.span>
-              ))}
+                );
+              })}
             </div>
 
             <Button to="/#contact" variant="blue" size="lg" icon={Sparkles} iconPosition="left" className="mt-4">
@@ -85,21 +68,20 @@ export default function AIResearchBanner() {
             </Button>
 
             <div className="mt-10 grid w-full grid-cols-2 gap-4 border-t border-ink-900/10 pt-10 dark:border-white/10 sm:grid-cols-4 sm:gap-6">
-              {stats.map((stat) => (
-                <div key={stat.label} className="flex flex-col items-center gap-2">
-                  <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 dark:bg-white/5 dark:text-blue-300">
-                    <stat.icon className="h-5 w-5" aria-hidden="true" />
-                  </span>
-                  <p className="font-display text-xl font-semibold text-ink-950 dark:text-ivory-50 sm:text-2xl">
-                    {stat.isEngine ? (
-                      "AI-Powered"
-                    ) : (
-                      <AnimatedCounter value={stat.value} suffix={stat.suffix} />
-                    )}
-                  </p>
-                  <p className="text-xs font-medium text-ink-500 dark:text-ink-300 sm:text-sm">{stat.label}</p>
-                </div>
-              ))}
+              {stats.map((stat) => {
+                const StatIcon = getIcon(stat.icon);
+                return (
+                  <div key={stat.id} className="flex flex-col items-center gap-2">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 dark:bg-white/5 dark:text-blue-300">
+                      <StatIcon className="h-5 w-5" aria-hidden="true" />
+                    </span>
+                    <p className="font-display text-xl font-semibold text-ink-950 dark:text-ivory-50 sm:text-2xl">
+                      {stat.meta ? stat.meta : <AnimatedCounter value={toNumber(stat.value)} suffix={stat.suffix ?? ""} />}
+                    </p>
+                    <p className="text-xs font-medium text-ink-500 dark:text-ink-300 sm:text-sm">{stat.title}</p>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </Reveal>

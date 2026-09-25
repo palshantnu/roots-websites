@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\SiteCode;
+use App\Filament\Concerns\ScopedToSite;
 use App\Filament\Resources\ServiceResource\Pages;
 use App\Models\Service;
 use Filament\Forms;
@@ -13,11 +15,18 @@ use Illuminate\Support\Str;
 
 class ServiceResource extends Resource
 {
+    use ScopedToSite;
+
+    public static function getSiteCode(): SiteCode
+    {
+        return SiteCode::Publications;
+    }
+
     protected static ?string $model = Service::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-briefcase';
 
-    protected static ?string $navigationGroup = 'Site content';
+    protected static ?string $navigationGroup = 'Publications · Site content';
 
     public static function form(Form $form): Form
     {
@@ -33,7 +42,7 @@ class ServiceResource extends Resource
                     }),
                 Forms\Components\TextInput::make('slug')
                     ->required()
-                    ->unique(ignoreRecord: true)
+                    ->unique(ignoreRecord: true, modifyRuleUsing: static::uniqueWithinSite())
                     ->alphaDash(),
                 Forms\Components\Textarea::make('description')
                     ->rows(3)

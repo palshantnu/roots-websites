@@ -27,6 +27,13 @@ class User extends Authenticatable implements FilamentUser
     ];
 
     /**
+     * @var array<string, mixed>
+     */
+    protected $attributes = [
+        'is_admin' => false,
+    ];
+
+    /**
      * The attributes that should be hidden for serialization.
      *
      * @var list<string>
@@ -46,11 +53,15 @@ class User extends Authenticatable implements FilamentUser
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_admin' => 'boolean',
         ];
     }
 
+    /**
+     * Only administrators may use the admin panel that manages all websites.
+     */
     public function canAccessPanel(Panel $panel): bool
     {
-        return true;
+        return $this->is_admin;
     }
 }

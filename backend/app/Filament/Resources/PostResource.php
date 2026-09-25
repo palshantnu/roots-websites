@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\SiteCode;
+use App\Filament\Concerns\ScopedToSite;
 use App\Filament\Resources\PostResource\Pages;
 use App\Models\Post;
 use Filament\Forms;
@@ -13,13 +15,20 @@ use Illuminate\Support\Str;
 
 class PostResource extends Resource
 {
+    use ScopedToSite;
+
+    public static function getSiteCode(): SiteCode
+    {
+        return SiteCode::Publications;
+    }
+
     protected static ?string $model = Post::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-newspaper';
 
     protected static ?string $navigationLabel = 'Journal posts';
 
-    protected static ?string $navigationGroup = 'Site content';
+    protected static ?string $navigationGroup = 'Publications · Site content';
 
     public static function form(Form $form): Form
     {
@@ -36,7 +45,7 @@ class PostResource extends Resource
                     ->columnSpanFull(),
                 Forms\Components\TextInput::make('slug')
                     ->required()
-                    ->unique(ignoreRecord: true)
+                    ->unique(ignoreRecord: true, modifyRuleUsing: static::uniqueWithinSite())
                     ->alphaDash(),
                 Forms\Components\TextInput::make('category'),
                 Forms\Components\TextInput::make('read_time')

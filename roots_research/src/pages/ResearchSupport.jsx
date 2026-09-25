@@ -4,17 +4,15 @@ import OfferingsGrid from "../components/sections/OfferingsGrid";
 import AIResearchBanner from "../components/sections/AIResearchBanner";
 import ProcessTimeline from "../components/sections/ProcessTimeline";
 import CTABanner from "../components/sections/CTABanner";
-import { researchOfferings } from "../data/researchSupport";
+import { usePage, useSection } from "../hooks/useApi";
 
 export default function ResearchSupport() {
+  const { page } = usePage("research-support");
+  const { items: researchOfferings } = useSection("research_offerings");
+
   return (
     <>
-      <PageHero
-        eyebrow="Research Support"
-        eyebrowIcon={FlaskConical}
-        title="From Blank Page to Defensible Research Design"
-        description="Every strong thesis starts with a strong research foundation — we help you build one that survives committee scrutiny."
-      />
+      <PageHero page={page} eyebrowIcon={FlaskConical} />
       <OfferingsGrid
         eyebrow="Core Offerings"
         title="Research Support, Chapter by Chapter"
@@ -23,11 +21,7 @@ export default function ResearchSupport() {
       />
       <AIResearchBanner />
       <ProcessTimeline />
-      <CTABanner
-        title="Stuck on Your Research Design?"
-        description="Get a free 20-minute consultation with a mentor in your subject area."
-        ctaLabel="Book a Free Consultation"
-      />
+      <CTABanner cta={page?.cta} />
     </>
   );
 }

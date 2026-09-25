@@ -4,14 +4,25 @@ import { Globe2, MapPin } from "lucide-react";
 import Section from "../ui/Section";
 import SectionHeading from "../ui/SectionHeading";
 import Reveal from "../ui/Reveal";
-import { regions, globalCities } from "../../data/cities";
+import { useSection } from "../../hooks/useApi";
 
 export default function GlobalPresence() {
   const [active, setActive] = useState("All");
+  const { items } = useSection("global_cities");
+
+  // Admin fields: title = city, subtitle = country, meta = flag, value = region.
+  const globalCities = useMemo(
+    () => items.map((item) => ({ id: item.id, city: item.title, country: item.subtitle, flag: item.meta, region: item.value })),
+    [items]
+  );
+  const regions = useMemo(
+    () => ["All", ...new Set(globalCities.map((c) => c.region).filter(Boolean))],
+    [globalCities]
+  );
 
   const filtered = useMemo(
     () => (active === "All" ? globalCities : globalCities.filter((c) => c.region === active)),
-    [active]
+    [active, globalCities]
   );
 
   return (
@@ -56,7 +67,7 @@ export default function GlobalPresence() {
         <AnimatePresence mode="popLayout">
           {filtered.map((c) => (
             <motion.button
-              key={`${c.city}-${c.country}`}
+              key={c.id}
               type="button"
               layout
               initial={{ opacity: 0, scale: 0.85 }}

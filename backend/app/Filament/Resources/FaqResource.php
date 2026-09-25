@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\SiteCode;
+use App\Filament\Concerns\ScopedToSite;
 use App\Filament\Resources\FaqResource\Pages;
 use App\Models\Faq;
 use Filament\Forms;
@@ -12,11 +14,18 @@ use Filament\Tables\Table;
 
 class FaqResource extends Resource
 {
+    use ScopedToSite;
+
+    public static function getSiteCode(): SiteCode
+    {
+        return SiteCode::Publications;
+    }
+
     protected static ?string $model = Faq::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-question-mark-circle';
 
-    protected static ?string $navigationGroup = 'Site content';
+    protected static ?string $navigationGroup = 'Publications · Site content';
 
     public static function form(Form $form): Form
     {

@@ -1,4 +1,4 @@
-import { Info, Target, Heart, Compass } from "lucide-react";
+import { Info } from "lucide-react";
 import PageHero from "../components/layout/PageHero";
 import Section from "../components/ui/Section";
 import SectionHeading from "../components/ui/SectionHeading";
@@ -6,28 +6,18 @@ import Reveal from "../components/ui/Reveal";
 import AnimatedCounter from "../components/ui/AnimatedCounter";
 import WhyChooseUs from "../components/sections/WhyChooseUs";
 import CTABanner from "../components/sections/CTABanner";
-
-const values = [
-  { icon: Target, title: "Outcome-Focused", description: "We measure success by your submission and defence outcome, not billable hours." },
-  { icon: Heart, title: "Student-First", description: "Every process decision starts with what actually reduces your stress and improves your work." },
-  { icon: Compass, title: "Academic Integrity", description: "We guide and mentor — the understanding, and the credit, stays yours." },
-];
-
-const founderStats = [
-  { value: 12, suffix: "+", label: "Years in Academic Mentoring" },
-  { value: 2400, suffix: "+", label: "Scholars Guided" },
-  { value: 20, suffix: "+", label: "Countries Served" },
-];
+import { usePage, useSection } from "../hooks/useApi";
+import { getIcon } from "../lib/icons";
+import { toNumber } from "../lib/format";
 
 export default function About() {
+  const { page } = usePage("about");
+  const { items: values } = useSection("about_values");
+  const { items: founderStats } = useSection("about_stats");
+
   return (
     <>
-      <PageHero
-        eyebrow="About Us"
-        eyebrowIcon={Info}
-        title="We Exist to Make Original Research Less Lonely"
-        description="ThesisCraft Academy was founded by researchers who remembered exactly how isolating a thesis can feel — and built the mentor network we wished we'd had."
-      />
+      <PageHero page={page} eyebrowIcon={Info} />
 
       <Section>
         <SectionHeading
@@ -37,31 +27,34 @@ export default function About() {
           description="These aren't wall art — they're the standard every mentor is held to."
         />
         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-3">
-          {values.map((v, i) => (
-            <Reveal key={v.title} delay={i * 0.1} className="rounded-3xl border border-ink-900/10 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/[0.04]">
-              <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white border border-blue-200 text-blue-600 shadow-md">
-                <v.icon className="h-5.5 w-5.5" aria-hidden="true" />
-              </span>
-              <h3 className="mt-4 font-display text-lg font-semibold text-ink-950 dark:text-ivory-50">{v.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink-600 dark:text-ink-200">{v.description}</p>
-            </Reveal>
-          ))}
+          {values.map((v, i) => {
+            const ValueIcon = getIcon(v.icon);
+            return (
+              <Reveal key={v.id} delay={i * 0.1} className="rounded-3xl border border-ink-900/10 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/[0.04]">
+                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white border border-blue-200 text-blue-600 shadow-md">
+                  <ValueIcon className="h-5.5 w-5.5" aria-hidden="true" />
+                </span>
+                <h3 className="mt-4 font-display text-lg font-semibold text-ink-950 dark:text-ivory-50">{v.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-ink-600 dark:text-ink-200">{v.description}</p>
+              </Reveal>
+            );
+          })}
         </div>
 
         <Reveal delay={0.2} className="mt-16 grid grid-cols-1 gap-6 rounded-[2rem] border-2 border-blue-200 bg-gradient-paper p-10 text-center shadow-xl shadow-blue-500/10 dark:border-white/10 dark:bg-gradient-ink dark:shadow-ink-950/30 sm:grid-cols-3 sm:p-14">
           {founderStats.map((stat) => (
-            <div key={stat.label}>
+            <div key={stat.id}>
               <p className="font-display text-3xl font-semibold text-gradient-blue sm:text-4xl">
-                <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+                <AnimatedCounter value={toNumber(stat.value)} suffix={stat.suffix ?? ""} />
               </p>
-              <p className="mt-1 text-sm text-ink-600 dark:text-ink-200">{stat.label}</p>
+              <p className="mt-1 text-sm text-ink-600 dark:text-ink-200">{stat.title}</p>
             </div>
           ))}
         </Reveal>
       </Section>
 
       <WhyChooseUs />
-      <CTABanner />
+      <CTABanner cta={page?.cta} />
     </>
   );
 }

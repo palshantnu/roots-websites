@@ -1,24 +1,25 @@
 import { ArrowUpRight, User, CalendarDays } from "lucide-react";
 import { Link } from "react-router-dom";
 import Card from "./Card";
+import { formatDate } from "../../lib/format";
 
 const headerStyles = {
   ink: "border border-blue-200 bg-gradient-paper dark:border-white/10 dark:bg-gradient-ink",
   blue: "bg-gradient-blue",
 };
 
-export default function ArticleCard({ article }) {
-  const isInk = article.tone !== "blue";
+export default function ArticleCard({ article, tone = "ink" }) {
+  const isInk = tone !== "blue";
   return (
     <Card glow="blue" className="flex h-full flex-col">
-      <div className={`h-36 w-full rounded-2xl relative overflow-hidden ${headerStyles[article.tone] || headerStyles.ink}`}>
+      <div className={`h-36 w-full rounded-2xl relative overflow-hidden ${headerStyles[tone] || headerStyles.ink}`}>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.18),transparent_55%)]" />
         <span
           className={`absolute left-4 top-4 rounded-full px-3 py-1 text-xs font-bold backdrop-blur ${
             isInk ? "bg-blue-50 text-blue-700 dark:bg-white/10 dark:text-blue-200" : "bg-ink-950/15 text-white"
           }`}
         >
-          {article.tag}
+          {article.category}
         </span>
       </div>
       <h3 className="mt-5 font-display text-lg font-semibold leading-snug text-ink-950 dark:text-ivory-50">
@@ -30,7 +31,7 @@ export default function ArticleCard({ article }) {
           <User className="h-3.5 w-3.5" aria-hidden="true" /> {article.author}
         </span>
         <span className="flex items-center gap-1.5">
-          <CalendarDays className="h-3.5 w-3.5" aria-hidden="true" /> {article.date}
+          <CalendarDays className="h-3.5 w-3.5" aria-hidden="true" /> {formatDate(article.publishedAt)}
         </span>
       </div>
       <Link

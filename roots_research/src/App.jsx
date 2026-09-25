@@ -11,6 +11,7 @@ import Services from "./pages/Services";
 import ResearchSupport from "./pages/ResearchSupport";
 import PublicationSupport from "./pages/PublicationSupport";
 import Mentors from "./pages/Mentors";
+import Samples from "./pages/Samples";
 import Blog from "./pages/Blog";
 import MockVivaPage from "./pages/MockVivaPage";
 import WorkshopsPage from "./pages/WorkshopsPage";
@@ -43,6 +44,7 @@ function AnimatedRoutes() {
         <Route path="/research-support" element={<PageTransition><ResearchSupport /></PageTransition>} />
         <Route path="/publication-support" element={<PageTransition><PublicationSupport /></PageTransition>} />
         <Route path="/mentors" element={<PageTransition><Mentors /></PageTransition>} />
+        <Route path="/samples" element={<PageTransition><Samples /></PageTransition>} />
         <Route path="/blog" element={<PageTransition><Blog /></PageTransition>} />
         <Route path="/mock-viva" element={<PageTransition><MockVivaPage /></PageTransition>} />
         <Route path="/workshops" element={<PageTransition><WorkshopsPage /></PageTransition>} />

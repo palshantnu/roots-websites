@@ -17,7 +17,7 @@ class PublishEnquiryResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-pencil-square';
 
-    protected static ?string $navigationGroup = 'Enquiries';
+    protected static ?string $navigationGroup = 'Publications · Enquiries';
 
     public static function form(Form $form): Form
     {

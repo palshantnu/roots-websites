@@ -3,12 +3,21 @@ import Section from "../ui/Section";
 import Reveal from "../ui/Reveal";
 import Button from "../ui/Button";
 
+/**
+ * Call-to-action banner. `cta` is the page's admin-managed banner copy
+ * ({ title, description, label }); empty fields fall back to the defaults.
+ */
 export default function CTABanner({
+  cta,
   title = "Ready to Move Your Research Forward?",
   description = "Tell us about your thesis and get matched with a mentor within 24 hours.",
   ctaLabel = "Begin Your Research",
   ctaTo = "/#contact",
 }) {
+  title = cta?.title || title;
+  description = cta?.description || description;
+  ctaLabel = cta?.label || ctaLabel;
+
   return (
     <Section containerClassName="!max-w-6xl">
       <Reveal className="relative overflow-hidden rounded-[2.5rem] border-2 border-blue-200 bg-gradient-paper px-6 py-14 text-center shadow-2xl shadow-blue-500/10 dark:border-white/10 dark:bg-gradient-ink dark:shadow-ink-950/30 sm:px-16 sm:py-16">

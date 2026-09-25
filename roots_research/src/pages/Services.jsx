@@ -4,20 +4,18 @@ import ServicesGrid from "../components/sections/ServicesGrid";
 import ProcessTimeline from "../components/sections/ProcessTimeline";
 import WhyChooseUs from "../components/sections/WhyChooseUs";
 import CTABanner from "../components/sections/CTABanner";
+import { usePage } from "../hooks/useApi";
 
 export default function Services() {
+  const { page } = usePage("services");
+
   return (
     <>
-      <PageHero
-        eyebrow="Our Services"
-        eyebrowIcon={Layers}
-        title="Thesis Support, Built Around How You Work"
-        description="Choose full-scope guidance or targeted help on a single chapter — every service is scoped, priced and scheduled before we begin."
-      />
+      <PageHero page={page} eyebrowIcon={Layers} />
       <ServicesGrid />
       <ProcessTimeline />
       <WhyChooseUs />
-      <CTABanner />
+      <CTABanner cta={page?.cta} />
     </>
   );
 }
