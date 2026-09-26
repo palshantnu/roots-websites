@@ -14,12 +14,6 @@ export default function Contact() {
   const faqs = useFaqs();
   const contact = settings?.contact ?? {};
 
-  // Swap this for a real API call when lead capture is added to the backend.
-  const handleSubmit = async (values) => {
-    console.info('Lead captured (mock):', values);
-    await new Promise((r) => setTimeout(r, 800));
-  };
-
   const info = [
     contact.email && { icon: <FiMail />, title: 'Email us', body: contact.email, href: `mailto:${contact.email}` },
     contact.phone && { icon: <FiPhone />, title: 'Call us', body: contact.phone, href: `tel:${contact.phone.replace(/[^\d+]/g, '')}` },
@@ -61,7 +55,7 @@ export default function Contact() {
               <p style={{ marginBottom: 20 }}>
                 Fields marked <strong>*</strong> are required.
               </p>
-              <ContactForm onSubmit={handleSubmit} />
+              <ContactForm />
             </Reveal>
           </div>
 

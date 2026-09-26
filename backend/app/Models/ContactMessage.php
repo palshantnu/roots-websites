@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\BelongsToSite;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ContactMessage extends Model
 {
-    use HasFactory;
+    use BelongsToSite, HasFactory;
 
-    protected $fillable = ['name', 'email', 'phone', 'subject', 'message', 'read'];
+    protected $fillable = ['name', 'email', 'phone', 'company', 'city', 'subject', 'service', 'budget', 'message', 'read'];
 
     protected function casts(): array
     {

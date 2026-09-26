@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\ContactMessageResource\Pages;
+namespace App\Filament\Clusters\It\Resources\ContactMessageResource\Pages;
 
-use App\Filament\Resources\ContactMessageResource;
+use App\Filament\Clusters\It\Resources\ContactMessageResource;
 use Filament\Resources\Pages\ListRecords;
 
 class ListContactMessages extends ListRecords

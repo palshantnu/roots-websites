@@ -11,7 +11,9 @@ class ContactController extends Controller
 {
     public function store(StoreContactMessageRequest $request): JsonResponse
     {
-        ContactMessage::create($request->validated());
+        $message = new ContactMessage($request->validated());
+        $message->site()->associate($this->site($request));
+        $message->save();
 
         return response()->json(['message' => 'Thank you. We will get back to you within one working day.'], 201);
     }

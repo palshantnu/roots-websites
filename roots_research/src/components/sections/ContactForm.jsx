@@ -9,6 +9,7 @@ import { countryCodes } from "../../data/countryCodes";
 import { useToast } from "../../context/ToastContext";
 import { useSection, useSettings } from "../../hooks/useApi";
 import { getIcon } from "../../lib/icons";
+import { api } from "../../lib/api";
 
 const initialForm = {
   fullName: "",
@@ -39,6 +40,14 @@ function validate(form) {
   return errors;
 }
 
+// Maps backend validation errors ({ field: [messages] }) onto this form's field names.
+const serverFieldNames = { name: "fullName" };
+function toFormErrors(errors = {}) {
+  return Object.fromEntries(
+    Object.entries(errors).map(([field, messages]) => [serverFieldNames[field] ?? field, messages[0]])
+  );
+}
+
 export default function ContactForm() {
   const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState({});
@@ -53,7 +62,7 @@ export default function ContactForm() {
     if (errors[field]) setErrors((err) => ({ ...err, [field]: undefined }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validate(form);
     setErrors(validationErrors);
@@ -62,13 +71,29 @@ export default function ContactForm() {
       return;
     }
     setSubmitting(true);
-    // No backend wired up yet — log the payload and confirm via toast.
-    console.log("Contact form submitted:", form);
-    setTimeout(() => {
-      setSubmitting(false);
+    try {
+      await api.contact({
+        name: form.fullName.trim(),
+        email: form.email.trim(),
+        phone: `${form.countryCode} ${form.phone.trim()}`,
+        subject: form.subject.trim(),
+        city: form.city.trim(),
+      });
       addToast(`Thanks, ${form.fullName.split(" ")[0]}! Our team will reach out within 24 hours.`);
       setForm(initialForm);
-    }, 700);
+    } catch (error) {
+      if (error.errors) setErrors(toFormErrors(error.errors));
+      addToast(
+        error.status === 429
+          ? "Too many messages in a short time. Please wait a minute and try again."
+          : error.errors
+            ? "Please fix the highlighted fields before submitting."
+            : "We couldn't send your message right now. Please try again shortly.",
+        "error"
+      );
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const fieldClass = (field) =>

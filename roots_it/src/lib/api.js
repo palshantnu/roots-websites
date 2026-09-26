@@ -35,4 +35,5 @@ export const api = {
   testimonials: () => get('/testimonials'),
   faqs: () => get('/faqs'),
   posts: () => get('/posts'),
+  contact: (values) => request('/contact', { method: 'POST', body: JSON.stringify(values) }),
 };

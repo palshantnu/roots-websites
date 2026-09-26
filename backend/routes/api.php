@@ -79,6 +79,8 @@ Route::prefix('research')->middleware('site:research')->name('research.')->group
     Route::get('samples/{slug}', [SampleController::class, 'show']);
     Route::get('samples/{slug}/file', [SampleController::class, 'file'])->middleware('throttle:60,1')->name('samples.file');
     Route::get('samples/{slug}/download', [SampleController::class, 'download'])->middleware('throttle:60,1')->name('samples.download');
+
+    Route::post('contact', [ContactController::class, 'store'])->middleware('throttle:10,1')->name('contact');
 });
 
 Route::prefix('it')->middleware('site:it')->name('it.')->group(function () {
@@ -104,4 +106,6 @@ Route::prefix('it')->middleware('site:it')->name('it.')->group(function () {
 
     Route::get('posts', [PostController::class, 'index']);
     Route::get('posts/{slug}', [PostController::class, 'show']);
+
+    Route::post('contact', [ContactController::class, 'store'])->middleware('throttle:10,1')->name('contact');
 });

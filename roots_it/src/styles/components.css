@@ -671,6 +671,11 @@
   color: #05715f;
 }
 
+.form__status--error {
+  background: #fdecec;
+  color: #b42318;
+}
+
 @media (max-width: 640px) {
   .form__row {
     grid-template-columns: 1fr;

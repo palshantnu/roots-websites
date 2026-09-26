@@ -30,4 +30,5 @@ export const api = {
   posts: () => get("/posts"),
   samples: (params = {}) => get(`/samples?${new URLSearchParams(params)}`),
   sample: (slug) => get(`/samples/${slug}`),
+  contact: (values) => request("/contact", { method: "POST", body: JSON.stringify(values) }),
 };
