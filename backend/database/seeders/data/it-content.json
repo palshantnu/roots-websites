@@ -909,7 +909,7 @@
           },
           {
             "q": "Do you require a media budget minimum?",
-            "a": "For paid channels we typically recommend at least $3,000/month in media per platform to gather meaningful data."
+            "a": "For paid channels we typically recommend at least ₹3,000/month in media per platform to gather meaningful data."
           },
           {
             "q": "Who owns the accounts and data?",
@@ -1259,7 +1259,7 @@
         "faqs": [
           {
             "q": "What budget do we need?",
-            "a": "As a guide, at least $3,000/month in media per platform gives campaigns enough data to optimise within a reasonable timeframe."
+            "a": "As a guide, at least ₹3,000/month in media per platform gives campaigns enough data to optimise within a reasonable timeframe."
           },
           {
             "q": "Do you build the landing pages?",
@@ -1668,7 +1668,7 @@
     },
     {
       "q": "How much does a project cost?",
-      "a": "It depends on scope, but as a guide: marketing sites start around $6k, custom software and apps typically run $25k–$120k, and marketing retainers start at $3k/month. We give a fixed quote after a scoping call."
+      "a": "It depends on scope, but as a guide: marketing sites start around ₹6k, custom software and apps typically run ₹25k–₹120k, and marketing retainers start at ₹3k/month. We give a fixed quote after a scoping call."
     },
     {
       "q": "Do you work with clients outside the US?",
@@ -1700,11 +1700,11 @@
     "Not sure yet"
   ],
   "budgetOptions": [
-    "Under $5,000",
-    "$5,000 – $15,000",
-    "$15,000 – $50,000",
-    "$50,000 – $100,000",
-    "$100,000+",
+    "Under ₹5,000",
+    "₹5,000 – ₹15,000",
+    "₹15,000 – ₹50,000",
+    "₹50,000 – ₹100,000",
+    "₹100,000+",
     "Monthly retainer"
   ],
   "projects": [
