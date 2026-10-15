@@ -9,6 +9,16 @@
   color: #fff;
   overflow: hidden;
   padding-block: clamp(64px, 10vw, 130px);
+  /* Reserve vertical space so the hero does not grow (and shift the page)
+     while fonts/content finish loading — keeps CLS low. */
+  min-height: 640px;
+  display: flex;
+  align-items: center;
+}
+@media (max-width: 640px) {
+  .hero {
+    min-height: 560px;
+  }
 }
 
 .hero__bg {
