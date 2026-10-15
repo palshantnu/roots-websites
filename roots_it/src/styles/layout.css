@@ -410,9 +410,11 @@
   z-index: 90;
 }
 
-/* Route-transition loader */
+/* Route-transition loader.
+   Full viewport height keeps the footer below the fold while a lazy page
+   loads, so the footer's reposition does not count as layout shift (CLS). */
 .route-loader {
-  min-height: 60vh;
+  min-height: 100vh;
   display: grid;
   place-items: center;
 }

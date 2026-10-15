@@ -1,7 +1,10 @@
 import { lazy } from 'react';
 
-/* Pages are lazy-loaded so the initial bundle stays small. */
-const Home = lazy(() => import('./pages/Home.jsx'));
+/* Home (the landing page) loads eagerly so it renders in a single paint with
+   no Suspense-fallback swap — this keeps Cumulative Layout Shift near zero. */
+import Home from './pages/Home.jsx';
+
+/* The rest are lazy-loaded so the initial bundle stays small. */
 const About = lazy(() => import('./pages/About.jsx'));
 const Services = lazy(() => import('./pages/Services.jsx'));
 const Portfolio = lazy(() => import('./pages/Portfolio.jsx'));
