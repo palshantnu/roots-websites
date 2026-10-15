@@ -1,4 +1,4 @@
-const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/publication'
+const BASE_URL = import.meta.env.VITE_API_URL || 'https://rtsapi.rootstechnology.in/api/publication'
 
 async function request(path, options = {}) {
   const response = await fetch(`${BASE_URL}${path}`, {

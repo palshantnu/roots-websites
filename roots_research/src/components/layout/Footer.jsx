@@ -129,7 +129,20 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-ink-900/10 pt-8 sm:flex-row dark:border-white/10">
+        <div className="mt-14 border-t border-ink-900/10 pt-8 dark:border-white/10">
+          <h3 className="font-display text-sm font-semibold uppercase tracking-widest text-ink-950 dark:text-ivory-50">Explore our other services</h3>
+          <p className="mt-2 text-sm text-ink-500 dark:text-ink-300">Part of the RTS group — discover what else we offer.</p>
+          <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+            <a href="https://rtspublication.com/" target="_blank" rel="noopener noreferrer" className="focus-ring group inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-sm shadow-blue-600/20 transition-all hover:bg-blue-700 hover:shadow-md hover:shadow-blue-600/30 dark:bg-blue-500 dark:hover:bg-blue-400">
+              Visit RTS Publication <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">→</span>
+            </a>
+            <a href="https://rootstechnology.in/" target="_blank" rel="noopener noreferrer" className="focus-ring group inline-flex items-center justify-center gap-2 rounded-xl border border-blue-200 bg-white px-6 py-3 text-sm font-semibold text-blue-700 shadow-sm transition-all hover:border-blue-300 hover:bg-blue-50 hover:shadow-md dark:border-white/15 dark:bg-white/5 dark:text-blue-300 dark:hover:bg-white/10">
+              Visit Roots Technology <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">→</span>
+            </a>
+          </div>
+        </div>
+
+        <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-ink-900/10 pt-8 sm:flex-row dark:border-white/10">
           <p className="text-center text-xs text-ink-400 sm:text-left">
             © {new Date().getFullYear()} {settings?.siteName}. All rights reserved.
           </p>

@@ -2,20 +2,16 @@ import { Link } from 'react-router-dom';
 import { useSettings } from '../../hooks/useApi';
 
 /**
- * Site logo built from the admin site name: the first word is the logo text
- * and the rest the sub-label ("Roots Technology" -> "Roots" + "Technology").
+ * Site logo. Uses the Roots Technology brand image (public/logo.png),
+ * which already contains the wordmark, so no extra text is rendered.
  */
 export default function BrandLogo({ onClick }) {
   const { settings } = useSettings();
-  const [first = '', ...rest] = (settings?.siteName ?? '').trim().split(/\s+/);
+  const label = settings?.siteName ?? 'Roots Technology';
 
   return (
-    <Link to="/" className="brand" onClick={onClick} aria-label={`${settings?.siteName ?? ''} home`}>
-      <span className="brand__mark">{first.charAt(0) || ' '}</span>
-      <span>
-        {first}
-        {rest.length > 0 && <span className="brand__sub">{rest.join(' ')}</span>}
-      </span>
+    <Link to="/" className="brand brand--image" onClick={onClick} aria-label={`${label} home`}>
+      <img src="/logo.png" alt={label} className="brand__logo" width="120" height="120" />
     </Link>
   );
 }

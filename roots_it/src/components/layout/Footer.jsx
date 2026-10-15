@@ -101,6 +101,60 @@ export default function Footer() {
           </div>
         </div>
 
+        <div
+          style={{
+            marginTop: '2.5rem',
+            paddingTop: '1.75rem',
+            borderTop: '1px solid rgba(255,255,255,0.12)',
+          }}
+        >
+          <h4 style={{ marginBottom: '0.35rem',color:'white' }}>Explore our other services</h4>
+          <p style={{ margin: '0 0 1.1rem', fontSize: '0.875rem', opacity: 0.75 }}>
+            Part of the RTS group — discover what else we offer.
+          </p>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.85rem' }}>
+            <a
+              href="https://research.rootstechnology.in/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                padding: '0.75rem 1.5rem',
+                borderRadius: '0.75rem',
+                background: 'var(--color-primary, #0b63f6)',
+                color: '#fff',
+                fontSize: '0.875rem',
+                fontWeight: 600,
+                textDecoration: 'none',
+                boxShadow: '0 2px 10px rgba(11,99,246,0.25)',
+              }}
+            >
+              Visit RTS Research <span aria-hidden="true">→</span>
+            </a>
+            <a
+              href="https://rtspublication.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                padding: '0.75rem 1.5rem',
+                borderRadius: '0.75rem',
+                border: '1px solid rgba(255,255,255,0.22)',
+                color: 'inherit',
+                fontSize: '0.875rem',
+                fontWeight: 600,
+                textDecoration: 'none',
+              }}
+            >
+              Visit RTS Publication <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+
         <div className="footer__bottom">
           <p>{settings?.footerNote}</p>
           <nav aria-label="Legal">

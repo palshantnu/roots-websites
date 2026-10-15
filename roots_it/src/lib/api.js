@@ -1,7 +1,7 @@
 // Same fetch client as roots_publication/src/api.js and
 // roots_research/src/lib/api.js, pointed at the IT endpoints. The backend
 // only ever returns IT content here.
-const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/it';
+const BASE_URL = import.meta.env.VITE_API_URL || 'https://rtsapi.rootstechnology.in/api/it';
 
 async function request(path, options = {}) {
   const response = await fetch(`${BASE_URL}${path}`, {
