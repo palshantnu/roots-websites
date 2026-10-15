@@ -47,7 +47,9 @@
   width: 360px;
   height: 360px;
   background: var(--color-secondary);
-  bottom: -140px;
+  /* Anchored from the top (not bottom) so the decorative blur does not move
+     when the hero grows taller as content loads — avoids layout shift. */
+  top: 420px;
   right: -40px;
 }
 
@@ -56,7 +58,10 @@
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
   gap: clamp(32px, 6vw, 64px);
-  align-items: center;
+  /* Top-align the two columns so that late-loading content in the left column
+     (trust badges / avatars) does not re-center and shift the right-hand
+     code panel — this removes the remaining Cumulative Layout Shift. */
+  align-items: start;
 }
 
 .hero__content h1 {
@@ -72,6 +77,9 @@
 
 .hero__trust {
   margin-top: 34px;
+  /* Reserve the row height up-front so that avatars/trust text loading from
+     the API do not grow the hero and shift the page — keeps CLS ~0. */
+  min-height: 40px;
   display: flex;
   align-items: center;
   gap: 14px;
