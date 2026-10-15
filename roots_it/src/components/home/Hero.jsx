@@ -103,7 +103,7 @@ export default function Hero() {
                   {avatars
                     .filter((avatar) => avatar.image)
                     .map((avatar) => (
-                      <img key={avatar.id} src={avatar.image} alt="" loading="lazy" />
+                      <img key={avatar.id} src={avatar.image} alt="" width="38" height="38" loading="lazy" />
                     ))}
                 </span>
               )}
