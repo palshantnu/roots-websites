@@ -20,6 +20,7 @@ import SearchPage from './pages/SearchPage'
 import BlogDetailPage from './pages/BlogDetailPage'
 import BookDetailPage from './pages/BookDetailPage'
 import AuthorDetailPage from './pages/AuthorDetailPage'
+import ThesisPage from './pages/ThesisPage'
 
 export default function Router() {
   const [cart, setCart] = useState(() => JSON.parse(localStorage.getItem('rts-cart') || '[]'))
@@ -43,6 +44,7 @@ export default function Router() {
   if (route === 'blog') return path[1] ? <BlogDetailPage slug={path[1]} /> : <BlogPage {...shared} />
   if (route === 'about') return <AboutPage {...shared} />
   if (route === 'services') return path[1] ? <ServiceDetailPage {...shared} slug={path[1]} /> : <ServicesPage {...shared} />
+  if (route === 'thesis') return <ThesisPage {...shared} />
   if (route === 'packages') return <PackagesPage {...shared} />
   if (['paperback-packages', 'ebook-packages', 'childrenbook-packages', 'self-publishing-usa', 'book-publishing-uk'].includes(route)) return <PackageDetailPage {...shared} slug={route} />
   return <StandardPage route={route} />
