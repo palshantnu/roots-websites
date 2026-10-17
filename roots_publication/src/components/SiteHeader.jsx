@@ -3,7 +3,8 @@ import { useState } from 'react'
 
 const links = [
   { label: 'Books', href: '/books', items: [['All books', '/books'], ['Categories', '/categories'], ['New releases', '/books?sort=new'], ['Bestsellers', '/books?sort=bestseller']] },
-  { label: 'Authors', href: '/authors' },
+  // Hidden from the navbar for now — uncomment to show the Authors link again.
+  // { label: 'Authors', href: '/authors' },
   { label: 'Services', href: '/services', items: [['All services', '/services'], ['Editing & proofreading', '/services/editing-proofreading'], ['Cover design', '/services/cover-design'], ['Distribution', '/services/distribution'], ['Marketing & publicity', '/services/marketing-publicity']] },
   { label: 'Packages', href: '/packages', items: [['Compare packages', '/packages'], ['Paperback', '/paperback-packages'], ['E-book', '/ebook-packages'], ['Children books', '/childrenbook-packages'], ['International publishing', '/self-publishing-usa']] },
   { label: 'Thesis', href: '/thesis', items: [['Thesis overview', '/thesis'], ['Thesis types', '/thesis#types'], ['Synopsis', '/thesis#synopsis'], ['Research paper', '/thesis#research-paper']] },

@@ -15,3 +15,23 @@
 .checkout-layout{display:grid;grid-template-columns:1fr 320px;gap:50px;padding:75px 8% 110px}.checkout-form{display:grid;gap:18px}.checkout-form h2{font:500 30px var(--serif);margin:0 0 2px;padding-top:12px}.checkout-form .button{width:max-content;margin-top:12px}.payment-choice{border:1px solid var(--line);padding:18px;display:flex;gap:10px;align-items:center;font-size:13px}.payment-choice span{margin-left:auto;color:var(--muted);font:10px var(--mono)}@media(max-width:800px){.checkout-layout{display:block;padding:55px 7% 80px}.checkout-form h2{font-size:27px}.checkout-layout .order-summary{margin-top:35px}}
 .thesis-page section[id]{scroll-margin-top:90px}.thesis-heading{padding:80px 8% 0}.thesis-heading h2{font:500 clamp(36px,4.5vw,56px) var(--serif);margin:0}.thesis-heading em{color:var(--coral);font-style:italic}.thesis-page .services-grid{padding-top:40px}.thesis-page .service-card{min-height:230px}.thesis-paper{background:var(--ink)}.thesis-process{padding-bottom:90px}.thesis-process ol{list-style:none;margin:40px 8% 0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:18px}.thesis-process li{border-top:1px solid var(--line);padding-top:20px}.thesis-process b{display:block;color:var(--coral);font:500 12px var(--mono);margin-bottom:12px}.thesis-process strong{font:500 22px var(--serif)}.thesis-process p{font-size:13px;line-height:1.7;color:var(--muted)}
 @media(max-width:800px){.thesis-heading{padding:60px 7% 0}.thesis-process ol{grid-template-columns:1fr;margin:30px 7% 0}.thesis-page .services-grid{padding-top:30px}}
+
+/* ---------------- Home hero enquiry form ---------------- */
+.hero-visual-form{display:flex;align-items:center;justify-content:center;padding:40px 6% 40px 0;background:#d8e0d4}
+.home-enquiry{width:100%;max-width:440px}
+.home-enquiry-card{background:var(--paper);border:1px solid var(--line);box-shadow:0 20px 45px #3b33261f;padding:34px 32px;display:flex;flex-direction:column}
+.home-enquiry-card .eyebrow{margin-bottom:12px}
+.home-enquiry-card h3{font:500 29px/1.05 var(--serif);letter-spacing:-.02em;margin:0 0 8px}
+.home-enquiry-card>p{color:var(--muted);font-size:13px;line-height:1.6;margin:0 0 20px}
+.home-enquiry-card input,.home-enquiry-card textarea{border:1px solid var(--line);background:#fff;padding:13px 14px;font-size:13px;font-family:var(--sans);outline:0;margin-bottom:11px;width:100%;color:var(--ink)}
+.home-enquiry-card input:focus,.home-enquiry-card textarea:focus{border-color:var(--coral)}
+.home-enquiry-card textarea{resize:vertical;min-height:70px}
+.home-enquiry-card button{margin-top:6px;display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--coral);color:#fff;border:0;padding:15px 20px;text-transform:uppercase;font:500 10px var(--mono);letter-spacing:.06em;cursor:pointer;transition:opacity .2s}
+.home-enquiry-card button:hover{opacity:.9}
+.home-enquiry-card button:disabled{opacity:.6;cursor:default}
+.home-enquiry-error{color:#b5432f;font-size:12px;margin:2px 0 8px}
+.home-enquiry-done{background:var(--paper);border:1px solid var(--line);padding:40px 32px;text-align:center}
+.home-enquiry-done h3{font:500 30px var(--serif);margin:0 0 10px;color:var(--ink)}
+.home-enquiry-done p{color:var(--muted);font-size:14px;line-height:1.6;margin:0 0 22px}
+.home-enquiry-done button{background:transparent;border:1px solid var(--ink);color:var(--ink);padding:12px 20px;font:500 10px var(--mono);letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+@media(max-width:800px){.hero-visual-form{min-height:auto;padding:30px 7%}.home-enquiry{max-width:100%}.home-enquiry-card{padding:28px 22px}}
