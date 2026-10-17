@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Clusters\AccountManagement\Resources\AccountServiceResource\Pages;
+namespace App\Filament\Account\Resources\AccountServiceResource\Pages;
 
-use App\Filament\Clusters\AccountManagement\Resources\AccountServiceResource;
+use App\Filament\Account\Resources\AccountServiceResource;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateAccountService extends CreateRecord

@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Filament\Clusters\AccountManagement\Resources;
+namespace App\Filament\Account\Resources;
 
-use App\Filament\Clusters\AccountManagement;
-use App\Filament\Clusters\AccountManagement\Resources\AccountServiceResource\Pages;
+use App\Filament\Account\Resources\AccountServiceResource\Pages;
 use App\Models\AccountService;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -15,9 +14,9 @@ class AccountServiceResource extends Resource
 {
     protected static ?string $model = AccountService::class;
 
-    protected static ?string $cluster = AccountManagement::class;
-
     protected static ?string $navigationIcon = 'heroicon-o-squares-2x2';
+
+    protected static ?string $navigationGroup = 'Work';
 
     protected static ?string $navigationLabel = 'Services';
 

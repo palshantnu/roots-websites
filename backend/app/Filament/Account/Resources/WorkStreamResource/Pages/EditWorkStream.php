@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Clusters\AccountManagement\Resources\WorkStreamResource\Pages;
+namespace App\Filament\Account\Resources\WorkStreamResource\Pages;
 
-use App\Filament\Clusters\AccountManagement\Resources\WorkStreamResource;
+use App\Filament\Account\Resources\WorkStreamResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 

@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Filament\Clusters\AccountManagement\Resources;
+namespace App\Filament\Account\Resources;
 
-use App\Filament\Clusters\AccountManagement;
-use App\Filament\Clusters\AccountManagement\Resources\WorkStreamResource\Pages;
+use App\Filament\Account\Resources\WorkStreamResource\Pages;
 use App\Models\WorkStream;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -16,9 +15,9 @@ class WorkStreamResource extends Resource
 {
     protected static ?string $model = WorkStream::class;
 
-    protected static ?string $cluster = AccountManagement::class;
-
     protected static ?string $navigationIcon = 'heroicon-o-briefcase';
+
+    protected static ?string $navigationGroup = 'Work';
 
     protected static ?string $navigationLabel = 'Work streams';
 
