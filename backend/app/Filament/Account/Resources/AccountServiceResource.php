@@ -2,6 +2,7 @@
 
 namespace App\Filament\Account\Resources;
 
+use App\Filament\Account\Concerns\HasModulePermissions;
 use App\Filament\Account\Resources\AccountServiceResource\Pages;
 use App\Models\AccountService;
 use Filament\Forms;
@@ -12,6 +13,10 @@ use Filament\Tables\Table;
 
 class AccountServiceResource extends Resource
 {
+    use HasModulePermissions;
+
+    protected static string $permissionModule = 'account_services';
+
     protected static ?string $model = AccountService::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-squares-2x2';

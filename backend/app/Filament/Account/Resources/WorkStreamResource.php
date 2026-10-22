@@ -2,6 +2,7 @@
 
 namespace App\Filament\Account\Resources;
 
+use App\Filament\Account\Concerns\HasModulePermissions;
 use App\Filament\Account\Resources\WorkStreamResource\Pages;
 use App\Models\WorkStream;
 use Filament\Forms;
@@ -13,6 +14,10 @@ use Illuminate\Database\Eloquent\Builder;
 
 class WorkStreamResource extends Resource
 {
+    use HasModulePermissions;
+
+    protected static string $permissionModule = 'work_streams';
+
     protected static ?string $model = WorkStream::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-briefcase';

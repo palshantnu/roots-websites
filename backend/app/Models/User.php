@@ -7,6 +7,7 @@ use Database\Factories\UserFactory;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -24,6 +25,7 @@ class User extends Authenticatable implements FilamentUser
         'name',
         'email',
         'password',
+        'role_id',
     ];
 
     /**
@@ -57,11 +59,27 @@ class User extends Authenticatable implements FilamentUser
         ];
     }
 
+    public function role(): BelongsTo
+    {
+        return $this->belongsTo(Role::class);
+    }
+
     /**
      * Only administrators may use the admin panel that manages all websites.
+     * The Accounts panel is also open to staff who have been given a role.
      */
     public function canAccessPanel(Panel $panel): bool
     {
+        if ($panel->getId() === 'account') {
+            return $this->is_admin || $this->role_id !== null;
+        }
+
         return $this->is_admin;
+    }
+
+    /** Administrators have full access; everyone else gets what their role allows. */
+    public function hasAccountPermission(string $module, string $action): bool
+    {
+        return $this->is_admin || (bool) $this->role?->allows($module, $action);
     }
 }

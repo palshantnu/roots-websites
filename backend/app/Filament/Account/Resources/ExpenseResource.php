@@ -2,6 +2,7 @@
 
 namespace App\Filament\Account\Resources;
 
+use App\Filament\Account\Concerns\HasModulePermissions;
 use App\Filament\Account\Resources\ExpenseResource\Pages;
 use App\Models\Expense;
 use Filament\Forms;
@@ -13,6 +14,10 @@ use Illuminate\Database\Eloquent\Builder;
 
 class ExpenseResource extends Resource
 {
+    use HasModulePermissions;
+
+    protected static string $permissionModule = 'expenses';
+
     protected static ?string $model = Expense::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-arrow-trending-down';

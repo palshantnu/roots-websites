@@ -35,9 +35,11 @@ class AccountPanelProvider extends PanelProvider
                 'primary' => Color::Emerald,
             ])
             ->navigationGroups([
+                'Proposals',
                 'Work',
                 'People',
                 'Reports',
+                'Access control',
             ])
             ->discoverResources(in: app_path('Filament/Account/Resources'), for: 'App\\Filament\\Account\\Resources')
             ->discoverPages(in: app_path('Filament/Account/Pages'), for: 'App\\Filament\\Account\\Pages')
