@@ -14,6 +14,7 @@ class AccountPermissions
         'work_streams' => 'Work streams',
         'account_services' => 'Services',
         'expenses' => 'Expenses',
+        'employees' => 'Employees',
         'users' => 'Users',
         'roles' => 'Roles & permissions',
     ];

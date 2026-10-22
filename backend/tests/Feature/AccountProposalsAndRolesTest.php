@@ -1,7 +1,9 @@
 <?php
 
 use App\Filament\Account\Resources\ProposalResource\Pages\CreateProposal;
+use App\Filament\Account\Resources\ProposalResource\Pages\EditProposal;
 use App\Filament\Account\Resources\ProposalResource\Pages\ListProposals;
+use App\Filament\Account\Resources\ProposalResource\RelationManagers\PaymentsRelationManager;
 use App\Filament\Account\Resources\RoleResource\Pages\CreateRole;
 use App\Models\Proposal;
 use App\Models\ProposalCompany;
@@ -109,6 +111,69 @@ it('finalises a proposal with the final and advance amount', function () {
         ->and((float) $proposal->final_amount)->toBe(12000.0)
         ->and((float) $proposal->advance_amount)->toBe(1500.0)
         ->and($proposal->balance)->toBe(10500.0);
+});
+
+function makeFinalProject(): Proposal
+{
+    $proposal = makeProposal(); // total 12,900
+    $proposal->update([
+        'status' => Proposal::STATUS_FINAL,
+        'final_amount' => 12000,
+        'advance_amount' => 1500,
+        'finalized_at' => now(),
+    ]);
+
+    return $proposal;
+}
+
+it('records payments on a final project and shows what remains', function () {
+    $this->actingAs(User::factory()->admin()->create());
+    $proposal = makeFinalProject();
+
+    Livewire::test(ListProposals::class)
+        ->set('activeTab', 'final')
+        ->callTableAction('addPayment', $proposal, [
+            'amount' => 5700,
+            'paid_on' => now()->toDateString(),
+            'stage' => 'Chapter 1',
+            'mode' => 'UPI',
+        ])
+        ->assertHasNoTableActionErrors();
+
+    $proposal->refresh();
+    expect($proposal->payments)->toHaveCount(1)
+        ->and($proposal->received)->toBe(7200.0)
+        ->and($proposal->balance)->toBe(4800.0);
+});
+
+it('does not accept a payment larger than what remains', function () {
+    $this->actingAs(User::factory()->admin()->create());
+    $proposal = makeFinalProject(); // remaining 10,500
+
+    Livewire::test(ListProposals::class)
+        ->set('activeTab', 'final')
+        ->callTableAction('addPayment', $proposal, ['amount' => 11000, 'paid_on' => now()->toDateString()])
+        ->assertHasTableActionErrors(['amount']);
+
+    expect($proposal->payments()->count())->toBe(0);
+});
+
+it('lists the payment history on the final project page', function () {
+    $this->actingAs(User::factory()->admin()->create());
+    $proposal = makeFinalProject();
+    $proposal->payments()->create(['amount' => 5700, 'paid_on' => now(), 'stage' => 'Chapter 1']);
+
+    Livewire::test(PaymentsRelationManager::class, ['ownerRecord' => $proposal, 'pageClass' => EditProposal::class])
+        ->assertOk()
+        ->assertCanSeeTableRecords($proposal->payments)
+        ->assertSee('Remaining');
+
+    $this->get("/accounts/proposals/{$proposal->id}/edit")
+        ->assertOk()
+        ->assertSee('Total received');
+
+    // Not shown for a proposal that is not final yet.
+    expect(PaymentsRelationManager::canViewForRecord(makeProposal(), EditProposal::class))->toBeFalse();
 });
 
 it('saves full access from the role form', function () {

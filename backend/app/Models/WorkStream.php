@@ -17,12 +17,24 @@ class WorkStream extends Model
 {
     use HasFactory;
 
+    public const STATUSES = [
+        'pending' => 'Pending',
+        'in_progress' => 'In progress',
+        'completed' => 'Completed',
+    ];
+
     protected $fillable = [
         'account_service_id',
+        'employee_id',
         'title',
+        'status',
         'cost',
         'advance_payment',
         'note',
+    ];
+
+    protected $attributes = [
+        'status' => 'in_progress',
     ];
 
     protected function casts(): array
@@ -36,6 +48,11 @@ class WorkStream extends Model
     public function service(): BelongsTo
     {
         return $this->belongsTo(AccountService::class, 'account_service_id');
+    }
+
+    public function employee(): BelongsTo
+    {
+        return $this->belongsTo(Employee::class);
     }
 
     public function payments(): HasMany

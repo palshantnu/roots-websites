@@ -4,8 +4,10 @@ namespace App\Filament\Account\Resources;
 
 use App\Filament\Account\Concerns\HasModulePermissions;
 use App\Filament\Account\Resources\ProposalResource\Pages;
+use App\Filament\Account\Resources\ProposalResource\RelationManagers;
 use App\Models\Proposal;
 use App\Models\ProposalCompany;
+use App\Models\ProposalPayment;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
@@ -14,6 +16,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Number;
 
 class ProposalResource extends Resource
 {
@@ -148,7 +151,8 @@ class ProposalResource extends Resource
                     ]),
 
                 Forms\Components\Section::make('Final project')
-                    ->columns(2)
+                    ->description('Record further payments in the Payments list below.')
+                    ->columns(4)
                     ->visible(fn (?Proposal $record) => $record?->isFinal())
                     ->schema([
                         Forms\Components\TextInput::make('final_amount')
@@ -160,8 +164,44 @@ class ProposalResource extends Resource
                             ->numeric()
                             ->prefix('₹')
                             ->default(0),
+                        Forms\Components\Placeholder::make('received_summary')
+                            ->label('Total received')
+                            ->content(fn (Proposal $record) => Number::currency($record->received, 'INR')),
+                        Forms\Components\Placeholder::make('remaining_summary')
+                            ->label('Remaining')
+                            ->content(fn (Proposal $record) => Number::currency($record->balance, 'INR')),
                     ]),
             ]);
+    }
+
+    /** Fields for recording a payment received on a final project. */
+    public static function paymentFormSchema(Proposal $proposal, ?ProposalPayment $editing = null): array
+    {
+        // On edit, the payment's own amount is still available to re-enter.
+        $remaining = round($proposal->balance + (float) $editing?->amount, 2);
+
+        return [
+            Forms\Components\TextInput::make('amount')
+                ->numeric()
+                ->prefix('₹')
+                ->minValue(0.01)
+                ->maxValue(max($remaining, 0))
+                ->helperText('Remaining: '.Number::currency($remaining, 'INR'))
+                ->required(),
+            Forms\Components\DatePicker::make('paid_on')
+                ->label('Received on')
+                ->default(now())
+                ->required(),
+            Forms\Components\Select::make('stage')
+                ->label('For stage')
+                ->options(collect($proposal->items ?? [])->pluck('work', 'work')->filter())
+                ->searchable(),
+            Forms\Components\Select::make('mode')
+                ->options(ProposalPayment::MODES),
+            Forms\Components\TextInput::make('note')
+                ->maxLength(255)
+                ->columnSpanFull(),
+        ];
     }
 
     public static function table(Table $table): Table
@@ -195,11 +235,22 @@ class ProposalResource extends Resource
                 Tables\Columns\TextColumn::make('advance_amount')
                     ->label('Advance')
                     ->money('INR')
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->visible(fn ($livewire) => $livewire->activeTab === 'final'),
+                Tables\Columns\TextColumn::make('received')
+                    ->label('Received')
+                    ->money('INR')
+                    ->color('success')
+                    ->description(fn (Proposal $record) => $record->payments_sum_amount
+                        ? 'Advance '.Number::currency((float) $record->advance_amount, 'INR')
+                        : null)
                     ->visible(fn ($livewire) => $livewire->activeTab === 'final'),
                 Tables\Columns\TextColumn::make('balance')
-                    ->label('Balance due')
+                    ->label('Remaining')
                     ->money('INR')
+                    ->weight('bold')
                     ->color(fn ($state): string => $state > 0 ? 'danger' : 'success')
+                    ->description(fn ($state) => $state <= 0 ? 'Fully paid' : null)
                     ->visible(fn ($livewire) => $livewire->activeTab === 'final'),
                 Tables\Columns\TextColumn::make('proposal_date')
                     ->label('Date')
@@ -266,6 +317,24 @@ class ProposalResource extends Resource
                         $livewire->activeTab = 'final';
                     }),
 
+                Tables\Actions\Action::make('addPayment')
+                    ->label('Add payment')
+                    ->icon('heroicon-o-banknotes')
+                    ->color('success')
+                    ->visible(fn (Proposal $record) => $record->isFinal() && $record->balance > 0 && static::userCan('edit'))
+                    ->modalHeading(fn (Proposal $record) => 'Payment received — '.$record->proposal_no)
+                    ->modalWidth('lg')
+                    ->form(fn (Proposal $record) => static::paymentFormSchema($record))
+                    ->action(function (Proposal $record, array $data) {
+                        $record->payments()->create($data);
+
+                        Notification::make()
+                            ->title('Payment saved')
+                            ->body('Remaining: '.Number::currency($record->balance, 'INR'))
+                            ->success()
+                            ->send();
+                    }),
+
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
@@ -278,7 +347,16 @@ class ProposalResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()->with('company');
+        return parent::getEloquentQuery()
+            ->with('company')
+            ->withSum('payments', 'amount');
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            RelationManagers\PaymentsRelationManager::class,
+        ];
     }
 
     public static function getPages(): array

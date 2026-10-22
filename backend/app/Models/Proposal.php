@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * A price proposal sent to a client from one of the companies. Once the client
@@ -95,6 +96,11 @@ class Proposal extends Model
         return $this->belongsTo(User::class, 'created_by');
     }
 
+    public function payments(): HasMany
+    {
+        return $this->hasMany(ProposalPayment::class)->latest('paid_on')->latest('id');
+    }
+
     public function isFinal(): bool
     {
         return $this->status === self::STATUS_FINAL;
@@ -122,11 +128,21 @@ class Proposal extends Model
         return ($value < 0 ? '-' : '').$whole.($fraction === '00' ? '' : '.'.$fraction);
     }
 
+    /** Advance plus every payment recorded after it. Uses withSum() when the query loaded it. */
+    protected function received(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => (float) $this->advance_amount + (float) (array_key_exists('payments_sum_amount', $this->attributes)
+                ? $this->attributes['payments_sum_amount']
+                : $this->payments()->sum('amount')),
+        );
+    }
+
     /** What the client still owes on a final project. */
     protected function balance(): Attribute
     {
         return Attribute::make(
-            get: fn () => (float) $this->final_amount - (float) $this->advance_amount,
+            get: fn () => round((float) $this->final_amount - $this->received, 2),
         );
     }
 }

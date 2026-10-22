@@ -4,6 +4,7 @@ namespace App\Filament\Account\Resources;
 
 use App\Filament\Account\Concerns\HasModulePermissions;
 use App\Filament\Account\Resources\WorkStreamResource\Pages;
+use App\Models\Employee;
 use App\Models\WorkStream;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -65,6 +66,35 @@ class WorkStreamResource extends Resource
                                     ->default(true),
                             ])
                             ->helperText('IT, Research, Publication, Digital Marketing… add more on the fly.'),
+
+                        Forms\Components\Select::make('employee_id')
+                            ->label('Assigned to (employee)')
+                            ->relationship(
+                                name: 'employee',
+                                titleAttribute: 'name',
+                                modifyQueryUsing: fn (Builder $query) => $query
+                                    ->where('is_active', true)
+                                    ->orderBy('name'),
+                            )
+                            ->getOptionLabelFromRecordUsing(fn (Employee $record) => $record->designation
+                                ? "{$record->name} ({$record->designation})"
+                                : $record->name)
+                            ->searchable()
+                            ->preload()
+                            ->createOptionForm([
+                                Forms\Components\TextInput::make('name')
+                                    ->required(),
+                                Forms\Components\TextInput::make('designation'),
+                                Forms\Components\TextInput::make('monthly_salary')
+                                    ->numeric()
+                                    ->prefix('₹')
+                                    ->default(0),
+                            ]),
+
+                        Forms\Components\Select::make('status')
+                            ->options(WorkStream::STATUSES)
+                            ->default('in_progress')
+                            ->required(),
 
                         Forms\Components\TextInput::make('cost')
                             ->label('Total cost')
@@ -130,6 +160,19 @@ class WorkStreamResource extends Resource
                     ->label('Service')
                     ->badge()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('employee.name')
+                    ->label('Assigned to')
+                    ->placeholder('Unassigned')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('status')
+                    ->badge()
+                    ->formatStateUsing(fn (string $state) => WorkStream::STATUSES[$state] ?? $state)
+                    ->color(fn (string $state) => match ($state) {
+                        'completed' => 'success',
+                        'in_progress' => 'warning',
+                        default => 'gray',
+                    }),
                 Tables\Columns\TextColumn::make('cost')
                     ->money('INR')
                     ->sortable(),
@@ -153,6 +196,13 @@ class WorkStreamResource extends Resource
                 Tables\Filters\SelectFilter::make('account_service_id')
                     ->label('Service')
                     ->relationship('service', 'name'),
+                Tables\Filters\SelectFilter::make('employee_id')
+                    ->label('Employee')
+                    ->relationship('employee', 'name')
+                    ->searchable()
+                    ->preload(),
+                Tables\Filters\SelectFilter::make('status')
+                    ->options(WorkStream::STATUSES),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -167,7 +217,7 @@ class WorkStreamResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()->with('payments');
+        return parent::getEloquentQuery()->with(['payments', 'employee']);
     }
 
     public static function getPages(): array
