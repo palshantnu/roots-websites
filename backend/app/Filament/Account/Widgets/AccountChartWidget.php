@@ -12,6 +12,8 @@ use Filament\Widgets\ChartWidget;
  */
 abstract class AccountChartWidget extends ChartWidget
 {
+    protected static bool $isLazy = false;
+
     protected static ?string $pollingInterval = null;
 
     protected static ?string $maxHeight = '280px';

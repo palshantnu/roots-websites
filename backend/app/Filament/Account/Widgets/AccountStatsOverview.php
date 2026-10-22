@@ -11,6 +11,8 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 /** Headline numbers for this month, each with a 6-month sparkline. */
 class AccountStatsOverview extends StatsOverviewWidget
 {
+    protected static bool $isLazy = false;
+
     protected static ?int $sort = 1;
 
     protected static ?string $pollingInterval = null;

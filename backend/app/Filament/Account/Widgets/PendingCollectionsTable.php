@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Builder;
 /** Final projects where the client still owes money, biggest first. */
 class PendingCollectionsTable extends TableWidget
 {
+    protected static bool $isLazy = false;
+
     protected static ?string $heading = 'Pending collections — final projects';
 
     protected static ?int $sort = 8;
