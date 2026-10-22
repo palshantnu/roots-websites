@@ -18,7 +18,8 @@
 
 /* ---------------- Home hero enquiry form ---------------- */
 .hero-visual-form{display:flex;align-items:center;justify-content:center;padding:40px 6% 40px 0;background:#d8e0d4}
-.home-enquiry{width:100%;max-width:440px}
+.hero-visual-form:before{display:none}
+.home-enquiry{width:100%;max-width:440px;position:relative;z-index:2}
 .home-enquiry-card{background:var(--paper);border:1px solid var(--line);box-shadow:0 20px 45px #3b33261f;padding:34px 32px;display:flex;flex-direction:column}
 .home-enquiry-card .eyebrow{margin-bottom:12px}
 .home-enquiry-card h3{font:500 29px/1.05 var(--serif);letter-spacing:-.02em;margin:0 0 8px}
