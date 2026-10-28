@@ -23,7 +23,7 @@ class AccountStatsOverview extends StatsOverviewWidget
     {
         $user = auth()->user();
 
-        return collect(['work_streams', 'proposals', 'b2b_projects', 'expenses', 'employees'])
+        return collect(['work_streams', 'proposals', 'b2b_projects', 'expenses', 'marketing', 'employees'])
             ->contains(fn ($module) => $user?->hasAccountPermission($module, 'view'));
     }
 
@@ -85,6 +85,14 @@ class AccountStatsOverview extends StatsOverviewWidget
                 ->description($clients.' active '.str('client')->plural($clients).' · '.$ongoing->count().' ongoing')
                 ->descriptionIcon('heroicon-m-building-office-2')
                 ->color('info');
+        }
+
+        if ($can('marketing')) {
+            $marketing = array_values(AccountMetrics::bucketed(AccountMetrics::marketingByDay(
+                AccountMetrics::months(6)->first(), now()->endOfMonth()
+            ), 6));
+
+            $stats[] = $this->monthStat('Marketing this month', $marketing, 'warning', 'heroicon-m-megaphone');
         }
 
         if ($can('employees')) {

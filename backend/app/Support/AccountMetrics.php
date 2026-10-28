@@ -5,6 +5,7 @@ namespace App\Support;
 use App\Models\B2bPayment;
 use App\Models\B2bProject;
 use App\Models\Expense;
+use App\Models\MarketingExpense;
 use App\Models\Proposal;
 use App\Models\ProposalPayment;
 use App\Models\WorkStream;
@@ -60,16 +61,26 @@ class AccountMetrics
         return static::bucket($entries, $buckets);
     }
 
-    /** @return array<string, float> expenses per month, keyed Y-m */
+    /** @return array<string, float> expenses (general + marketing) per month, keyed Y-m */
     public static function expensesByMonth(int $count): array
     {
         [$from, $to, $buckets] = static::range($count);
 
         $entries = Expense::whereBetween('expense_date', [$from->toDateString(), $to->toDateString()])
             ->get(['amount', 'expense_date'])
-            ->map(fn ($e) => [$e->expense_date, $e->amount]);
+            ->map(fn ($e) => [$e->expense_date, $e->amount])
+            ->concat(static::marketingByDay($from, $to));
 
         return static::bucket($entries, $buckets);
+    }
+
+    /** Marketing spend between two dates, as [date, amount] pairs. */
+    public static function marketingByDay($from, $to): Collection
+    {
+        return MarketingExpense::whereDate('spent_on', '>=', $from)
+            ->whereDate('spent_on', '<=', $to)
+            ->get(['amount', 'spent_on'])
+            ->map(fn ($e) => [$e->spent_on, $e->amount]);
     }
 
     /** Money still to be collected on work streams, final projects and B2B projects. */
@@ -109,6 +120,12 @@ class AccountMetrics
             $value >= 1_000 => round($value / 1_000, 1).'K',
             default => number_format($value),
         };
+    }
+
+    /** Buckets [date, amount] pairs into the last $count months, keyed Y-m. */
+    public static function bucketed(Collection $entries, int $count): array
+    {
+        return static::bucket($entries, static::range($count)[2]);
     }
 
     private static function range(int $count): array

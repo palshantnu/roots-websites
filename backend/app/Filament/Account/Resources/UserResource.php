@@ -3,6 +3,7 @@
 namespace App\Filament\Account\Resources;
 
 use App\Filament\Account\Concerns\HasModulePermissions;
+use App\Filament\Account\Forms\ReportFields;
 use App\Filament\Account\Resources\UserResource\Pages;
 use App\Models\User;
 use Filament\Forms;
@@ -77,6 +78,12 @@ class UserResource extends Resource
                     ->badge()
                     ->state(fn (User $record) => $record->is_admin ? 'Super admin' : $record->role?->name)
                     ->color(fn (User $record) => $record->is_admin ? 'warning' : 'primary'),
+                Tables\Columns\TextColumn::make('proposals_count')
+                    ->label('Proposals created')
+                    ->counts('proposals')
+                    ->badge()
+                    ->color('gray')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime('d M Y')
                     ->sortable(),
@@ -87,6 +94,21 @@ class UserResource extends Resource
                     ->relationship('role', 'name'),
             ])
             ->actions([
+                Tables\Actions\Action::make('workReport')
+                    ->label('Work report')
+                    ->icon('heroicon-o-document-chart-bar')
+                    ->color('gray')
+                    ->visible(fn (User $record) => ProposalResource::userCan('view') && ($record->proposals_count ?? $record->proposals()->count()) > 0)
+                    ->modalHeading(fn (User $record) => 'Proposal work report — '.$record->name)
+                    ->modalSubmitActionLabel('Download')
+                    ->modalWidth('lg')
+                    ->form([
+                        ...ReportFields::period(),
+                        ReportFields::format(),
+                    ])
+                    ->action(fn (User $record, array $data, $livewire) => $livewire->js(
+                        ReportFields::downloadJs('proposals.report', ['creators' => [$record->id]] + $data)
+                    )),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ]);

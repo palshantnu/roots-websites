@@ -3,6 +3,7 @@
 namespace App\Filament\Account\Widgets;
 
 use App\Models\Expense;
+use App\Models\MarketingExpense;
 use Filament\Support\RawJs;
 
 class ExpenseCategoryChart extends AccountChartWidget
@@ -29,6 +30,11 @@ class ExpenseCategoryChart extends AccountChartWidget
             ->when($this->filter === 'month', fn ($q) => $q->where('expense_date', '>=', now()->startOfMonth()->toDateString()))
             ->when($this->filter === 'year', fn ($q) => $q->where('expense_date', '>=', now()->startOfYear()->toDateString()))
             ->get(['category', 'amount'])
+            ->concat(MarketingExpense::query()
+                ->when($this->filter === 'month', fn ($q) => $q->where('spent_on', '>=', now()->startOfMonth()->toDateString()))
+                ->when($this->filter === 'year', fn ($q) => $q->where('spent_on', '>=', now()->startOfYear()->toDateString()))
+                ->get(['amount'])
+                ->each(fn ($e) => $e->category = 'Marketing & Ads'))
             ->groupBy(fn ($e) => $e->category ?: 'Other')
             ->map(fn ($rows) => round((float) $rows->sum('amount'), 2))
             ->sortDesc();

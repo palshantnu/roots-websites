@@ -8,6 +8,7 @@ use App\Filament\Account\Resources\ProposalResource\RelationManagers;
 use App\Models\Proposal;
 use App\Models\ProposalCompany;
 use App\Models\ProposalPayment;
+use App\Models\User;
 use Carbon\Carbon;
 use Filament\Actions;
 use Filament\Forms;
@@ -244,6 +245,13 @@ class ProposalResource extends Resource
                     ->color('info')
                     ->placeholder('—')
                     ->sortable(),
+                Tables\Columns\TextColumn::make('creator.name')
+                    ->label('Created by')
+                    ->description(fn (Proposal $record) => $record->creator?->is_admin ? 'Super admin' : $record->creator?->role?->name)
+                    ->placeholder('—')
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('client_name')
                     ->label('Client')
                     ->description(fn (Proposal $record) => $record->client_organization)
@@ -300,6 +308,11 @@ class ProposalResource extends Resource
                     ->relationship('service', 'name')
                     ->multiple()
                     ->preload(),
+                Tables\Filters\SelectFilter::make('created_by')
+                    ->label('Created by')
+                    ->options(fn () => static::creatorOptions())
+                    ->multiple()
+                    ->searchable(),
                 Tables\Filters\Filter::make('proposal_date')
                     ->form([
                         Forms\Components\DatePicker::make('from')->label('Date from'),
@@ -418,6 +431,15 @@ class ProposalResource extends Resource
             ));
     }
 
+    /** Users who have created at least one proposal, for filters and reports. */
+    public static function creatorOptions(): array
+    {
+        return User::whereIn('id', Proposal::whereNotNull('created_by')->distinct()->select('created_by'))
+            ->orderBy('name')
+            ->pluck('name', 'id')
+            ->all();
+    }
+
     /** "All payments" plus the advance and every payment, each on its own. */
     public static function invoiceOptions(Proposal $proposal): array
     {
@@ -438,7 +460,7 @@ class ProposalResource extends Resource
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()
-            ->with(['company', 'service'])
+            ->with(['company', 'service', 'creator.role'])
             ->withSum('payments', 'amount');
     }
 

@@ -35,12 +35,13 @@ class ProposalReportController extends Controller
             $xlsx->row([$label, $value]);
         }
 
-        $xlsx->blank()
-            ->header(['Service', 'Proposals', 'Final projects', 'Quoted', 'Final value', 'Received in period'])
-            ->rows($report->byService());
+        $groupHeader = fn (string $first) => [$first, 'Proposals', 'Final projects', 'Conversion %', 'Quoted', 'Final value', 'Received in period'];
+
+        $xlsx->blank()->header($groupHeader('Created by'))->rows($report->byCreator())
+            ->blank()->header($groupHeader('Service'))->rows($report->byService());
 
         $xlsx->sheet('Proposals')->header([
-            'No.', 'Date', 'Company', 'Service', 'Client', 'Organization', 'Title', 'Status',
+            'No.', 'Date', 'Company', 'Created by', 'Service', 'Client', 'Organization', 'Title', 'Status',
             'Quoted', 'Final amount', 'Advance', 'Received', 'Remaining', 'Finalised on',
         ]);
         foreach ($report->proposals as $p) {
@@ -49,6 +50,7 @@ class ProposalReportController extends Controller
                 $p->proposal_no,
                 $p->proposal_date?->format('d-m-Y'),
                 $p->company?->name,
+                $p->creator?->name,
                 $p->service?->name,
                 $p->client_name,
                 $p->client_organization,
@@ -64,11 +66,11 @@ class ProposalReportController extends Controller
         }
 
         $xlsx->sheet('Payments received')
-            ->header(['Date', 'Proposal no.', 'Client', 'Service', 'Stage', 'Mode', 'Amount'])
+            ->header(['Date', 'Proposal no.', 'Client', 'Service', 'Created by', 'Stage', 'Mode', 'Amount'])
             ->rows($report->receipts->map(fn (array $r) => [
-                $r['date']?->format('d-m-Y'), $r['proposal_no'], $r['client'], $r['service'], $r['stage'], $r['mode'], $r['amount'],
+                $r['date']?->format('d-m-Y'), $r['proposal_no'], $r['client'], $r['service'], $r['creator'], $r['stage'], $r['mode'], $r['amount'],
             ]))
-            ->bold(['', '', '', '', '', 'Total', $report->receipts->sum('amount')]);
+            ->bold(['', '', '', '', '', '', 'Total', $report->receipts->sum('amount')]);
 
         return $xlsx->download($report->filename('xlsx'));
     }

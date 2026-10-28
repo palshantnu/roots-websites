@@ -3,7 +3,10 @@
 
     $amount = fn ($value) => Proposal::formatAmount($value);
     $totals = $report->totals();
-    $services = $report->byService();
+    $groups = [
+        'Person-wise (created by)' => $report->byCreator(),
+        'Service-wise' => $report->byService(),
+    ];
 @endphp
 <!DOCTYPE html>
 <html>
@@ -47,35 +50,39 @@
         </tr>
     </table>
 
-    <h2>Service-wise</h2>
-    @if($services->isEmpty())
-        <div class="empty">No records in this period.</div>
-    @else
-        <table class="data">
-            <thead>
-                <tr>
-                    <th>Service</th>
-                    <th class="right">Proposals</th>
-                    <th class="right">Final projects</th>
-                    <th class="right">Quoted</th>
-                    <th class="right">Final value</th>
-                    <th class="right">Received in period</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($services as $row)
-                    <tr @class(['alt' => $loop->even])>
-                        <td>{{ $row['service'] }}</td>
-                        <td class="right">{{ $row['proposals'] }}</td>
-                        <td class="right">{{ $row['final'] }}</td>
-                        <td class="right">{{ $amount($row['quoted']) }}</td>
-                        <td class="right">{{ $amount($row['final_value']) }}</td>
-                        <td class="right">{{ $amount($row['received']) }}</td>
+    @foreach($groups as $heading => $rows)
+        <h2>{{ $heading }}</h2>
+        @if($rows->isEmpty())
+            <div class="empty">No records in this period.</div>
+        @else
+            <table class="data">
+                <thead>
+                    <tr>
+                        <th>{{ $heading === 'Service-wise' ? 'Service' : 'Person' }}</th>
+                        <th class="right">Proposals</th>
+                        <th class="right">Final projects</th>
+                        <th class="right">Conversion</th>
+                        <th class="right">Quoted</th>
+                        <th class="right">Final value</th>
+                        <th class="right">Received in period</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
-    @endif
+                </thead>
+                <tbody>
+                    @foreach($rows as $row)
+                        <tr @class(['alt' => $loop->even])>
+                            <td>{{ $row['name'] }}</td>
+                            <td class="right">{{ $row['proposals'] }}</td>
+                            <td class="right">{{ $row['final'] }}</td>
+                            <td class="right">{{ $row['conversion'] }}%</td>
+                            <td class="right">{{ $amount($row['quoted']) }}</td>
+                            <td class="right">{{ $amount($row['final_value']) }}</td>
+                            <td class="right">{{ $amount($row['received']) }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
+    @endforeach
 
     <h2>Proposals ({{ $report->proposals->count() }})</h2>
     @if($report->proposals->isEmpty())
@@ -87,6 +94,7 @@
                     <th>No.</th>
                     <th>Date</th>
                     <th>Company</th>
+                    <th>Created by</th>
                     <th>Service</th>
                     <th>Client</th>
                     <th>Title</th>
@@ -103,6 +111,7 @@
                         <td>{{ $p->proposal_no }}</td>
                         <td>{{ $p->proposal_date?->format('d M Y') }}</td>
                         <td>{{ $p->company?->code ?? $p->company?->name }}</td>
+                        <td>{{ $p->creator?->name ?? '—' }}</td>
                         <td>{{ $p->service?->name ?? '—' }}</td>
                         <td>
                             {{ $p->client_name }}
@@ -119,7 +128,7 @@
                     </tr>
                 @endforeach
                 <tr class="total">
-                    <td colspan="7">Total</td>
+                    <td colspan="8">Total</td>
                     <td class="right">{{ $amount($totals['Quoted value']) }}</td>
                     <td class="right">{{ $amount($totals['Final value']) }}</td>
                     <td class="right">{{ $amount($report->proposals->filter->isFinal()->sum('received')) }}</td>

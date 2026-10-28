@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\B2bInvoiceController;
 use App\Http\Controllers\B2bReportController;
+use App\Http\Controllers\MarketingReportController;
 use App\Http\Controllers\ProposalInvoiceController;
 use App\Http\Controllers\ProposalPdfController;
 use App\Http\Controllers\ProposalReportController;
@@ -36,3 +37,7 @@ Route::get('/accounts/b2b-reports/download', B2bReportController::class)
 Route::get('/accounts/b2b-projects/{project}/invoice', B2bInvoiceController::class)
     ->middleware('auth')
     ->name('b2b.invoice');
+
+Route::get('/accounts/marketing-reports/download', MarketingReportController::class)
+    ->middleware('auth')
+    ->name('marketing.report');

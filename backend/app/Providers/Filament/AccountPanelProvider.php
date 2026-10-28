@@ -37,6 +37,7 @@ class AccountPanelProvider extends PanelProvider
             ->navigationGroups([
                 'Proposals',
                 'B2B',
+                'Marketing',
                 'Work',
                 'People',
                 'Reports',

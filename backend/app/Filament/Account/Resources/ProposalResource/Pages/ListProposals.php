@@ -36,33 +36,46 @@ class ListProposals extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\Action::make('report')
-                ->label('Download report')
-                ->icon('heroicon-o-document-chart-bar')
-                ->color('gray')
-                ->modalHeading('Proposal report')
-                ->modalDescription('Proposals dated in the period, plus every payment received in it.')
-                ->modalSubmitActionLabel('Download')
-                ->modalWidth('lg')
-                ->form([
-                    ...ReportFields::period(),
-                    Forms\Components\Select::make('company')
-                        ->placeholder('All companies')
-                        ->options(fn () => ProposalCompany::orderBy('sort_order')->pluck('name', 'id')),
-                    Forms\Components\Select::make('services')
-                        ->label('Service')
-                        ->placeholder('All services')
-                        ->multiple()
-                        ->options(fn () => AccountService::orderBy('sort_order')->pluck('name', 'id')),
-                    Forms\Components\Select::make('status')
-                        ->options(ProposalReport::STATUSES)
-                        ->default('all')
-                        ->selectablePlaceholder(false),
-                    ReportFields::format(),
-                ])
-                ->action(fn (array $data) => $this->js(ReportFields::downloadJs('proposals.report', $data))),
+            static::reportAction(),
             Actions\CreateAction::make()->label('Create proposal'),
         ];
+    }
+
+    /** "Download report" — also opened from the Users list, preset to one person. */
+    public static function reportAction(string $name = 'report'): Actions\Action
+    {
+        return Actions\Action::make($name)
+            ->label('Download report')
+            ->icon('heroicon-o-document-chart-bar')
+            ->color('gray')
+            ->visible(fn () => ProposalResource::userCan('view'))
+            ->modalHeading('Proposal report')
+            ->modalDescription('Proposals dated in the period, person-wise and service-wise totals, plus every payment received in it.')
+            ->modalSubmitActionLabel('Download')
+            ->modalWidth('lg')
+            ->form([
+                ...ReportFields::period(),
+                Forms\Components\Select::make('creators')
+                    ->label('Created by (person)')
+                    ->placeholder('Everyone')
+                    ->multiple()
+                    ->searchable()
+                    ->options(fn () => ProposalResource::creatorOptions()),
+                Forms\Components\Select::make('company')
+                    ->placeholder('All companies')
+                    ->options(fn () => ProposalCompany::orderBy('sort_order')->pluck('name', 'id')),
+                Forms\Components\Select::make('services')
+                    ->label('Service')
+                    ->placeholder('All services')
+                    ->multiple()
+                    ->options(fn () => AccountService::orderBy('sort_order')->pluck('name', 'id')),
+                Forms\Components\Select::make('status')
+                    ->options(ProposalReport::STATUSES)
+                    ->default('all')
+                    ->selectablePlaceholder(false),
+                ReportFields::format(),
+            ])
+            ->action(fn (array $data, $livewire) => $livewire->js(ReportFields::downloadJs('proposals.report', $data)));
     }
 
     public function getTabs(): array
