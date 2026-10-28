@@ -8,6 +8,8 @@ use App\Filament\Account\Resources\ProposalResource\RelationManagers;
 use App\Models\Proposal;
 use App\Models\ProposalCompany;
 use App\Models\ProposalPayment;
+use Carbon\Carbon;
+use Filament\Actions;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
@@ -42,7 +44,7 @@ class ProposalResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Company')
+                Forms\Components\Section::make('Company & service')
                     ->description('Which company is this proposal from? Its name, tagline and footer go on the PDF.')
                     ->schema([
                         Forms\Components\Radio::make('proposal_company_id')
@@ -54,6 +56,26 @@ class ProposalResource extends Resource
                             ->inline()
                             ->disabled(fn (?Proposal $record) => $record?->exists)
                             ->dehydrated(fn (?Proposal $record) => ! $record?->exists),
+                        Forms\Components\Select::make('account_service_id')
+                            ->label('Service')
+                            ->relationship(
+                                name: 'service',
+                                titleAttribute: 'name',
+                                modifyQueryUsing: fn (Builder $query) => $query
+                                    ->where('is_active', true)
+                                    ->orderBy('sort_order'),
+                            )
+                            ->searchable()
+                            ->preload()
+                            ->required()
+                            ->createOptionForm([
+                                Forms\Components\TextInput::make('name')
+                                    ->required()
+                                    ->unique('account_services', 'name'),
+                                Forms\Components\Toggle::make('is_active')
+                                    ->default(true),
+                            ])
+                            ->helperText('Which line of business this work belongs to — used for filters and reports.'),
                     ]),
 
                 Forms\Components\Section::make('Client (for records — not printed)')
@@ -216,6 +238,12 @@ class ProposalResource extends Resource
                     ->label('Company')
                     ->badge()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('service.name')
+                    ->label('Service')
+                    ->badge()
+                    ->color('info')
+                    ->placeholder('—')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('client_name')
                     ->label('Client')
                     ->description(fn (Proposal $record) => $record->client_organization)
@@ -267,6 +295,23 @@ class ProposalResource extends Resource
                 Tables\Filters\SelectFilter::make('proposal_company_id')
                     ->label('Company')
                     ->relationship('company', 'name'),
+                Tables\Filters\SelectFilter::make('account_service_id')
+                    ->label('Service')
+                    ->relationship('service', 'name')
+                    ->multiple()
+                    ->preload(),
+                Tables\Filters\Filter::make('proposal_date')
+                    ->form([
+                        Forms\Components\DatePicker::make('from')->label('Date from'),
+                        Forms\Components\DatePicker::make('until')->label('Date to'),
+                    ])
+                    ->query(fn (Builder $query, array $data) => $query
+                        ->when($data['from'], fn (Builder $q, $date) => $q->whereDate('proposal_date', '>=', $date))
+                        ->when($data['until'], fn (Builder $q, $date) => $q->whereDate('proposal_date', '<=', $date)))
+                    ->indicateUsing(fn (array $data) => collect([
+                        $data['from'] ? 'From '.Carbon::parse($data['from'])->format('d M Y') : null,
+                        $data['until'] ? 'To '.Carbon::parse($data['until'])->format('d M Y') : null,
+                    ])->filter()->values()->all()),
             ])
             ->actions([
                 Tables\Actions\Action::make('pdf')
@@ -274,6 +319,8 @@ class ProposalResource extends Resource
                     ->icon('heroicon-o-arrow-down-tray')
                     ->color('gray')
                     ->url(fn (Proposal $record) => route('proposals.pdf', $record)),
+
+                static::invoiceAction(Tables\Actions\Action::make('invoice')),
 
                 Tables\Actions\Action::make('finalize')
                     ->label('Final project')
@@ -345,10 +392,53 @@ class ProposalResource extends Resource
             ]);
     }
 
+    /**
+     * "Invoice" — download one payment's invoice, or a single invoice of every
+     * payment received so far. Shared by the table row and the edit page.
+     */
+    public static function invoiceAction(Tables\Actions\Action|Actions\Action $action): Tables\Actions\Action|Actions\Action
+    {
+        return $action
+            ->label('Invoice')
+            ->icon('heroicon-o-receipt-percent')
+            ->color('info')
+            ->visible(fn (Proposal $record) => $record->isFinal() && $record->received > 0)
+            ->modalHeading(fn (Proposal $record) => 'Download invoice — '.$record->proposal_no)
+            ->modalWidth('lg')
+            ->modalSubmitActionLabel('Download')
+            ->form(fn (Proposal $record) => [
+                Forms\Components\Radio::make('payment')
+                    ->label('Invoice for')
+                    ->options(static::invoiceOptions($record))
+                    ->default('all')
+                    ->required(),
+            ])
+            ->action(fn (Proposal $record, array $data, $livewire) => $livewire->js(
+                'window.location.href = '.json_encode(route('proposals.invoice', [$record, 'payment' => $data['payment']])).';'
+            ));
+    }
+
+    /** "All payments" plus the advance and every payment, each on its own. */
+    public static function invoiceOptions(Proposal $proposal): array
+    {
+        $options = ['all' => 'All payments — one combined invoice ('.Number::currency($proposal->received, 'INR').')'];
+
+        foreach ($proposal->receiptLines() as $line) {
+            $options[$line['key']] = collect([
+                Number::currency($line['amount'], 'INR'),
+                $line['date']?->format('d M Y'),
+                $line['stage'],
+                $line['mode'],
+            ])->filter()->implode(' · ');
+        }
+
+        return $options;
+    }
+
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()
-            ->with('company')
+            ->with(['company', 'service'])
             ->withSum('payments', 'amount');
     }
 

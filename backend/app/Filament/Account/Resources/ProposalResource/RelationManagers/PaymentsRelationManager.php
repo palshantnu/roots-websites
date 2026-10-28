@@ -68,11 +68,21 @@ class PaymentsRelationManager extends RelationManager
                     ->placeholder('—'),
             ])
             ->headerActions([
+                Tables\Actions\Action::make('invoiceAll')
+                    ->label('Invoice (all payments)')
+                    ->icon('heroicon-o-receipt-percent')
+                    ->color('info')
+                    ->url(fn () => route('proposals.invoice', [$proposal, 'payment' => 'all'])),
                 Tables\Actions\CreateAction::make()
                     ->label('Add payment')
                     ->visible(fn () => $proposal->refresh()->balance > 0),
             ])
             ->actions([
+                Tables\Actions\Action::make('invoice')
+                    ->label('Invoice')
+                    ->icon('heroicon-o-receipt-percent')
+                    ->color('info')
+                    ->url(fn (ProposalPayment $record) => route('proposals.invoice', [$proposal, 'payment' => $record->id])),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ]);

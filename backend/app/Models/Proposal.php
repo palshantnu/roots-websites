@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 
 /**
  * A price proposal sent to a client from one of the companies. Once the client
@@ -22,6 +24,7 @@ class Proposal extends Model
 
     protected $fillable = [
         'proposal_company_id',
+        'account_service_id',
         'proposal_no',
         'proposal_date',
         'client_name',
@@ -91,6 +94,11 @@ class Proposal extends Model
         return $this->belongsTo(ProposalCompany::class, 'proposal_company_id');
     }
 
+    public function service(): BelongsTo
+    {
+        return $this->belongsTo(AccountService::class, 'account_service_id');
+    }
+
     public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
@@ -136,6 +144,40 @@ class Proposal extends Model
                 ? $this->attributes['payments_sum_amount']
                 : $this->payments()->sum('amount')),
         );
+    }
+
+    /**
+     * Every amount received, oldest first: the advance (dated when the project
+     * was finalised) followed by each payment. Keys are 'advance' or payment ids.
+     *
+     * @return Collection<int, array{key: string|int, no: int, date: ?Carbon, stage: ?string, mode: ?string, note: ?string, amount: float}>
+     */
+    public function receiptLines(): Collection
+    {
+        $lines = collect();
+
+        if ((float) $this->advance_amount > 0) {
+            $lines->push([
+                'key' => 'advance',
+                'date' => $this->finalized_at,
+                'stage' => 'Advance',
+                'mode' => null,
+                'note' => null,
+                'amount' => (float) $this->advance_amount,
+            ]);
+        }
+
+        $this->payments()->reorder()->oldest('paid_on')->oldest('id')->get()
+            ->each(fn (ProposalPayment $payment) => $lines->push([
+                'key' => $payment->id,
+                'date' => $payment->paid_on,
+                'stage' => $payment->stage,
+                'mode' => $payment->mode,
+                'note' => $payment->note,
+                'amount' => (float) $payment->amount,
+            ]));
+
+        return $lines->values()->map(fn (array $line, int $i) => ['no' => $i + 1] + $line);
     }
 
     /** What the client still owes on a final project. */

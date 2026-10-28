@@ -27,4 +27,9 @@ class AccountService extends Model
     {
         return $this->hasMany(WorkStream::class);
     }
+
+    public function proposals(): HasMany
+    {
+        return $this->hasMany(Proposal::class);
+    }
 }

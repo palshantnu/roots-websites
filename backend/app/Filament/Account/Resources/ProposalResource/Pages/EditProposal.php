@@ -18,6 +18,7 @@ class EditProposal extends EditRecord
                 ->icon('heroicon-o-arrow-down-tray')
                 ->color('gray')
                 ->url(fn () => route('proposals.pdf', $this->getRecord())),
+            ProposalResource::invoiceAction(Actions\Action::make('invoice')),
             Actions\DeleteAction::make(),
         ];
     }
