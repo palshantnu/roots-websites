@@ -1,8 +1,9 @@
+{{-- Shared by proposals and B2B projects: the controller passes $company,
+     $billTo (name + lines), $project (title + lines), $refLabel/$refNo and $projectValue. --}}
 @php
     use App\Models\Proposal;
     use Illuminate\Support\Facades\Storage;
 
-    $company = $proposal->company;
     $amount = fn ($value) => Proposal::formatAmount($value);
 
     $logo = null;
@@ -81,7 +82,7 @@
                 <table class="meta">
                     <tr><td class="muted">Invoice no.</td><td><strong>{{ $invoiceNo }}</strong></td></tr>
                     <tr><td class="muted">Date</td><td>{{ $invoiceDate->format('d M Y') }}</td></tr>
-                    <tr><td class="muted">Proposal no.</td><td>{{ $proposal->proposal_no }}</td></tr>
+                    <tr><td class="muted">{{ $refLabel }}</td><td>{{ $refNo }}</td></tr>
                 </table>
             </td>
         </tr>
@@ -93,24 +94,18 @@
         <tr>
             <td>
                 <div class="label">Bill to</div>
-                <p><strong>{{ $proposal->client_name }}</strong></p>
-                @if($proposal->client_organization)
-                    <p>{{ $proposal->client_organization }}</p>
-                @endif
-                @if($proposal->client_email)
-                    <p class="muted">{{ $proposal->client_email }}</p>
-                @endif
-                @if($proposal->client_phone)
-                    <p class="muted">{{ $proposal->client_phone }}</p>
-                @endif
+                <p><strong>{{ $billTo['name'] }}</strong></p>
+                @foreach(array_filter($billTo['lines']) as $line)
+                    <p @class(['muted' => ! $loop->first])>{{ $line }}</p>
+                @endforeach
             </td>
             <td>
                 <div class="label">Project</div>
-                <p><strong>{{ $proposal->subject }}</strong></p>
-                @if($proposal->service)
-                    <p class="muted">Service: {{ $proposal->service->name }}</p>
-                @endif
-                <p class="muted">Project value: {{ $amount($proposal->final_amount) }}</p>
+                <p><strong>{{ $project['title'] }}</strong></p>
+                @foreach(array_filter($project['lines']) as $line)
+                    <p class="muted">{{ $line }}</p>
+                @endforeach
+                <p class="muted">Project value: {{ $amount($projectValue) }}</p>
             </td>
         </tr>
     </table>
@@ -150,7 +145,7 @@
         </tr>
         <tr>
             <td class="muted">Project value</td>
-            <td class="right">{{ $amount($proposal->final_amount) }}</td>
+            <td class="right">{{ $amount($projectValue) }}</td>
         </tr>
         @unless($combined)
             <tr>

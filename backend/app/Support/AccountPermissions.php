@@ -11,6 +11,8 @@ class AccountPermissions
     public const MODULES = [
         'proposals' => 'Proposals',
         'proposal_companies' => 'Proposal companies',
+        'b2b_clients' => 'B2B clients',
+        'b2b_projects' => 'B2B projects & payments',
         'work_streams' => 'Work streams',
         'account_services' => 'Services',
         'expenses' => 'Expenses',

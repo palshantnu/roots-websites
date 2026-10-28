@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Proposal;
 use App\Support\ProposalReport;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
-use OpenSpout\Common\Entity\Row;
-use OpenSpout\Common\Entity\Style\Style;
-use OpenSpout\Writer\XLSX\Writer;
+use App\Support\XlsxExport;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProposalReportController extends Controller
@@ -28,36 +25,27 @@ class ProposalReportController extends Controller
 
     private function excel(ProposalReport $report): Response
     {
-        $path = tempnam(sys_get_temp_dir(), 'report').'.xlsx';
-        $bold = (new Style())->setFontBold();
-        $header = (new Style())->setFontBold()->setFontColor('FFFFFF')->setBackgroundColor('17365D');
+        $xlsx = (new XlsxExport())
+            ->sheet('Summary')
+            ->bold([$report->title()])
+            ->row([$report->filterSummary()])
+            ->blank();
 
-        $writer = new Writer();
-        $writer->openToFile($path);
-
-        // Sheet 1 — summary.
-        $writer->getCurrentSheet()->setName('Summary');
-        $writer->addRow(Row::fromValues([$report->title()], $bold));
-        $writer->addRow(Row::fromValues([$report->filterSummary()]));
-        $writer->addRow(Row::fromValues([]));
         foreach ($report->totals() as $label => $value) {
-            $writer->addRow(Row::fromValues([$label, $value]));
-        }
-        $writer->addRow(Row::fromValues([]));
-        $writer->addRow(Row::fromValues(['Service', 'Proposals', 'Final projects', 'Quoted', 'Final value', 'Received in period'], $header));
-        foreach ($report->byService() as $row) {
-            $writer->addRow(Row::fromValues(array_values($row)));
+            $xlsx->row([$label, $value]);
         }
 
-        // Sheet 2 — proposals.
-        $writer->addNewSheetAndMakeItCurrent()->setName('Proposals');
-        $writer->addRow(Row::fromValues([
+        $xlsx->blank()
+            ->header(['Service', 'Proposals', 'Final projects', 'Quoted', 'Final value', 'Received in period'])
+            ->rows($report->byService());
+
+        $xlsx->sheet('Proposals')->header([
             'No.', 'Date', 'Company', 'Service', 'Client', 'Organization', 'Title', 'Status',
             'Quoted', 'Final amount', 'Advance', 'Received', 'Remaining', 'Finalised on',
-        ], $header));
+        ]);
         foreach ($report->proposals as $p) {
             $final = $p->isFinal();
-            $writer->addRow(Row::fromValues([
+            $xlsx->row([
                 $p->proposal_no,
                 $p->proposal_date?->format('d-m-Y'),
                 $p->company?->name,
@@ -72,21 +60,16 @@ class ProposalReportController extends Controller
                 $final ? $p->received : null,
                 $final ? $p->balance : null,
                 $p->finalized_at?->format('d-m-Y'),
-            ]));
+            ]);
         }
 
-        // Sheet 3 — money received in the period.
-        $writer->addNewSheetAndMakeItCurrent()->setName('Payments received');
-        $writer->addRow(Row::fromValues(['Date', 'Proposal no.', 'Client', 'Service', 'Stage', 'Mode', 'Amount'], $header));
-        foreach ($report->receipts as $r) {
-            $writer->addRow(Row::fromValues([
+        $xlsx->sheet('Payments received')
+            ->header(['Date', 'Proposal no.', 'Client', 'Service', 'Stage', 'Mode', 'Amount'])
+            ->rows($report->receipts->map(fn (array $r) => [
                 $r['date']?->format('d-m-Y'), $r['proposal_no'], $r['client'], $r['service'], $r['stage'], $r['mode'], $r['amount'],
-            ]));
-        }
-        $writer->addRow(Row::fromValues(['', '', '', '', '', 'Total', $report->receipts->sum('amount')], $bold));
+            ]))
+            ->bold(['', '', '', '', '', 'Total', $report->receipts->sum('amount')]);
 
-        $writer->close();
-
-        return response()->download($path, $report->filename('xlsx'))->deleteFileAfterSend();
+        return $xlsx->download($report->filename('xlsx'));
     }
 }

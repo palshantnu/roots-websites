@@ -2,6 +2,8 @@
 
 namespace App\Filament\Account\Widgets;
 
+use App\Models\B2bClient;
+use App\Models\B2bProject;
 use App\Models\Employee;
 use App\Models\Proposal;
 use App\Support\AccountMetrics;
@@ -21,7 +23,7 @@ class AccountStatsOverview extends StatsOverviewWidget
     {
         $user = auth()->user();
 
-        return collect(['work_streams', 'proposals', 'expenses', 'employees'])
+        return collect(['work_streams', 'proposals', 'b2b_projects', 'expenses', 'employees'])
             ->contains(fn ($module) => $user?->hasAccountPermission($module, 'view'));
     }
 
@@ -31,7 +33,7 @@ class AccountStatsOverview extends StatsOverviewWidget
         $can = fn (string $module) => $user->hasAccountPermission($module, 'view');
         $stats = [];
 
-        $seesIncome = $can('work_streams') || $can('proposals');
+        $seesIncome = $can('work_streams') || $can('proposals') || $can('b2b_projects');
         $received = $seesIncome ? array_values(AccountMetrics::receivedByMonth(6)) : [];
         $expenses = $can('expenses') ? array_values(AccountMetrics::expensesByMonth(6)) : [];
 
@@ -73,6 +75,16 @@ class AccountStatsOverview extends StatsOverviewWidget
                     .($total ? round($final / $total * 100) : 0).'% converted')
                 ->descriptionIcon('heroicon-m-document-text')
                 ->color('primary');
+        }
+
+        if ($can('b2b_projects')) {
+            $clients = B2bClient::where('is_active', true)->count();
+            $ongoing = B2bProject::whereIn('status', ['pending', 'in_progress', 'on_hold']);
+
+            $stats[] = Stat::make('B2B business', AccountMetrics::short((float) B2bProject::where('status', '!=', 'cancelled')->sum('value')))
+                ->description($clients.' active '.str('client')->plural($clients).' · '.$ongoing->count().' ongoing')
+                ->descriptionIcon('heroicon-m-building-office-2')
+                ->color('info');
         }
 
         if ($can('employees')) {

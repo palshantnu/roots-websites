@@ -39,7 +39,18 @@ class ProposalInvoiceController extends Controller
             : $proposal->receiptLines()->where('no', '<=', $lines->first()['no'])->sum('amount');
 
         return Pdf::loadView('pdf.invoice', [
-            'proposal' => $proposal,
+            'company' => $proposal->company,
+            'billTo' => [
+                'name' => $proposal->client_name,
+                'lines' => [$proposal->client_organization, $proposal->client_email, $proposal->client_phone],
+            ],
+            'project' => [
+                'title' => $proposal->subject,
+                'lines' => [$proposal->service ? 'Service: '.$proposal->service->name : null],
+            ],
+            'refLabel' => 'Proposal no.',
+            'refNo' => $proposal->proposal_no,
+            'projectValue' => (float) $proposal->final_amount,
             'lines' => $lines,
             'combined' => $key === 'all',
             'invoiceNo' => $invoiceNo,

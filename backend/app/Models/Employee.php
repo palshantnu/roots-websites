@@ -38,4 +38,9 @@ class Employee extends Model
     {
         return $this->hasMany(WorkStream::class);
     }
+
+    public function b2bProjects(): HasMany
+    {
+        return $this->hasMany(B2bProject::class);
+    }
 }

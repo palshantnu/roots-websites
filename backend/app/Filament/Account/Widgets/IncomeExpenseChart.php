@@ -17,7 +17,7 @@ class IncomeExpenseChart extends AccountChartWidget
 
     public static function canView(): bool
     {
-        return static::allowed('expenses') && (static::allowed('work_streams') || static::allowed('proposals'));
+        return static::allowed('expenses') && (static::allowed('work_streams') || static::allowed('proposals') || static::allowed('b2b_projects'));
     }
 
     protected function getFilters(): ?array

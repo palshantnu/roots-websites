@@ -32,4 +32,9 @@ class AccountService extends Model
     {
         return $this->hasMany(Proposal::class);
     }
+
+    public function b2bProjects(): HasMany
+    {
+        return $this->hasMany(B2bProject::class);
+    }
 }

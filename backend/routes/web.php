@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\B2bInvoiceController;
+use App\Http\Controllers\B2bReportController;
 use App\Http\Controllers\ProposalInvoiceController;
 use App\Http\Controllers\ProposalPdfController;
 use App\Http\Controllers\ProposalReportController;
@@ -26,3 +28,11 @@ Route::get('/accounts/proposals/{proposal}/invoice', ProposalInvoiceController::
 Route::get('/accounts/proposals/{proposal}/pdf', ProposalPdfController::class)
     ->middleware('auth')
     ->name('proposals.pdf');
+
+Route::get('/accounts/b2b-reports/download', B2bReportController::class)
+    ->middleware('auth')
+    ->name('b2b.report');
+
+Route::get('/accounts/b2b-projects/{project}/invoice', B2bInvoiceController::class)
+    ->middleware('auth')
+    ->name('b2b.invoice');

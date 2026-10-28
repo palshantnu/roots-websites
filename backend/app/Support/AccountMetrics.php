@@ -2,6 +2,8 @@
 
 namespace App\Support;
 
+use App\Models\B2bPayment;
+use App\Models\B2bProject;
 use App\Models\Expense;
 use App\Models\Proposal;
 use App\Models\ProposalPayment;
@@ -15,7 +17,8 @@ use Illuminate\Support\Collection;
  * same code works on MySQL (live) and SQLite (tests).
  *
  * "Received" = work stream advances + paid instalments
- *            + final project advances + payments recorded on them.
+ *            + final project advances + payments recorded on them
+ *            + payments received on B2B projects.
  */
 class AccountMetrics
 {
@@ -49,6 +52,9 @@ class AccountMetrics
                 ->map(fn ($p) => [$p->finalized_at, $p->advance_amount]))
             ->concat(ProposalPayment::whereBetween('paid_on', [$from->toDateString(), $to->toDateString()])
                 ->get(['amount', 'paid_on'])
+                ->map(fn ($p) => [$p->paid_on, $p->amount]))
+            ->concat(B2bPayment::whereBetween('paid_on', [$from->toDateString(), $to->toDateString()])
+                ->get(['amount', 'paid_on'])
                 ->map(fn ($p) => [$p->paid_on, $p->amount]));
 
         return static::bucket($entries, $buckets);
@@ -66,7 +72,7 @@ class AccountMetrics
         return static::bucket($entries, $buckets);
     }
 
-    /** Money still to be collected on work streams and final projects. */
+    /** Money still to be collected on work streams, final projects and B2B projects. */
     public static function pendingDues(): array
     {
         $workStreams = WorkStream::with('payments')->get()
@@ -79,9 +85,15 @@ class AccountMetrics
             ->map(fn (Proposal $p) => $p->balance)
             ->filter(fn ($balance) => $balance > 0);
 
+        $b2b = B2bProject::where('status', '!=', 'cancelled')
+            ->withSum('payments', 'amount')
+            ->get()
+            ->map(fn (B2bProject $p) => $p->balance)
+            ->filter(fn ($balance) => $balance > 0);
+
         return [
-            'amount' => round($workStreams->sum() + $projects->sum(), 2),
-            'count' => $workStreams->count() + $projects->count(),
+            'amount' => round($workStreams->sum() + $projects->sum() + $b2b->sum(), 2),
+            'count' => $workStreams->count() + $projects->count() + $b2b->count(),
         ];
     }
 

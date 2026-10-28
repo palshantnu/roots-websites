@@ -16,13 +16,7 @@ use Illuminate\Support\Collection;
  */
 class ProposalReport
 {
-    public const PERIODS = [
-        'this_week' => 'This week',
-        'last_week' => 'Last week',
-        'this_month' => 'This month',
-        'last_month' => 'Last month',
-        'custom' => 'Custom dates',
-    ];
+    public const PERIODS = ReportPeriod::OPTIONS;
 
     public const STATUSES = [
         'all' => 'All',
@@ -48,12 +42,13 @@ class ProposalReport
         public array $serviceIds = [],
         public string $status = 'all',
     ) {
-        [$this->from, $this->to] = static::range($period, $from, $to);
+        [$this->from, $this->to] = ReportPeriod::range($period, $from, $to);
 
         $this->proposals = $this->scoped(Proposal::query())
             ->with(['company', 'service'])
             ->withSum('payments', 'amount')
-            ->whereBetween('proposal_date', [$this->from->toDateString(), $this->to->toDateString()])
+            ->whereDate('proposal_date', '>=', $this->from)
+            ->whereDate('proposal_date', '<=', $this->to)
             ->when($this->status !== 'all', fn (Builder $q) => $q->where('status', $this->status))
             ->orderBy('proposal_date')
             ->orderBy('id')
@@ -65,32 +60,13 @@ class ProposalReport
     public static function fromArray(array $input): static
     {
         return new static(
-            period: array_key_exists($input['period'] ?? '', self::PERIODS) ? $input['period'] : 'this_month',
+            period: ReportPeriod::valid($input['period'] ?? null),
             from: $input['from'] ?? null,
             to: $input['to'] ?? null,
             companyId: filled($input['company'] ?? null) ? (int) $input['company'] : null,
             serviceIds: array_map('intval', array_filter((array) ($input['services'] ?? []))),
             status: array_key_exists($input['status'] ?? '', self::STATUSES) ? $input['status'] : 'all',
         );
-    }
-
-    /** @return array{CarbonImmutable, CarbonImmutable} */
-    public static function range(string $period, ?string $from = null, ?string $to = null): array
-    {
-        $now = CarbonImmutable::now();
-
-        $range = match ($period) {
-            'this_week' => [$now->startOfWeek(), $now->endOfWeek()],
-            'last_week' => [$now->subWeek()->startOfWeek(), $now->subWeek()->endOfWeek()],
-            'last_month' => [$now->subMonthNoOverflow()->startOfMonth(), $now->subMonthNoOverflow()->endOfMonth()],
-            'custom' => [
-                $from ? CarbonImmutable::parse($from)->startOfDay() : $now->startOfMonth(),
-                $to ? CarbonImmutable::parse($to)->endOfDay() : $now->endOfDay(),
-            ],
-            default => [$now->startOfMonth(), $now->endOfMonth()],
-        };
-
-        return $range[0]->gt($range[1]) ? [$range[1]->startOfDay(), $range[0]->endOfDay()] : $range;
     }
 
     private function scoped(Builder $query): Builder
@@ -114,7 +90,8 @@ class ProposalReport
         $payments = ProposalPayment::query()
             ->with(['proposal.service'])
             ->whereHas('proposal', fn (Builder $q) => $this->scoped($q))
-            ->whereBetween('paid_on', [$this->from->toDateString(), $this->to->toDateString()])
+            ->whereDate('paid_on', '>=', $this->from)
+            ->whereDate('paid_on', '<=', $this->to)
             ->get()
             ->map(fn (ProposalPayment $pay) => $this->receiptRow($pay->proposal, $pay->paid_on, $pay->stage, $pay->mode, (float) $pay->amount));
 
@@ -137,7 +114,7 @@ class ProposalReport
 
     public function title(): string
     {
-        return 'Proposal report — '.$this->from->format('d M Y').' to '.$this->to->format('d M Y');
+        return 'Proposal report — '.ReportPeriod::label($this->period, $this->from, $this->to);
     }
 
     /** Human readable list of the filters applied, for the report header. */

@@ -5,6 +5,7 @@ use App\Filament\Account\Resources\ProposalResource\Pages\EditProposal;
 use App\Filament\Account\Resources\ProposalResource\Pages\ListProposals;
 use App\Filament\Account\Resources\ProposalResource\RelationManagers\PaymentsRelationManager;
 use App\Filament\Account\Resources\RoleResource\Pages\CreateRole;
+use App\Models\AccountService;
 use App\Models\Proposal;
 use App\Models\ProposalCompany;
 use App\Models\Role;
@@ -69,10 +70,12 @@ it('loads every accounts page for a super admin', function () {
 
 it('creates a proposal and sends the user to the list to download its PDF', function () {
     $this->actingAs(User::factory()->admin()->create());
+    $service = AccountService::firstOrCreate(['name' => 'Research']);
 
     Livewire::test(CreateProposal::class)
         ->fillForm([
             'proposal_company_id' => ProposalCompany::where('code', 'TCA')->value('id'),
+            'account_service_id' => $service->id,
             'proposal_date' => now()->toDateString(),
             'client_name' => 'Ravi Kumar',
             'subject' => 'PhD synopsis',
@@ -84,7 +87,8 @@ it('creates a proposal and sends the user to the list to download its PDF', func
 
     $proposal = Proposal::sole();
     expect($proposal->proposal_no)->toStartWith('TCA/')
-        ->and((float) $proposal->total_amount)->toBe(8000.0);
+        ->and((float) $proposal->total_amount)->toBe(8000.0)
+        ->and($proposal->account_service_id)->toBe($service->id);
 });
 
 it('downloads the proposal as a PDF', function () {
