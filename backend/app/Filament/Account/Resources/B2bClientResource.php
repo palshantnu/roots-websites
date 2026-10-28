@@ -157,6 +157,7 @@ class B2bClientResource extends Resource
                     ->label('Active')
                     ->boolean()
                     ->toggleable(),
+                static::addedByColumn(),
             ])
             ->defaultSort('company_name')
             ->filters([

@@ -196,9 +196,9 @@ it('saves full access from the role form', function () {
 it('limits a staff user to what their role allows', function () {
     $role = Role::create(['name' => 'Sales', 'permissions' => ['proposals' => ['view', 'create']]]);
     $staff = User::factory()->create(['role_id' => $role->id]);
-    $proposal = makeProposal();
 
     $this->actingAs($staff);
+    $proposal = makeProposal();
 
     $this->get('/accounts/proposals')->assertOk();
     $this->get('/accounts/proposals/create')->assertOk();

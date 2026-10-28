@@ -251,6 +251,7 @@ class ProposalResource extends Resource
                     ->placeholder('—')
                     ->searchable()
                     ->sortable()
+                    ->visible(fn () => (bool) auth()->user()?->seesAllRecords())
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('client_name')
                     ->label('Client')
@@ -310,6 +311,7 @@ class ProposalResource extends Resource
                     ->preload(),
                 Tables\Filters\SelectFilter::make('created_by')
                     ->label('Created by')
+                    ->visible(fn () => (bool) auth()->user()?->seesAllRecords())
                     ->options(fn () => static::creatorOptions())
                     ->multiple()
                     ->searchable(),

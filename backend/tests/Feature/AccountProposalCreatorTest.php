@@ -80,6 +80,7 @@ it('totals the work done by each person in the report', function () {
     proposalBy($priya, 10000);
     proposalBy($amit, 40000);
 
+    $this->actingAs(User::factory()->admin()->create());
     $people = ProposalReport::fromArray(['period' => 'this_month'])->byCreator()->keyBy('name');
 
     expect($people['Priya Sharma'])->toMatchArray([

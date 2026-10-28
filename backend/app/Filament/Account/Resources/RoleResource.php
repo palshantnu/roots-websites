@@ -62,6 +62,10 @@ class RoleResource extends Resource
                             ->unique(ignoreRecord: true),
                         Forms\Components\TextInput::make('description')
                             ->maxLength(255),
+                        Forms\Components\Toggle::make('sees_all_records')
+                            ->label('Can see everyone\'s records (manager)')
+                            ->helperText('Off: users of this role see, edit and delete only the records they added themselves. On: they can work on everyone\'s records, as far as the permissions below allow.')
+                            ->columnSpanFull(),
                     ]),
 
                 Forms\Components\Section::make('Permissions')
@@ -100,6 +104,11 @@ class RoleResource extends Resource
                 Tables\Columns\TextColumn::make('users_count')
                     ->counts('users')
                     ->label('Users'),
+                Tables\Columns\TextColumn::make('sees_all_records')
+                    ->label('Records')
+                    ->badge()
+                    ->formatStateUsing(fn (bool $state) => $state ? 'Everyone\'s' : 'Own only')
+                    ->color(fn (bool $state) => $state ? 'warning' : 'gray'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

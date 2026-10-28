@@ -186,6 +186,7 @@ class WorkStreamResource extends Resource
                 Tables\Columns\TextColumn::make('payments_count')
                     ->counts('payments')
                     ->label('Instalments'),
+                static::addedByColumn(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime('d M Y')
                     ->sortable()

@@ -60,6 +60,20 @@ class User extends Authenticatable implements FilamentUser
         ];
     }
 
+    /** Admins, and roles marked "sees all records", see everyone's records. */
+    public function seesAllRecords(): bool
+    {
+        return $this->is_admin || (bool) $this->role?->sees_all_records;
+    }
+
+    /** The logged-in user when they may see only their own records, otherwise null. */
+    public static function restrictedToOwnRecords(): ?self
+    {
+        $user = auth()->user();
+
+        return $user instanceof self && ! $user->seesAllRecords() ? $user : null;
+    }
+
     /** Proposals this user created. */
     public function proposals(): HasMany
     {

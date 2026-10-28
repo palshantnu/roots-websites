@@ -15,12 +15,13 @@ class Role extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'permissions'];
+    protected $fillable = ['name', 'description', 'permissions', 'sees_all_records'];
 
     protected function casts(): array
     {
         return [
             'permissions' => 'array',
+            'sees_all_records' => 'boolean',
         ];
     }
 

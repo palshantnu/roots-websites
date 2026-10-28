@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\OwnedByCreator;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,6 +18,7 @@ use Illuminate\Support\Collection;
 class Proposal extends Model
 {
     use HasFactory;
+    use OwnedByCreator;
 
     public const STATUS_PROPOSAL = 'proposal';
 
@@ -66,7 +68,6 @@ class Proposal extends Model
     {
         static::creating(function (Proposal $proposal) {
             $proposal->proposal_no ??= static::nextNumber($proposal->proposal_company_id);
-            $proposal->created_by ??= auth()->id();
         });
 
         static::saving(function (Proposal $proposal) {
@@ -80,7 +81,9 @@ class Proposal extends Model
         $code = ProposalCompany::whereKey($companyId)->value('code') ?? 'PR';
         $prefix = $code.'/'.now()->year.'/';
 
-        $last = static::where('proposal_no', 'like', $prefix.'%')
+        // Across everyone's proposals, so numbers never repeat.
+        $last = static::withoutGlobalScope('owner')
+            ->where('proposal_no', 'like', $prefix.'%')
             ->orderByDesc('id')
             ->value('proposal_no');
 
@@ -97,11 +100,6 @@ class Proposal extends Model
     public function service(): BelongsTo
     {
         return $this->belongsTo(AccountService::class, 'account_service_id');
-    }
-
-    public function creator(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'created_by');
     }
 
     public function payments(): HasMany

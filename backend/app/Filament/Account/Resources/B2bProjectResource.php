@@ -286,6 +286,7 @@ class B2bProjectResource extends Resource
                 ->sortable()
                 ->placeholder('—')
                 ->color(fn (B2bProject $record) => $record->due_date?->isPast() && ! in_array($record->status, ['completed', 'cancelled']) ? 'danger' : null),
+            static::addedByColumn(),
         ];
     }
 
@@ -361,7 +362,7 @@ class B2bProjectResource extends Resource
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()
-            ->with(['client', 'service', 'employee'])
+            ->with(['client', 'service', 'employee', 'creator'])
             ->withSum('payments', 'amount');
     }
 

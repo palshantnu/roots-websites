@@ -237,7 +237,8 @@ it('starts downloads from the report, statement and invoice modals', function ()
 it('keeps B2B pages and downloads away from roles without B2B access', function () {
     $project = makeB2bProject(makeB2bClient());
     $project->payments()->create(['amount' => 5000, 'paid_on' => now()]);
-    $role = Role::create(['name' => 'Proposals only', 'permissions' => ['proposals' => ['view']]]);
+    // A manager who sees everyone's records, so only the missing permission stops them.
+    $role = Role::create(['name' => 'Proposals only', 'permissions' => ['proposals' => ['view']], 'sees_all_records' => true]);
     $user = User::factory()->create(['role_id' => $role->id]);
 
     $this->actingAs($user)->get('/accounts/b2b-clients')->assertForbidden();

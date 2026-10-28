@@ -102,6 +102,7 @@ class ExpenseResource extends Resource
                     ->money('INR')
                     ->sortable()
                     ->summarize(Tables\Columns\Summarizers\Sum::make()->money('INR')),
+                static::addedByColumn(),
             ])
             ->defaultSort('expense_date', 'desc')
             ->filters([

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\OwnedByCreator;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,6 +17,7 @@ use Illuminate\Support\Collection;
 class B2bProject extends Model
 {
     use HasFactory;
+    use OwnedByCreator;
 
     public const STATUSES = [
         'pending' => 'Pending',
@@ -73,7 +75,9 @@ class B2bProject extends Model
     {
         $prefix = 'B2B/'.now()->year.'/';
 
-        $last = static::where('project_no', 'like', $prefix.'%')
+        // Across everyone's projects, so numbers never repeat.
+        $last = static::withoutGlobalScope('owner')
+            ->where('project_no', 'like', $prefix.'%')
             ->orderByDesc('id')
             ->value('project_no');
 

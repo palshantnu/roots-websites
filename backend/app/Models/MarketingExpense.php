@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\OwnedByCreator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class MarketingExpense extends Model
 {
     use HasFactory;
+    use OwnedByCreator;
 
     protected $fillable = [
         'marketing_channel_id',
@@ -44,13 +46,6 @@ class MarketingExpense extends Model
         ];
     }
 
-    protected static function booted(): void
-    {
-        static::creating(function (MarketingExpense $expense) {
-            $expense->created_by ??= auth()->id();
-        });
-    }
-
     public function channel(): BelongsTo
     {
         return $this->belongsTo(MarketingChannel::class, 'marketing_channel_id');
@@ -64,11 +59,6 @@ class MarketingExpense extends Model
     public function company(): BelongsTo
     {
         return $this->belongsTo(ProposalCompany::class, 'proposal_company_id');
-    }
-
-    public function creator(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'created_by');
     }
 
     /** Cost per lead, when leads were recorded. */

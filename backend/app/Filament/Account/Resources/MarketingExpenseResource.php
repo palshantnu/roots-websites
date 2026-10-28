@@ -181,10 +181,7 @@ class MarketingExpenseResource extends Resource
                         : null)
                     ->summarize(Tables\Columns\Summarizers\Sum::make()->label('Leads'))
                     ->toggleable(),
-                Tables\Columns\TextColumn::make('creator.name')
-                    ->label('Added by')
-                    ->placeholder('—')
-                    ->toggleable(isToggledHiddenByDefault: true),
+                static::addedByColumn(),
             ])
             ->defaultSort('spent_on', 'desc')
             ->filters([
